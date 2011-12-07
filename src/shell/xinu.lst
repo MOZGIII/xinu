@@ -96,3 +96,4 @@ x_udp.c
 x_unmou.c
 x_wc.c
 x_window.c
+x_nice.c

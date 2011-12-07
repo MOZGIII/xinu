@@ -73,7 +73,8 @@ extern	int
     x_udp(),
     x_unmou(),
     x_wc(),
-    x_window();
+    x_window(),
+    x_nice();
 
 struct cmdent cmds[] = {
 /* name     Builtin ?   Stack       Priority        Procedure   */
@@ -136,6 +137,7 @@ struct cmdent cmds[] = {
 "window",   FALSE,      SHCMDSTK,   SHCMDPRI,       x_window,
 "ls",       FALSE,      SHCMDSTK,   SHCMDPRI,       x_ls,
 "?",        FALSE,      SHCMDSTK,   SHCMDPRI,       x_help,
+"nice",     FALSE,      SHCMDSTK,   SHCMDPRI,       x_nice,
 "sh",       FALSE,      SHCMDSTK,   SHCMDPRI,       shell
 
 };

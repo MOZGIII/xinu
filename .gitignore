@@ -1,0 +1,7 @@
+*.o
+src/bin/xinu.a
+src/bin/network.a
+src/bin/serial.a
+src/bin/tcl.a
+xinu/xinu.exe
+*.*~

@@ -1,0 +1,10 @@
+arp_in.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h arp_in.c
+arpadd.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h arpadd.c
+arpalloc.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h arpalloc.c
+arpdq.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\q.h arpdq.c
+arpfind.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h arpfind.c
+arpinit.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h arpinit.c
+arpprint.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h arpprint.c
+arpqsend.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\q.h arpqsend.c
+arpsend.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h arpsend.c
+arptimer.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h arptimer.c

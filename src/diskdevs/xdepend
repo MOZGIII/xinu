@@ -1,0 +1,103 @@
+access.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\mem.h $(H)\name.h access.c
+chdsk.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h chdsk.c
+dfalloc.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h dfalloc.c
+dfckmd.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h dfckmd.c
+dfdsrch.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h dfdsrch.c
+dio.obj: $(H)\dos.h $(H)\dskio.h $(H)\kernel.h dio.c
+doscall.obj: $(H)\conf.h $(H)\dos.h $(H)\fserver.h $(H)\kernel.h $(H)\string.h doscall.c
+dscntl.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\name.h $(H)\proc.h dscntl.c
+dsinit.obj: $(H)\bufpool.h $(H)\conf.h $(H)\disk.h $(H)\dskio.h $(H)\kernel.h $(H)\mark.h dsinit.c
+dsinter.obj: $(H)\bufpool.h $(H)\conf.h $(H)\disk.h $(H)\dskio.h $(H)\kernel.h dsinter.c
+dskbcpy.obj: $(H)\bufpool.h $(H)\conf.h $(H)\disk.h $(H)\kernel.h $(H)\mark.h dskbcpy.c
+dskchdsk.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h dskchdsk.c
+dskenq.obj: $(H)\conf.h $(H)\disk.h $(H)\kernel.h dskenq.c
+dskio.obj: dskio.asm
+dskmkfs.obj: $(H)\bufpool.h $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\mark.h dskmkfs.c
+dskname.obj: $(H)\bufpool.h $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\io.h $(H)\kernel.h $(H)\mark.h $(H)\proc.h dskname.c
+dskqopt.obj: $(H)\bufpool.h $(H)\conf.h $(H)\disk.h $(H)\kernel.h dskqopt.c
+dsksync.obj: $(H)\bufpool.h $(H)\conf.h $(H)\disk.h $(H)\kernel.h $(H)\mark.h $(H)\proc.h dsksync.c
+dskzap.obj: $(H)\bufpool.h $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\io.h $(H)\kernel.h $(H)\mark.h $(H)\proc.h dskzap.c
+dsnap.obj: $(H)\conf.h $(H)\disk.h $(H)\kernel.h dsnap.c
+dsopen.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h dsopen.c
+dsread.obj: $(H)\bufpool.h $(H)\conf.h $(H)\disk.h $(H)\kernel.h $(H)\mark.h $(H)\proc.h dsread.c
+dsseek.obj: $(H)\bufpool.h $(H)\conf.h $(H)\disk.h $(H)\kernel.h $(H)\mark.h $(H)\proc.h dsseek.c
+dswrite.obj: $(H)\bufpool.h $(H)\conf.h $(H)\disk.h $(H)\kernel.h $(H)\mark.h $(H)\proc.h dswrite.c
+format.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\name.h format.c
+fs_close.obj: $(H)\fs.h fs_close.c
+fs_cvtmd.obj: $(H)\disk.h $(H)\file.h $(H)\fs.h fs_cvtmd.c
+fs_del.obj: $(H)\fs.h fs_del.c
+fs_getrq.obj: $(H)\fs.h fs_getrq.c
+fs_init.obj: $(H)\fs.h fs_init.c
+fs_open.obj: $(H)\disk.h $(H)\file.h $(H)\fs.h fs_open.c
+fs_openf.obj: $(H)\fs.h $(H)\mffile.h $(H)\string.h fs_openf.c
+fs_rmfil.obj: $(H)\fs.h $(H)\string.h fs_rmfil.c
+fs_seek.obj: $(H)\fs.h fs_seek.c
+fs_sndrp.obj: $(H)\fs.h fs_sndrp.c
+fsaccess.obj: $(H)\fs.h fsaccess.c
+fsclose.obj: $(H)\fs.h fsclose.c
+fsd.obj: $(H)\fs.h fsd.c
+fsmkdir.obj: $(H)\fs.h fsmkdir.c
+fsopen.obj: $(H)\fs.h fsopen.c
+fsread.obj: $(H)\disk.h $(H)\file.h $(H)\fs.h fsread.c
+fsremove.obj: $(H)\fs.h fsremove.c
+fsrename.obj: $(H)\fs.h fsrename.c
+fsrmdir.obj: $(H)\fs.h fsrmdir.c
+fstrans.obj: $(H)\fs.h fstrans.c
+fswrite.obj: $(H)\disk.h $(H)\file.h $(H)\fs.h fswrite.c
+ibclear.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h ibclear.c
+ibget.obj: $(H)\bufpool.h $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\mark.h ibget.c
+iblfree.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\io.h $(H)\kernel.h iblfree.c
+ibnew.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\io.h $(H)\kernel.h ibnew.c
+ibput.obj: $(H)\bufpool.h $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\io.h $(H)\kernel.h $(H)\mark.h ibput.c
+isanmf.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\mffile.h isanmf.c
+lfclose.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\proc.h lfclose.c
+lfgetc.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\proc.h lfgetc.c
+lfinit.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h lfinit.c
+lfopen.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h lfopen.c
+lfputc.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\proc.h lfputc.c
+lfread.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h lfread.c
+lfsdfree.obj: $(H)\bufpool.h $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\mark.h lfsdfree.c
+lfseek.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h lfseek.c
+lfsetup.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h lfsetup.c
+lfsflush.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h lfsflush.c
+lfsnewd.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h lfsnewd.c
+lfwrite.obj: $(H)\conf.h $(H)\kernel.h lfwrite.c
+mfalloc.obj: $(H)\conf.h $(H)\kernel.h $(H)\mffile.h mfalloc.c
+mfclose.obj: $(H)\conf.h $(H)\kernel.h $(H)\mffile.h $(H)\proc.h mfclose.c
+mfdsrch.obj: $(H)\conf.h $(H)\kernel.h $(H)\mffile.h mfdsrch.c
+mfgetc.obj: $(H)\conf.h $(H)\kernel.h $(H)\mffile.h $(H)\proc.h $(H)\tty.h mfgetc.c
+mfinit.obj: $(H)\conf.h $(H)\kernel.h $(H)\mffile.h mfinit.c
+mfputc.obj: $(H)\conf.h $(H)\kernel.h $(H)\mffile.h $(H)\proc.h $(H)\tty.h mfputc.c
+mfread.obj: $(H)\conf.h $(H)\kernel.h $(H)\mffile.h mfread.c
+mfseek.obj: $(H)\conf.h $(H)\kernel.h $(H)\mffile.h mfseek.c
+mfsetup.obj: $(H)\conf.h $(H)\kernel.h $(H)\mffile.h mfsetup.c
+mfsflush.obj: $(H)\conf.h $(H)\kernel.h $(H)\mffile.h mfsflush.c
+mfwrite.obj: $(H)\conf.h $(H)\kernel.h mfwrite.c
+mkdir.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\mem.h $(H)\name.h mkdir.c
+mkdirs.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\mem.h $(H)\name.h mkdirs.c
+mscntl.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\mffile.h mscntl.c
+msopen.obj: $(H)\conf.h $(H)\kernel.h $(H)\mffile.h msopen.c
+remove.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\mem.h $(H)\name.h remove.c
+rename.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\mem.h $(H)\name.h rename.c
+rfalloc.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfalloc.c
+rfclose.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfclose.c
+rfcntl.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\network.h rfcntl.c
+rfdump.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfdump.c
+rfgetc.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfgetc.c
+rfgetip.obj: $(H)\conf.h $(H)\ctype.h $(H)\kernel.h $(H)\network.h rfgetip.c
+rfgetnam.obj: $(H)\conf.h $(H)\ctype.h $(H)\kernel.h $(H)\network.h rfgetnam.c
+rfinit.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfinit.c
+rfio.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfio.c
+rfmclose.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfmclose.c
+rfmcntl.obj: rfmcntl.c
+rfminit.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfminit.c
+rfmkpac.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfmkpac.c
+rfopen.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfopen.c
+rfputc.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfputc.c
+rfread.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfread.c
+rfseek.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfseek.c
+rfsend.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfsend.c
+rfsopen.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\name.h $(H)\network.h rfsopen.c
+rfwrite.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rfwrite.c
+rmdir.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\mem.h $(H)\name.h rmdir.c
+rmdirs.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\mem.h $(H)\name.h rmdirs.c

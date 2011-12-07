@@ -1,0 +1,19 @@
+/* dff.c -- dff */
+
+#include <dirent.h>
+
+/*--------------------------------------------------------
+ * dff -- function DOS find first 
+ *--------------------------------------------------------
+*/
+int dff(dirp, name, attr)
+DIR *dirp;
+char *name;
+int attr;
+{    
+    int result;
+    //result = dos_ffirst(name, attr);
+    if (result != 1)
+        return SYSERR;
+    return result;
+}

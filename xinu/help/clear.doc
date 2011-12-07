@@ -1,0 +1,14 @@
+CLEAR(1)            PCXinu 7.9 Programmer's Manual              CLEAR(1)
+
+NAME
+        clear - clear a window
+
+SYNOPSIS
+        clear [window]
+
+DESCRIPTION
+        Clears the specified window and homes the cursor. The current
+        window is cleared per default.
+
+SEE ALSO
+        chwin(1), close(1), color(1), goto(1), home(1), redraw(1), window(1)

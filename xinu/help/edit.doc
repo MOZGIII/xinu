@@ -1,0 +1,26 @@
+EDIT(1)            PCXinu 7.9 Programmer's Manual              EDIT(1)
+
+NAME
+        edit - edit a file in a window
+
+SYNOPSIS
+        edit [file]
+
+DESCRIPTION
+        Edit is an ultra-simple text editor. It is intended for writing
+        short TCL and Shell command scripts. Edit understands all the
+        cursor positioning keys on a PC keyboard plus a few commands:
+        
+                ctrl-s          show editor status on status device
+                ctrl-y          delete line
+                ESC             exit editor, save file if necessary
+        
+        The diamond character indicates EOF. 
+        
+NOTES
+        Edit does not accept STDOUT or STDIN redirection. 
+        Edit uses a function called show, which writes directly to video
+        RAM (nasty, but necessary for performance reasons).
+        
+SEE ALSO
+        sh(1), tcl(1)

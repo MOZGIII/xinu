@@ -1,0 +1,19 @@
+CLOSE(1)            PCXinu 7.9 Programmer's Manual              CLOSE(1)
+
+NAME
+        close - close a device descriptor
+
+SYNOPSIS
+        close device
+
+DESCRIPTION
+        close takes as an argument a device descriptor and invokes the
+        system call close on that device. Each device has a reference
+        count that is incremented by the system call open and decremented
+        by the system call close. Thus, if the device has been opened
+        n times, the user must invoke the close command n times to close it.
+
+NOTES
+
+SEE ALSO
+        devs(1)

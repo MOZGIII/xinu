@@ -1,0 +1,155 @@
+/* ls.c - ls */
+
+#include <conf.h>
+#include <kernel.h>
+#include <tty.h>
+#include <sleep.h>
+#include <io.h>
+#include <disk.h>
+#include <file.h>
+#include <name.h>
+
+#define	SCRNSIZ	80			/* no. of cols per screen	*/
+#define	FIELDSZ	3			/* size of a screen field	*/
+
+struct fnode {
+	char	fname[FDNLEN];
+	long	flen;
+};
+
+struct dirstruct {
+	char	dvnam[10];
+	int	dnfiles;
+	struct	fnode	flist[NFDES];
+};
+LOCAL lddskdir(diskdev,dirtab);
+LOCAL dircmp(p1,p2);
+/*------------------------------------------------------------------------
+ *  x_ls  --  (commands ls/ll) generate UNIX like ls (ll) output
+ *------------------------------------------------------------------------
+ */
+COMMAND  x_ls(nargs,args)
+int	nargs;
+char	**args;
+{
+	int     dskdir();
+	int	device;
+	char	*drvname;
+	struct	dirstruct *dirtab;
+	int	i,j,inc;
+	int	dircmp();
+	int	col;			/* no. of columns per line	*/
+	int	fnlen, f;
+
+	if ( nargs > 2 ) {
+		fprintf(STDERR,"Usage: %s [drive]\n",args[0]);
+		return(SYSERR);
+	}
+	if ( dirtab = xmalloc(sizeof(struct dirstruct)) == 
+		NULL ) {
+		xinu_fprintf(STDERR,"%s: not enough memory\n",args[0]);
+		return(SYSERR);
+	}
+	drvname = "ds0";
+	if ( nargs == 2 )
+		drvname = args[1];
+	if ( (device = nammapd(drvname)) == SYSERR) {
+		xinu_fprintf(STDERR,"%s: unknown device %s\n",args[0],drvname);
+		return(SYSERR);
+	}
+	if ( (fnlen=lddskdir(device,dirtab)) == SYSERR) {
+		xinu_fprintf(STDERR,"%s: error while reading %s\n",args[0],drvname);
+		return(SYSERR);
+	}
+	fnlen++;
+	if ( (f=(fnlen%FIELDSZ)) != 0 )
+		fnlen += (FIELDSZ-f);
+	col = SCRNSIZ/fnlen;
+	if ( dirtab->dnfiles == 0 )
+		xinu_fprintf(STDERR,"No files on %s\n",dirtab->dvnam);
+	else {
+		qsort(dirtab->flist,dirtab->dnfiles,sizeof(struct fnode),dircmp);
+		if ( strcmp(args[0],"ls") == 0 ) {
+			if ( (inc=(dirtab->dnfiles+col-1)/col) <= 0)
+				inc = 1;
+			for(i=0 ; i<inc && i<dirtab->dnfiles ; i++) {
+				for (j=i ; j<dirtab->dnfiles ; j+=inc)
+					printf("%-*s  ",fnlen,dirtab->flist[j].fname);
+				printf("\n");
+			}
+		} else {
+			printf("total %d\n",dirtab->dnfiles);
+			for(i=0; i<dirtab->dnfiles; i++) {
+				printf("%-10s %8ld\n",
+				dirtab->flist[i].fname,dirtab->flist[i].flen);
+			}
+		}
+	}
+	return(OK);
+}
+
+/*------------------------------------------------------------------------
+ *  lddskdir  --  load dir into directory entry structure
+ *------------------------------------------------------------------------
+ */
+LOCAL lddskdir(diskdev,dirtab)
+int	diskdev;
+struct	dirstruct   *dirtab;
+{
+	DBADDR	firstdb, lastdb;
+	struct	dir	*dirptr;
+	struct	fdes	*fdptr;
+	char	*cp;
+	int	i, l;
+	int	sem;
+	int	fnlen;			/* no. of chars per fname	*/
+
+	if (isbaddev(diskdev))
+		return(SYSERR);		
+	if ( (dirptr=dsdirec(diskdev)) == ( struct dir *) NULL )
+		return(SYSERR);
+	sem = ( (struct dsblk *)devtab[diskdev].dvioblk)->ddirsem;
+	wait(sem);
+	
+	dirtab->dnfiles = dirptr->d_nfiles;
+	if (dirptr->d_nfiles < 0 || dirptr->d_nfiles > NFDES 
+		|| dirptr->d_iblks < 0) {
+		xinu_signal(sem);
+		return(SYSERR);
+	}
+	xinu_strcpy(dirtab->dvnam,devtab[diskdev].dvnam);
+	if (dirptr->d_nfiles == 0) {
+		xinu_signal(sem);
+		return(0);
+	}
+	fnlen = 0;
+	for (i=0 ; i<dirptr->d_nfiles ; i++) {
+		fdptr = &(dirptr->d_files[i]);
+		l = xinu_strlen(fdptr->fdname);
+		if ( l <= 0 || l >= FDNLEN ) {
+			cp = "*ERROR*";
+			xinu_strcpy(dirtab->flist[i].fname, cp);
+
+			l = xinu_strlen(cp);
+		} else
+			xinu_strcpy(dirtab->flist[i].fname, fdptr->fdname);
+		if ( l > fnlen)
+			fnlen = l;
+		dirtab->flist[i].flen = fdptr->fdlen;
+	}
+	xinu_signal(sem);
+	return(fnlen);
+}
+
+/*------------------------------------------------------------------------
+ *  dircmp  --  compare two entries in the directory list (see strcmp)
+ *------------------------------------------------------------------------
+ */
+LOCAL dircmp(p1,p2)
+struct fnode *p1, *p2;
+{
+#ifdef DEBUG
+kprintf("comparing %s and %s\n",p1->fname,p2->fname);
+#endif
+	return(strcmp(p1->fname,p2->fname));
+}

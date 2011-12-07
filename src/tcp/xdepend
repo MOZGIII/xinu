@@ -1,0 +1,62 @@
+tcp_in.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h tcp_in.c
+tcpabort.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpabort.c
+tcpacked.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpacked.c
+tcpackit.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpackit.c
+tcpcksum.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpcksum.c
+tcpclosd.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpclosd.c
+tcpclose.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpclose.c
+tcpclosi.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpclosi.c
+tcpclosw.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpclosw.c
+tcpdata.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpdata.c
+tcpdemux.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpdemux.c
+tcpdodat.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpdodat.c
+tcpestab.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpestab.c
+tcpfin1.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpfin1.c
+tcpfin2.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpfin2.c
+tcph2net.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcph2net.c
+tcphowmu.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcphowmu.c
+tcpidle.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpidle.c
+tcpinp.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\ports.h tcpinp.c
+tcpiss.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpiss.c
+tcpkick.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpkick.c
+tcpkillt.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpkillt.c
+tcplasta.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcplasta.c
+tcpliste.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpliste.c
+tcpnet2h.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpnet2h.c
+tcpok.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpok.c
+tcpopts.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpopts.c
+tcpostat.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpostat.c
+tcpout.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\ports.h tcpout.c
+tcppersi.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcppersi.c
+tcprcvur.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\q.h tcprcvur.c
+tcpreset.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpreset.c
+tcprexmt.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcprexmt.c
+tcprmss.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcprmss.c
+tcprtt.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcprtt.c
+tcprwind.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcprwind.c
+tcpsend.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpsend.c
+tcpshski.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\q.h tcpshski.c
+tcpsmss.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpsmss.c
+tcpsndle.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\q.h tcpsndle.c
+tcpsndur.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpsndur.c
+tcpswind.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpswind.c
+tcpswitc.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpswitc.c
+tcpsync.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\network.h tcpsync.c
+tcpsynrc.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpsynrc.c
+tcpsynse.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpsynse.c
+tcptimer.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcptimer.c
+tcptimew.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcptimew.c
+tcpwait.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpwait.c
+tcpwakeu.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpwakeu.c
+tcpwinit.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpwinit.c
+tcpxmit.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpxmit.c
+tfcoales.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tfcoales.c
+tfinsert.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\network.h $(H)\q.h tfinsert.c
+tmclear.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tmclear.c
+tmleft.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tmleft.c
+tmset.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\network.h tmset.c
+tqdump.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tqdump.c
+uqalloc.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h uqalloc.c
+uqfree.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h uqfree.c
+uqinit.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h uqinit.c
+uqprint.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h uqprint.c

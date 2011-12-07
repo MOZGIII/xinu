@@ -1,0 +1,34 @@
+abs.obj: abs.c
+ascdate.obj: $(H)\conf.h $(H)\date.h $(H)\kernel.h ascdate.c
+atoi.obj: atoi.c
+atol.obj: atol.c
+bcopy.obj: bcopy.c
+butler.obj: $(H)\butler.h $(H)\conf.h $(H)\kernel.h butler.c
+bzero.obj: bzero.c
+cksum.obj: cksum.c
+doprnt.obj: $(H)\dos.h doprnt.c
+doscan.obj: $(H)\ctype.h doscan.c
+fgets.obj: fgets.c
+fprintf.obj: fprintf.c
+fputs.obj: fputs.c
+gets.obj: gets.c
+index.obj: index.c
+ip2str.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ip2str.c
+printf.obj: $(H)\conf.h $(H)\kernel.h printf.c
+psnap.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\proc.h $(H)\q.h psnap.c
+puts.obj: puts.c
+qsort.obj: qsort.c
+rand.obj: rand.c
+rindex.obj: rindex.c
+scanf.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\tty.h scanf.c
+sprintf.obj: $(H)\conf.h $(H)\kernel.h sprintf.c
+strcat.obj: strcat.c
+strcmp.obj: strcmp.c
+strcpy.obj: strcpy.c
+strlen.obj: strlen.c
+strncat.obj: strncat.c
+strncmp.obj: strncmp.c
+strncpy.obj: strncpy.c
+swab.obj: swab.c
+tsnap.obj: $(H)\conf.h $(H)\kernel.h $(H)\sem.h $(H)\tty.h tsnap.c
+udp2str.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h udp2str.c

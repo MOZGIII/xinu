@@ -1,0 +1,20 @@
+DATE(1)             PCXinu 7.9 Programmer's Manual               DATE(1)
+
+NAME
+        date, time - print the current time and date
+
+SYNOPSIS
+        date
+
+        time
+
+DESCRIPTION
+        Date extracts the time and date from the operating system and
+        formats it in a readable form. PCXinu gets the time from a time
+        server (if available), otherwise the DOS time is returned.
+
+        Time is a synonym for the same function as date.
+
+NOTES
+
+SEE ALSO

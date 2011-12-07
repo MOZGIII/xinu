@@ -1,0 +1,35 @@
+EXERCISES
+
+The following exercises suggest you connect to host csc.canberra.edu.au. 
+You can connect to other hosts (including your own) if you wish. You might 
+also wish to redirect SNMP output to a file, so that you have a record of 
+variable contents for later study.
+
+1.	The System Group
+	- Access all of the variables in this group.
+	- Interpret their contents.
+
+2.      The Interfaces Group
+	- Access all of the variables in this group. 
+	- How many interfaces does host CSC contain ?
+	- How many entries does the Interfaces Table contain ?
+
+3.	The IP Group
+	- Is machine CSC a Host or a Gateway ?
+	- How many unknown packet types had CSC received ?
+	- What is CSC's default route ?
+	- Does CSC support RIP ?
+
+4.	The TCP Group
+	- Which well-known port numbers does CSC support ?
+	- In which state is the CSC TCP Echo Port ?
+
+5.	The UDP Group
+	- Which well-known port numbers does CSC support ?
+6.	Improvements
+
+By now you will have realised that the shell allows you to access all SNMP 
+variables, but that finding desired information and formatting that 
+information for use by a manager is rather tedious. Describe a paradigm 
+which improves ease of access and formatting. Hint: see Chapter 7 of 
+"The Simple Book" by Marshall T. Rose.

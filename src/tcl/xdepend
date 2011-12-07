@@ -1,0 +1,23 @@
+assem.obj: $(H)\tclInt.h assem.c
+basic.obj: $(H)\tclInt.h basic.c
+cmdah.obj: $(H)\tclInt.h cmdah.c
+cmdil.obj: $(H)\tclInt.h cmdil.c
+cmdmz.obj: $(H)\tclInt.h cmdmz.c
+dff.obj: $(H)\dirent.h dff.c
+env.obj: $(H)\msdos.h $(H)\tclInt.h env.c
+expr.obj: $(H)\msdos.h $(H)\tclInt.h expr.c
+get.obj: $(H)\tclInt.h get.c
+glob.obj: $(H)\dirent.h $(H)\stat.h $(H)\tclInt.h glob.c
+hash.obj: $(H)\tclInt.h hash.c
+history.obj: $(H)\tclInt.h history.c
+opendir.obj: $(H)\dirent.h $(H)\msdos.h $(H)\tclInt.h opendir.c
+parse.obj: $(H)\tclInt.h parse.c
+proc.obj: $(H)\tclInt.h proc.c
+regexp.obj: $(H)\tclInt.h regexp.c
+snmp.obj: $(H)\tclInt.h snmp.c
+unixaz.obj: $(H)\fcntl.h $(H)\mffile.h $(H)\msdos.h $(H)\stat.h $(H)\stdio.h $(H)\tclInt.h unixaz.c
+unixstr.obj: $(H)\msdos.h $(H)\tclInt.h unixstr.c
+unixutil.obj: $(H)\mffile.h $(H)\msdos.h $(H)\tclInt.h unixutil.c
+util.obj: $(H)\tclInt.h util.c
+var.obj: $(H)\tclInt.h var.c
+xinu.obj: $(H)\fcntl.h $(H)\msdos.h $(H)\sleep.h $(H)\tclInt.h xinu.c

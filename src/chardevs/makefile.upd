@@ -1,0 +1,79 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc 
+CFLAGS = -I$(H) -g
+ASM = nasm -f elf -gstabs
+# /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/xinu.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+	$(LIB) $(LIBFILE) $*.o
+
+.s.o:
+	$(ASM) $*.s
+	$(LIB) $(LIBFILE) $*.o
+
+OBJS = isatty.o kbdio.o kgetc.o kprintf.o kputc.o lwattr.o \
+lwbord.o lwclose.o lwcntl.o lwgetc.o lwgoto.o lwinit.o lwopen.o \
+lwoproc.o lwputc.o lwread.o lwwrite.o nullgetc.o nullopen.o \
+nullread.o nullwrit.o pcscreen.o readcopy.o slclose.o slcntl.o \
+slgetc.o slopen.o slputc.o ttycntl.o ttygetc.o ttyiin.o \
+ttyinit.o ttyiproc.o ttyopen.o ttyoproc.o ttyputc.o ttyread.o \
+ttywrite.o vidio.o wputcsr.o writcopy.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+isatty.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/tty.h isatty.c
+#kbdio.o: kbdio.s
+kbdio.o: kbdio.c
+kgetc.o: $(H)/conf.h $(H)/kbdio.h $(H)/kernel.h $(H)/tty.h kgetc.c
+kprintf.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/tty.h $(H)/vidio.h kprintf.c
+kputc.o: $(H)/conf.h $(H)/kernel.h $(H)/tty.h $(H)/vidio.h kputc.c
+lwattr.o: $(H)/conf.h $(H)/kernel.h $(H)/tty.h lwattr.c
+lwbord.o: $(H)/conf.h $(H)/kernel.h $(H)/tty.h lwbord.c
+lwclose.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/tty.h lwclose.c
+lwcntl.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/tty.h lwcntl.c
+lwgetc.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/proc.h $(H)/tty.h lwgetc.c
+lwgoto.o: $(H)/conf.h $(H)/kernel.h $(H)/tty.h lwgoto.c
+lwinit.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/pc.h $(H)/tty.h lwinit.c
+lwopen.o: $(H)/conf.h $(H)/kernel.h $(H)/tty.h lwopen.c
+lwoproc.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/pc.h $(H)/tty.h lwoproc.c
+lwputc.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/tty.h lwputc.c
+lwread.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/tty.h lwread.c
+lwwrite.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/tty.h lwwrite.c
+nullgetc.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h nullgetc.c
+nullopen.o: $(H)/conf.h $(H)/kernel.h nullopen.c
+nullread.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h nullread.c
+nullwrit.o: $(H)/conf.h $(H)/kernel.h nullwrit.c
+pcscreen.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/vidio.h $(H)/window.h pcscreen.c
+readcopy.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/tty.h readcopy.c
+slclose.o: $(H)/conf.h $(H)/kernel.h slclose.c
+slcntl.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/sl.h slcntl.c
+slgetc.o: $(H)/conf.h $(H)/kernel.h slgetc.c
+slopen.o: $(H)/conf.h $(H)/kernel.h slopen.c
+slputc.o: $(H)/conf.h $(H)/kernel.h slputc.c
+ttycntl.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/tty.h ttycntl.c
+ttygetc.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/tty.h ttygetc.c
+ttyiin.o: $(H)/conf.h $(H)/kernel.h $(H)/tty.h ttyiin.c
+ttyinit.o: $(H)/conf.h $(H)/io.h $(H)/kbdio.h $(H)/kernel.h $(H)/pc.h $(H)/proc.h $(H)/tty.h ttyinit.c
+ttyiproc.o: $(H)/butler.h $(H)/conf.h $(H)/io.h $(H)/kbdio.h $(H)/kernel.h $(H)/pc.h $(H)/tty.h ttyiproc.c
+ttyopen.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/pc.h $(H)/proc.h $(H)/tty.h ttyopen.c
+ttyoproc.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/tty.h $(H)/vidio.h ttyoproc.c
+ttyputc.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/tty.h ttyputc.c
+ttyread.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/tty.h ttyread.c
+ttywrite.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/tty.h ttywrite.c
+#vidio.o: vidio.s
+vidio.o: vidio.c
+wputcsr.o: $(H)/conf.h $(H)/kernel.h $(H)/tty.h wputcsr.c
+writcopy.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/tty.h writcopy.c

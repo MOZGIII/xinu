@@ -1,0 +1,11 @@
+init_aux
+send_ack
+send_req
+sl_bin
+sl_bout
+slinit
+slinter
+slread
+slwrite
+slwstrt
+wake_ser

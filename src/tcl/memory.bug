@@ -1,0 +1,54 @@
+"/usr/spool/mail/chrisc": 1 message 1 new
+>N  1 ouster@sprite.Berkeley.EDU Sat Dec 18 12:17   44/2180  Re: Tcl Memory Allo
+cation
+&
+Message  1:
+From ouster@sprite.Berkeley.EDU Sat Dec 18 12:17:30 1993
+Return-Path: <ouster@sprite.Berkeley.EDU>
+Received: from oak (oak.canberra.edu.au) by fir.canberra.edu.au (4.1/SMI-4.1)
+        id AA08209; Sat, 18 Dec 93 12:17:29 EST
+Received: from sprite.Berkeley.EDU (allspice.Berkeley.EDU) by oak (4.1/SMI-4.1)
+        id AA25002; Sat, 18 Dec 93 12:17:19 EST
+Received: by sprite.Berkeley.EDU (5.59/1.29)
+        id AA412485; Fri, 17 Dec 93 17:07:53 PST
+Date: Fri, 17 Dec 93 17:07:53 PST
+From: ouster@sprite.Berkeley.EDU (John Ousterhout)
+Message-Id: <9312180107.AA412485@sprite.Berkeley.EDU>
+To: ChrisC@oak.canberra.edu.au
+Subject: Re: Tcl Memory Allocation Problems
+Status: R
+
+In response to your message:
+
+    I've recently ported Tcl to the Xinu Operating System running on a PC and
+    have run into the following problem:
+
+    Tcl_exec puts output into a Result Buffer which uses memory allocated by
+    ckalloc. The ckalloc macro was defined as a call to xmalloc (the Xinu memory
+
+    allocater). Everything works fine, until the user does something which
+    requires more memory than is available, in which case ckalloc returns a
+    NULLPTR. The Tcl_AppendResult function does not notice this and carries on
+    its business as usual (which crashes the PC).
+
+    Of course, I could easily check whether or not xmalloc returns NULLPTR,  but
+
+    the problem is:
+     What should be done in this case AND how can this case trickle back to
+    Tcl_Exec (or wherever) so that appropriate further action can be taken ?
+
+I made a conscious decision in Tcl not to try to handle "out of memory"
+errors.  My feeling about this is that the right thing to do is to
+print an error message and exit.  It's exceedingly difficult to try and
+do anything else, since almost all significant actions can potentially
+require memory allocation.  Furthermore, there are so many calls to
+ckalloc that it would be tremendously complicated to try to take special
+actions for each one of them;  it would be very hard to test this code,
+so it probably wouldn't work anyway.
+
+I realize that this could be a problem on small machines without
+virtual memory, but it just seemed too hard to try to handle memory
+exhaustion.
+
+&
+       

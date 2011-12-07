@@ -1,0 +1,17 @@
+BPOOL(1)            PCXinu 7.9 Programmer's Manual              BPOOL(1)
+
+NAME
+        bpool - print information about buffer pools.
+
+SYNOPSIS
+        bpool
+
+DESCRIPTION
+        bpool extracts information from the buffer pool table and
+        formats it in a readable form. Each line of output contains
+        information about a single buffer pool and shows the pool id,
+        buffer size, semaphore, and number of buffers currently in
+        the pool.
+
+SEE ALSO
+        getbuf(2), freebuf(2), mkpool(2)

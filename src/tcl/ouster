@@ -1,0 +1,7 @@
+COMMENTS ON TCL BOOK ouster@cs.berkeley.edu
+        The book is lacking in theoretical background on the design and 
+implementation of User Interfaces. A chapter on User Interface Design 
+followed by a chapter on the Implementation of Tcl would greatly enhance
+the value of the book. Such information would also ease the porting of Tcl
+to other environments. (I am currently porting Tcl to Douglas Comer's XINU
+Operating System). 

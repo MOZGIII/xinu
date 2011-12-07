@@ -1,0 +1,35 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm /MX /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/network.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+
+.asm.o:
+	$(ASM) $*;
+
+OBJS = udp_in.o udpcksum.o udph2net.o udpnet2h.o udpnxtp.o \
+udpsend.o upalloc.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+udp_in.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h udp_in.c
+udpcksum.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h udpcksum.c
+udph2net.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h udph2net.c
+udpnet2h.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h udpnet2h.c
+udpnxtp.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h udpnxtp.c
+udpsend.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h udpsend.c
+upalloc.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h upalloc.c

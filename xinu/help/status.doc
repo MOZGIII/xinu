@@ -1,0 +1,18 @@
+STATUS(1)            PCXinu 7.9 Programmer's Manual              STATUS(1)
+
+NAME
+        status - display Xinu status
+
+SYNOPSIS
+        status [time]
+
+DESCRIPTION
+        Status displays the following items:
+                Domain Name, Number of Processes, Packets Sent, 
+                Packets Rcvd, Available Memory, Status Pid, Time
+        Status is displayed at [time/10] second intervals, or at 2/10 sec
+        intervals if no time is specified.
+NOTES
+        Status writes directly to video RAM for performance reasons.
+        
+SEE ALSO

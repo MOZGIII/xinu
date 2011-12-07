@@ -1,0 +1,40 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm /MX /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/network.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+	$(LIB) $(LIBFILE) $*.o
+
+.asm.o:
+	$(ASM) $*;
+	$(LIB) $(LIBFILE) $*.o
+
+OBJS = dgalloc.o dgclose.o dgcntl.o dgdump.o dginit.o dgmcntl.o \
+dgmopen.o dgparse.o dgread.o dgwrite.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+dgalloc.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h dgalloc.c
+dgclose.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h dgclose.c
+dgcntl.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h dgcntl.c
+dgdump.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h dgdump.c
+dginit.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h dginit.c
+dgmcntl.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h dgmcntl.c
+dgmopen.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h dgmopen.c
+dgparse.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h dgparse.c
+dgread.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/ports.h $(H)/proc.h dgread.c
+dgwrite.o: $(H)/bufpool.h $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/network.h dgwrite.c

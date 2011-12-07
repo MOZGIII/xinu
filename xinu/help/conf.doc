@@ -1,0 +1,19 @@
+CONF(1)            PCXinu 7.9 Programmer's Manual              CONF(1)
+
+NAME
+        conf - display system configuration information
+
+SYNOPSIS
+        conf
+
+DESCRIPTION
+        conf displays the following system configuration information:
+
+        Version, Network Device, Ethernet Address, IP Address, Domain Name,
+        Gateway Name, Time Server Name, Name Server Name
+
+        Empty fields are not displayed.
+NOTES
+
+SEE ALSO
+        netstat(1), slstat(1)

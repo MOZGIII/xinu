@@ -1,0 +1,148 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm -f elf -gstabs
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/xinu.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+	$(LIB) $(LIBFILE) $*.o
+
+.s.o:
+	$(ASM) $*.s
+	$(LIB) $(LIBFILE) $*.o
+
+OBJS = access.o chdsk.o dfalloc.o dfckmd.o dfdsrch.o dio.o \
+doscall.o dscntl.o dsinit.o dsinter.o dskbcpy.o dskchdsk.o \
+dskenq.o dskio.o dskmkfs.o dskname.o dskqopt.o dsksync.o \
+dskzap.o dsnap.o dsopen.o dsread.o dsseek.o dswrite.o format.o \
+fs_close.o fs_cvtmd.o fs_del.o fs_getrq.o fs_init.o fs_open.o \
+fs_openf.o fs_rmfil.o fs_seek.o fs_sndrp.o fsaccess.o fsclose.o \
+fsd.o fsmkdir.o fsopen.o fsread.o fsremove.o fsrename.o \
+fsrmdir.o fstrans.o fswrite.o ibclear.o ibget.o iblfree.o \
+ibnew.o ibput.o isanmf.o lfclose.o lfgetc.o lfinit.o lfopen.o \
+lfputc.o lfread.o lfsdfree.o lfseek.o lfsetup.o lfsflush.o \
+lfsnewd.o lfwrite.o mfalloc.o mfclose.o mfdsrch.o mfgetc.o \
+mfinit.o mfputc.o mfread.o mfseek.o mfsetup.o mfsflush.o \
+mfwrite.o mkdir.o mkdirs.o mscntl.o msopen.o remove.o rename.o \
+rfalloc.o rfclose.o rfcntl.o rfdump.o rfgetc.o rfgetip.o \
+rfgetnam.o rfinit.o rfio.o rfmclose.o rfmcntl.o rfminit.o \
+rfmkpac.o rfopen.o rfputc.o rfread.o rfseek.o rfsend.o \
+rfsopen.o rfwrite.o rmdir.o rmdirs.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+access.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/mem.h $(H)/name.h access.c
+chdsk.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h chdsk.c
+dfalloc.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h dfalloc.c
+dfckmd.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h dfckmd.c
+dfdsrch.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h dfdsrch.c
+dio.o: $(H)/dos.h $(H)/dskio.h $(H)/kernel.h dio.c
+doscall.o: $(H)/conf.h $(H)/dos.h $(H)/fserver.h $(H)/kernel.h $(H)/string.h doscall.c
+dscntl.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/name.h $(H)/proc.h dscntl.c
+dsinit.o: $(H)/bufpool.h $(H)/conf.h $(H)/disk.h $(H)/dskio.h $(H)/kernel.h $(H)/mark.h dsinit.c
+dsinter.o: $(H)/bufpool.h $(H)/conf.h $(H)/disk.h $(H)/dskio.h $(H)/kernel.h dsinter.c
+dskbcpy.o: $(H)/bufpool.h $(H)/conf.h $(H)/disk.h $(H)/kernel.h $(H)/mark.h dskbcpy.c
+dskchdsk.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h dskchdsk.c
+dskenq.o: $(H)/conf.h $(H)/disk.h $(H)/kernel.h dskenq.c
+dskio.o: dskio.s
+dskmkfs.o: $(H)/bufpool.h $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/mark.h dskmkfs.c
+dskname.o: $(H)/bufpool.h $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/io.h $(H)/kernel.h $(H)/mark.h $(H)/proc.h dskname.c
+dskqopt.o: $(H)/bufpool.h $(H)/conf.h $(H)/disk.h $(H)/kernel.h dskqopt.c
+dsksync.o: $(H)/bufpool.h $(H)/conf.h $(H)/disk.h $(H)/kernel.h $(H)/mark.h $(H)/proc.h dsksync.c
+dskzap.o: $(H)/bufpool.h $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/io.h $(H)/kernel.h $(H)/mark.h $(H)/proc.h dskzap.c
+dsnap.o: $(H)/conf.h $(H)/disk.h $(H)/kernel.h dsnap.c
+dsopen.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h dsopen.c
+dsread.o: $(H)/bufpool.h $(H)/conf.h $(H)/disk.h $(H)/kernel.h $(H)/mark.h $(H)/proc.h dsread.c
+dsseek.o: $(H)/bufpool.h $(H)/conf.h $(H)/disk.h $(H)/kernel.h $(H)/mark.h $(H)/proc.h dsseek.c
+dswrite.o: $(H)/bufpool.h $(H)/conf.h $(H)/disk.h $(H)/kernel.h $(H)/mark.h $(H)/proc.h dswrite.c
+format.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/name.h format.c
+fs_close.o: $(H)/fs.h fs_close.c
+fs_cvtmd.o: $(H)/disk.h $(H)/file.h $(H)/fs.h fs_cvtmd.c
+fs_del.o: $(H)/fs.h fs_del.c
+fs_getrq.o: $(H)/fs.h fs_getrq.c
+fs_init.o: $(H)/fs.h fs_init.c
+fs_open.o: $(H)/disk.h $(H)/file.h $(H)/fs.h fs_open.c
+fs_openf.o: $(H)/fs.h $(H)/mffile.h $(H)/string.h fs_openf.c
+fs_rmfil.o: $(H)/fs.h $(H)/string.h fs_rmfil.c
+fs_seek.o: $(H)/fs.h fs_seek.c
+fs_sndrp.o: $(H)/fs.h fs_sndrp.c
+fsaccess.o: $(H)/fs.h fsaccess.c
+fsclose.o: $(H)/fs.h fsclose.c
+fsd.o: $(H)/fs.h fsd.c
+fsmkdir.o: $(H)/fs.h fsmkdir.c
+fsopen.o: $(H)/fs.h fsopen.c
+fsread.o: $(H)/disk.h $(H)/file.h $(H)/fs.h fsread.c
+fsremove.o: $(H)/fs.h fsremove.c
+fsrename.o: $(H)/fs.h fsrename.c
+fsrmdir.o: $(H)/fs.h fsrmdir.c
+fstrans.o: $(H)/fs.h fstrans.c
+fswrite.o: $(H)/disk.h $(H)/file.h $(H)/fs.h fswrite.c
+ibclear.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h ibclear.c
+ibget.o: $(H)/bufpool.h $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/mark.h ibget.c
+iblfree.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/io.h $(H)/kernel.h iblfree.c
+ibnew.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/io.h $(H)/kernel.h ibnew.c
+ibput.o: $(H)/bufpool.h $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/io.h $(H)/kernel.h $(H)/mark.h ibput.c
+isanmf.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/mffile.h isanmf.c
+lfclose.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/proc.h lfclose.c
+lfgetc.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/proc.h lfgetc.c
+lfinit.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h lfinit.c
+lfopen.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h lfopen.c
+lfputc.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/proc.h lfputc.c
+lfread.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h lfread.c
+lfsdfree.o: $(H)/bufpool.h $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/mark.h lfsdfree.c
+lfseek.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h lfseek.c
+lfsetup.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h lfsetup.c
+lfsflush.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h lfsflush.c
+lfsnewd.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h lfsnewd.c
+lfwrite.o: $(H)/conf.h $(H)/kernel.h lfwrite.c
+mfalloc.o: $(H)/conf.h $(H)/kernel.h $(H)/mffile.h mfalloc.c
+mfclose.o: $(H)/conf.h $(H)/kernel.h $(H)/mffile.h $(H)/proc.h mfclose.c
+mfdsrch.o: $(H)/conf.h $(H)/kernel.h $(H)/mffile.h mfdsrch.c
+mfgetc.o: $(H)/conf.h $(H)/kernel.h $(H)/mffile.h $(H)/proc.h $(H)/tty.h mfgetc.c
+mfinit.o: $(H)/conf.h $(H)/kernel.h $(H)/mffile.h mfinit.c
+mfputc.o: $(H)/conf.h $(H)/kernel.h $(H)/mffile.h $(H)/proc.h $(H)/tty.h mfputc.c
+mfread.o: $(H)/conf.h $(H)/kernel.h $(H)/mffile.h mfread.c
+mfseek.o: $(H)/conf.h $(H)/kernel.h $(H)/mffile.h mfseek.c
+mfsetup.o: $(H)/conf.h $(H)/kernel.h $(H)/mffile.h mfsetup.c
+mfsflush.o: $(H)/conf.h $(H)/kernel.h $(H)/mffile.h mfsflush.c
+mfwrite.o: $(H)/conf.h $(H)/kernel.h mfwrite.c
+mkdir.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/mem.h $(H)/name.h mkdir.c
+mkdirs.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/mem.h $(H)/name.h mkdirs.c
+mscntl.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/mffile.h mscntl.c
+msopen.o: $(H)/conf.h $(H)/kernel.h $(H)/mffile.h msopen.c
+remove.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/mem.h $(H)/name.h remove.c
+rename.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/mem.h $(H)/name.h rename.c
+rfalloc.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfalloc.c
+rfclose.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfclose.c
+rfcntl.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/network.h rfcntl.c
+rfdump.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfdump.c
+rfgetc.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfgetc.c
+rfgetip.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfgetip.c
+rfgetnam.o: $(H)/conf.h  $(H)/kernel.h $(H)/network.h rfgetnam.c
+rfinit.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfinit.c
+rfio.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfio.c
+rfmclose.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfmclose.c
+rfmcntl.o: rfmcntl.c
+rfminit.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfminit.c
+rfmkpac.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfmkpac.c
+rfopen.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfopen.c
+rfputc.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfputc.c
+rfread.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfread.c
+rfseek.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfseek.c
+rfsend.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfsend.c
+rfsopen.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/name.h $(H)/network.h rfsopen.c
+rfwrite.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rfwrite.c
+rmdir.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/mem.h $(H)/name.h rmdir.c
+rmdirs.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/mem.h $(H)/name.h rmdirs.c

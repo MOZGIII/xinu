@@ -1,0 +1,2 @@
+ddd ./xinu.exe
+#gdb ./xinu.exe

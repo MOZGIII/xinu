@@ -1,0 +1,39 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm /MX /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/serial.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+
+.asm.o:
+	$(ASM) $*;
+
+OBJS = init_aux.o send_ack.o send_req.o sl_bin.o sl_bout.o \
+slinit.o slinter.o slread.o slwrite.o slwstrt.o wake_ser.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+init_aux.o: $(H)/conf.h $(H)/kernel.h $(H)/sl.h init_aux.c
+send_ack.o: $(H)/conf.h $(H)/kernel.h $(H)/sl.h send_ack.c
+send_req.o: $(H)/conf.h $(H)/kernel.h $(H)/sl.h send_req.c
+sl_bin.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/proc.h $(H)/sl.h sl_bin.c
+sl_bout.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/sl.h sl_bout.c
+slinit.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/sl.h slinit.c
+slinter.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/sl.h slinter.c
+slread.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/sl.h slread.c
+slwrite.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/sl.h slwrite.c
+slwstrt.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/sl.h slwstrt.c
+wake_ser.o: $(H)/conf.h $(H)/kernel.h $(H)/sl.h wake_ser.c

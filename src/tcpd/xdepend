@@ -1,0 +1,24 @@
+tcballoc.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\network.h tcballoc.c
+tcbdeall.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcbdeall.c
+tcpaddho.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\q.h tcpaddho.c
+tcpbind.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpbind.c
+tcpcntl.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\ports.h tcpcntl.c
+tcpcon.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpcon.c
+tcpgetc.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h tcpgetc.c
+tcpgetda.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpgetda.c
+tcpgetsp.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h tcpgetsp.c
+tcpinit.obj: $(H)\conf.h $(H)\kernel.h $(H)\mark.h $(H)\network.h tcpinit.c
+tcplq.obj: $(H)\conf.h $(H)\kernel.h $(H)\mark.h $(H)\network.h $(H)\ports.h tcplq.c
+tcpmcntl.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpmcntl.c
+tcpmopen.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\network.h $(H)\proc.h tcpmopen.c
+tcpnxtp.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpnxtp.c
+tcpputc.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h tcpputc.c
+tcpread.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h tcpread.c
+tcprhski.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h tcprhski.c
+tcprurg.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h $(H)\q.h tcprurg.c
+tcpserve.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpserve.c
+tcpstat.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpstat.c
+tcpuopt.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpuopt.c
+tcpwr.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h tcpwr.c
+tcpwrite.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h tcpwrite.c
+tcpwurg.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\q.h tcpwurg.c

@@ -1,0 +1,80 @@
+/* 
+ * opendir.c --
+ *
+ *  This file provides dirent-style directory-reading procedures for DOS
+ *
+ */
+
+#include <tclInt.h>
+#include <msdos.h>
+#include <dirent.h>
+
+typedef unsigned long ino_t;
+#undef DIRSIZ
+#define DIRSIZ(dp) \
+    ((sizeof (struct dirent) - (MAXNAMLEN+1)) + (((dp)->d_namlen+1 + 3) &~ 3))
+
+/*
+ * open a directory.
+ */
+DIR * opendir(name)
+char *name;
+{
+	register DIR *dirp;
+    register int fd;
+	char *myname;
+
+    myname = ((*name == '\0') ? "." : name);
+    if ((dirp = (DIR *)ckalloc(sizeof(DIR))) == NULL) {
+        return NULL;
+    }
+    if ((fd = dff(dirp, myname, 0x16)) < 0) {       /* problems */
+        ckfree(dirp);
+        return NULL;
+    }
+	dirp->dd_fd = fd;
+    dirp->dd_first = TRUE;
+	return dirp;
+}
+
+/*
+ * get next entry in a DOS directory.
+ */
+ // Use system readdir insted!
+/*struct dirent *
+readdir(dirp)
+register DIR *dirp;
+{
+	static struct dirent dir;
+    
+    if (!dirp->dd_first) {
+        if (dos_fnext() < 0) {
+            dirp->dd_first = TRUE;
+            return NULL;
+        }
+    }
+    dir.d_ino = 0;
+    dir.d_reclen = 0;
+    if (strcmp(dirp->dd_buf,"*.*")==0)
+        strcpy(dir.d_name, ".");
+    else
+        strcpy(dir.d_name, dirp->dd_buf);
+    if (dirp->dd_attr & 0x10)
+        strcat(dir.d_name,"/");
+    dir.d_namlen = xinu_strlen(dir.d_name);
+    dirp->dd_first = FALSE;
+    return &dir;
+            
+}*/
+
+/*
+ * close a directory.
+ */
+void
+closedir(dirp)
+register DIR *dirp;
+{
+	dirp->dd_fd = -1;
+    dirp->dd_first = TRUE;
+	ckfree((char *) dirp);
+}

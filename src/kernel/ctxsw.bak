@@ -1,0 +1,54 @@
+; ctxsw.asm - _ctxsw
+
+        %include "../h/dos.asm"
+
+        dseg
+; null data segment
+	endds
+
+	pseg
+
+	global	ctxsw
+
+;-------------------------------------------------------------------------
+; _ctxsw  --  context switch
+;-------------------------------------------------------------------------
+; void ctxsw(opp,npp)
+; char *opp, *npp;
+;---------------------------------------------------------------------
+; Stack contents upon entry to ctxsw:
+;	SP+8 => segment:offset address of new context stack save area
+;       SP+4 => segment:offset address of old context stack save area
+;       SP   => return address
+; The addresses of the old and new context stack save areas are
+; relative to the SS segment register, which must be set properly 
+; to access the save/restore locations.
+;
+; The saved state consists of the current BP, SI and DI registers,
+; and the FLAGS register
+;---------------------------------------------------------------------
+ctxsw:;	proc	far
+	push	bp
+	mov	bp,sp		; frame pointer
+	pushf			; flags save interrupt condition
+;	cli			; disable interrupts just to be sure
+	push	si
+	push	di		; preserve registers
+	mov	bx,[bp+6]	; old stack save address
+	mov	es,[bp+8]
+	mov	[es:bx],sp
+	mov	[es:bx+2],ss
+	mov	bx,[bp+10]	; new stack save address
+	mov	es,[bp+12]
+	mov	sp,[es:bx]
+	mov	ss,[es:bx+2]
+	pop	di
+	pop	si
+	popf			; restore interrupt state
+	pop	bp
+	ret
+;_ctxsw	endp
+
+;	endps
+
+;	end

@@ -1,0 +1,65 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm /MX /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/xinu.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+
+.asm.o:
+	$(ASM) $*;
+
+OBJS = getpdev.o ioerr.o ionull.o ioopen.o mount.o namcntl.o \
+naminit.o nammap.o nammapd.o namopen.o namrepl.o newsiodv.o \
+pipalloc.o pipclose.o pipgetc.o pipinit.o pipopen.o pipputc.o \
+pipread.o pipwrite.o rmount.o setpdev.o sioclose.o siocntl.o \
+siogetc.o sioinit.o sioopen.o sioputc.o sioread.o sioseek.o \
+siowrite.o unmount.o xioopen.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+getpdev.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/proc.h $(H)/sio.h getpdev.c
+ioerr.o: $(H)/conf.h $(H)/kernel.h ioerr.c
+ionull.o: $(H)/conf.h $(H)/kernel.h ionull.c
+ioopen.o: $(H)/conf.h $(H)/kernel.h ioopen.c
+mount.o: $(H)/conf.h $(H)/kernel.h $(H)/name.h mount.c
+namcntl.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/name.h namcntl.c
+naminit.o: $(H)/conf.h $(H)/kernel.h $(H)/name.h naminit.c
+nammap.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/name.h nammap.c
+nammapd.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/name.h nammapd.c
+namopen.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/name.h namopen.c
+namrepl.o: $(H)/conf.h $(H)/kernel.h $(H)/name.h namrepl.c
+newsiodv.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/io.h $(H)/kernel.h $(H)/name.h $(H)/proc.h $(H)/sio.h newsiodv.c
+pipalloc.o: $(H)/conf.h $(H)/kernel.h $(H)/pipe.h pipalloc.c
+pipclose.o: $(H)/conf.h $(H)/kernel.h $(H)/pipe.h $(H)/proc.h pipclose.c
+pipgetc.o: $(H)/conf.h $(H)/kernel.h $(H)/pipe.h $(H)/proc.h pipgetc.c
+pipinit.o: $(H)/conf.h $(H)/kernel.h $(H)/pipe.h $(H)/proc.h pipinit.c
+pipopen.o: $(H)/conf.h $(H)/kernel.h $(H)/pipe.h pipopen.c
+pipputc.o: $(H)/conf.h $(H)/kernel.h $(H)/pipe.h pipputc.c
+pipread.o: $(H)/conf.h $(H)/kernel.h $(H)/pipe.h $(H)/proc.h pipread.c
+pipwrite.o: $(H)/conf.h $(H)/kernel.h $(H)/pipe.h pipwrite.c
+rmount.o: $(H)/conf.h $(H)/kernel.h $(H)/name.h $(H)/network.h rmount.c
+setpdev.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/proc.h $(H)/sio.h setpdev.c
+sioclose.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/proc.h sioclose.c
+siocntl.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h siocntl.c
+siogetc.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h siogetc.c
+sioinit.o: $(H)/conf.h $(H)/kernel.h $(H)/sio.h sioinit.c
+sioopen.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/io.h $(H)/kernel.h $(H)/name.h $(H)/proc.h sioopen.c
+sioputc.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h sioputc.c
+sioread.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h sioread.c
+sioseek.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h sioseek.c
+siowrite.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h siowrite.c
+unmount.o: $(H)/conf.h $(H)/kernel.h $(H)/name.h $(H)/network.h unmount.c
+xioopen.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/io.h $(H)/kernel.h $(H)/name.h $(H)/sio.h xioopen.c

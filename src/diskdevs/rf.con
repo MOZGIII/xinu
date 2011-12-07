@@ -1,0 +1,42 @@
+/* remote file server class */
+rfs:
+		-i ionull -o rfsopen -c ionull
+		-r ioerr -w ioerr -s ioerr
+		-n ionull -g ioerr -p ioerr
+
+/* remote file master class */
+rfm:
+		-i rfminit -o rfopen -c rfmclose
+		-r ioerr -w ioerr -s ioerr
+		-n rfmcntl -g ioerr -p ioerr
+
+/* remote file class */
+rf:
+		-i rfinit -o ioerr -c rfclose
+		-r rfread -w rfwrite -s rfseek
+		-n rfcntl -g rfgetc -p rfputc
+
+%
+
+/* Remote file system pseudo-device */
+RFILESYS is rfs		name="RFILESYS"
+
+/* Remote file master pseudo-devices */
+GENERIC is rfm
+GENERIC is rfm
+GENERIC is rfm
+GENERIC is rfm
+
+/* Remote file seudo-devices */
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf

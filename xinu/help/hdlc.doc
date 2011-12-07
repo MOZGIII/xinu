@@ -1,0 +1,23 @@
+HDLC(1)            PCXinu 7.9 Programmer's Manual              HDLC(1)
+
+NAME
+        hdlc - transmit standard input to SL0 and write SL0 input
+               to standard output
+
+SYNOPSIS
+        hdlc
+
+DESCRIPTION
+        Hdlc transmits standard input to SL0 using a simple HDLC
+        protocol subset. Each I-frame sent must be acknowledged 
+        with a RR-frame from the other side of the link.
+        Each I-frame received from SL0 is written to standard 
+        output and acknowledged with a RR-frame.
+        Progress messages are written to the standard error device.
+
+NOTES
+        Shell redirection can be used to transfer a file to the PC
+        at the other end of the link.
+
+SEE ALSO
+        sl(4)

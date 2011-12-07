@@ -1,0 +1,12 @@
+$(H)\bufpool.h
+$(H)\conf.h
+$(H)\kernel.h
+$(H)\network.h
+$(H)\proc.h
+udp_in.c
+udpcksum.c
+udph2net.c
+udpnet2h.c
+udpnxtp.c
+udpsend.c
+upalloc.c

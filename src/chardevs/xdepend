@@ -1,0 +1,41 @@
+isatty.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\tty.h isatty.c
+kbdio.obj: kbdio.asm
+kgetc.obj: $(H)\conf.h $(H)\kbdio.h $(H)\kernel.h $(H)\tty.h kgetc.c
+kprintf.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\tty.h $(H)\vidio.h kprintf.c
+kputc.obj: $(H)\conf.h $(H)\kernel.h $(H)\tty.h $(H)\vidio.h kputc.c
+lwattr.obj: $(H)\conf.h $(H)\ctype.h $(H)\kernel.h $(H)\tty.h lwattr.c
+lwbord.obj: $(H)\conf.h $(H)\ctype.h $(H)\kernel.h $(H)\tty.h lwbord.c
+lwclose.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\tty.h lwclose.c
+lwcntl.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\tty.h lwcntl.c
+lwgetc.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\proc.h $(H)\tty.h lwgetc.c
+lwgoto.obj: $(H)\conf.h $(H)\ctype.h $(H)\kernel.h $(H)\tty.h lwgoto.c
+lwinit.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\pc.h $(H)\tty.h lwinit.c
+lwopen.obj: $(H)\conf.h $(H)\kernel.h $(H)\tty.h lwopen.c
+lwoproc.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\pc.h $(H)\tty.h lwoproc.c
+lwputc.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\tty.h lwputc.c
+lwread.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\tty.h lwread.c
+lwwrite.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\tty.h lwwrite.c
+nullgetc.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h nullgetc.c
+nullopen.obj: $(H)\conf.h $(H)\kernel.h nullopen.c
+nullread.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h nullread.c
+nullwrit.obj: $(H)\conf.h $(H)\kernel.h nullwrit.c
+pcscreen.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\vidio.h $(H)\window.h pcscreen.c
+readcopy.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\tty.h readcopy.c
+slclose.obj: $(H)\conf.h $(H)\kernel.h slclose.c
+slcntl.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\sl.h slcntl.c
+slgetc.obj: $(H)\conf.h $(H)\kernel.h slgetc.c
+slopen.obj: $(H)\conf.h $(H)\kernel.h slopen.c
+slputc.obj: $(H)\conf.h $(H)\kernel.h slputc.c
+ttycntl.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\tty.h ttycntl.c
+ttygetc.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\tty.h ttygetc.c
+ttyiin.obj: $(H)\conf.h $(H)\kernel.h $(H)\tty.h ttyiin.c
+ttyinit.obj: $(H)\conf.h $(H)\io.h $(H)\kbdio.h $(H)\kernel.h $(H)\pc.h $(H)\proc.h $(H)\tty.h ttyinit.c
+ttyiproc.obj: $(H)\butler.h $(H)\conf.h $(H)\io.h $(H)\kbdio.h $(H)\kernel.h $(H)\pc.h $(H)\tty.h ttyiproc.c
+ttyopen.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\pc.h $(H)\proc.h $(H)\tty.h ttyopen.c
+ttyoproc.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\tty.h $(H)\vidio.h ttyoproc.c
+ttyputc.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\tty.h ttyputc.c
+ttyread.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\tty.h ttyread.c
+ttywrite.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\tty.h ttywrite.c
+vidio.obj: vidio.asm
+wputcsr.obj: $(H)\conf.h $(H)\kernel.h $(H)\tty.h wputcsr.c
+writcopy.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\tty.h writcopy.c

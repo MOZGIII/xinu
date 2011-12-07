@@ -1,0 +1,40 @@
+
+
+                    25442304 bytes free
+       33 file(s)      24074 bytes
+ Directory of C:\XINU79\PCXNET\SRC\MISCDEVS
+ Volume Serial Number is 1C30-7077
+ Volume in drive C is MS-DOS_5   
+GETPDEV  C         737 30-09-91  10:49p
+IOERR    C         326 30-07-91   3:42p
+IONULL   C         326 30-07-91   3:42p
+IOOPEN   C         439 14-11-93  11:30a
+MOUNT    C        1316 14-11-93  11:30a
+NAMCNTL  C         697 14-11-93  11:30a
+NAMINIT  C        1383 14-11-93   9:01a
+NAMMAP   C         709 14-11-93  11:27a
+NAMMAPD  C         790 14-11-93  11:33a
+NAMOPEN  C         702 14-11-93   8:57p
+NAMREPL  C         869 07-09-91   6:47p
+NEWSIODV C         840 12-09-91  11:32p
+PIPALLOC C        1092 07-12-93   3:52p
+PIPCLOSE C         826 05-12-93  12:09a
+PIPGETC  C         857 13-11-93   9:53p
+PIPINIT  C         754 13-11-93   9:53p
+PIPOPEN  C         649 07-12-93   3:52p
+PIPPUTC  C         735 05-12-93  12:14a
+PIPREAD  C        1095 13-11-93  10:43p
+PIPWRITE C         565 13-11-93  10:35p
+RMOUNT   C        1378 14-11-93   9:09a
+SETPDEV  C         849 30-09-91  10:45p
+SIOCLOSE C         498 29-08-91   9:54p
+SIOCNTL  C         496 29-08-91   9:54p
+SIOGETC  C         426 29-08-91   9:54p
+SIOINIT  C         477 15-09-93   1:14p
+SIOOPEN  C         838 14-11-93  11:30a
+SIOPUTC  C         444 29-08-91   9:54p
+SIOREAD  C         478 09-08-93   6:15p
+SIOSEEK  C         438 29-08-91   9:54p
+SIOWRITE C         478 29-08-91   9:54p
+UNMOUNT  C         927 14-11-93  11:30a
+XIOOPEN  C         640 14-11-93  11:30a

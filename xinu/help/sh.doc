@@ -1,0 +1,27 @@
+SH(1)               PCXinu 7.9 Programmer's Manual                 SH(1)
+
+NAME
+        sh - invoke a subshell to interpret commands
+
+SYNOPSIS
+        sh [filename]
+        sh [-c 'command']
+
+DESCRIPTION
+        sh creates a separate, fresh invocation of the command interpreter.
+        If a filename is specified, shell reads and executes the commands in
+        the file. If the first line of the file contains #!tcl -f the shell
+        starts the TCL interpreter, which executes the TCL script.
+        An argument -c forces the shell to take its input from the
+        second argument. sh is most useful for executing command scripts with
+        the input taken from a file or another window. However, recursive
+        invocation of the shell works as expected - the user interacts with
+        the innermost (most recent) shell, returning to the next outer shell
+        after the inner shell terminates.
+
+CAUTION
+        If the shell reads commands from a file, the file size must NOT be
+        greater than 512 bytes.
+
+SEE ALSO
+        exit(1), shell(1), tcl(1)

@@ -1,0 +1,79 @@
+UDP(4)              Xinu Programmer's Manual               UDP(4)
+
+NAME
+     udp - UDP-level Internet interface pseudo-device driver
+     (types dgm, dg)
+
+SYNOPSIS
+     #include <network.h>
+
+     read(device buffer, length)
+     write(device, buffer, length)
+     open(device, name)
+     close(device)
+     control(device, function, arg1)
+     init(device)
+
+DESCRIPTION
+     The dgm and dg device drivers, which operate as a related
+     pair, provide a network interface at the IP datagram level.
+     They accept datagrams from user processes and send them out
+     on the DARPA Internet, or receive datagrams from the Inter-
+     net and deliver them to user processes.  The standard Xinu
+     device name for the datagram master pseudo-device is UDP,
+     and the standard name for individual connection pseudo-
+     devices is DGRAM.
+
+     The drivers cooperate so that users can initiate connection
+     by calling OPEN(2) on the datagram master device.  If suc-
+     cessful, the call to OPEN(2) returns the device descriptor
+     of a dg pseudo-device that can be used with READ(2) or
+     WRITE(2) to transfer data.  Finally, when finished with the
+     connection, the user process calls CLOSE(2) on the dg dev-
+     ice.
+
+     The dgm driver consists of routines that implement OPEN(2)
+     and CONTROL(2), while the dg driver consists of routines for
+     READ(2), WRITE(2), CLOSE(2), and CONTROL(2).  Primitives
+     READ(2) and WRITE(2) operate in one of two basic modes.
+     Either they transfer data in Xinugram format complete with
+     an address header, or they transfer just the data portion of
+     the datagram.
+
+     open(device,name,mode)
+          Used with the master device to open a datagram pseudo-
+          device.  Name is a string that gives an IP address and
+          UDP port number in the form i1.i2.i3.i4:u.
+
+     control(device,function,arg1)
+          No control operations are supported for the master dev-
+          ice.
+
+     Used with a dg pseudo-device to set the transfer mode.  The
+     valid operations include DG_CLEAR, which clears any UDP
+     datagrams that happen to be in the receive queue, and
+     DG_SETMODE, which sets the pseudo-device mode.  The mode
+     argument composed of a word in which the first two bits con-
+     trol the transfer mode and sixth bit controls timeout.  The
+     symbolic constants for these bits are:
+       DG_NMODE (001) - Normal mode
+       DG_DMODE (002) - Data-only mode
+       DG_TMODE (004) - Timeout all reads
+       DG_CMODE (010) - Generate UDP checksums (default on)
+
+     read(device buffer, length)
+          Used with a dg pseudo-device to await the arrival of a
+          UDP datagram and transfer it to the user in the form of
+          a Xinugram.
+
+     write(device, buffer, length)
+          Used with a dg pseudo-device to transfer a xinugram
+          into a UDP datagram and send it on the Internet.
+
+     close(device)
+          Closes a dg pseudo-device.
+
+     init(device)
+          When applied to dg pseudo-devices initializes each to
+          mark it not in use.
+

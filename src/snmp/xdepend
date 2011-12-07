@@ -1,0 +1,48 @@
+a1rwint.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\snmp.h a1rwint.c
+a1rwlen.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\snmp.h a1rwlen.c
+a1rwoid.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\snmp.h a1rwoid.c
+a1rwval.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\snmp.h a1rwval.c
+mksnmp.obj: $(H)\asn1.h $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\network.h $(H)\sleep.h $(H)\snmp.h mksnmp.c
+sae_find.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h sae_find.c
+sae_get.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h sae_get.c
+sae_getf.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h sae_getf.c
+sae_getn.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h sae_getn.c
+sae_matc.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snhash.h $(H)\snmp.h sae_matc.c
+sae_set.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\snmp.h sae_set.c
+sat_find.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h sat_find.c
+sat_get.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\mib.h $(H)\network.h $(H)\snmp.h sat_get.c
+sat_getf.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snhash.h $(H)\snmp.h sat_getf.c
+sat_getn.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h sat_getn.c
+sat_matc.obj: $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h sat_matc.c
+sat_set.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h sat_set.c
+sif_get.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\mib.h $(H)\network.h $(H)\snmp.h sif_get.c
+sif_getf.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h sif_getf.c
+sif_getn.obj: $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h sif_getn.c
+sif_matc.obj: $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h sif_matc.c
+sif_set.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h sif_set.c
+sna2b.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\snmp.h sna2b.c
+snb2a.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\network.h $(H)\snmp.h snb2a.c
+snclient.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\snmp.h snclient.c
+snerr.obj: $(H)\conf.h $(H)\ctype.h $(H)\kernel.h $(H)\network.h $(H)\snmp.h snerr.c
+snfreebl.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\snmp.h snfreebl.c
+snhash.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\mib.h $(H)\network.h $(H)\snhash.h $(H)\snmp.h snhash.c
+sninit.obj: $(H)\conf.h $(H)\ctype.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h $(H)\snmpvars.h sninit.c
+snleaf.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\mib.h $(H)\network.h $(H)\snmp.h snleaf.c
+snmib.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h $(H)\snmpvars.h snmib.c
+snoip.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\snmp.h snoip.c
+snparse.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\network.h $(H)\snmp.h snparse.c
+snprint.obj: $(H)\asn1.h $(H)\conf.h $(H)\ctype.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h snprint.c
+snrslv.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h snrslv.c
+sntable.obj: $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h sntable.c
+srt_find.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h srt_find.c
+srt_get.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h srt_get.c
+srt_getf.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h srt_getf.c
+srt_getn.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h srt_getn.c
+srt_matc.obj: $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h srt_matc.c
+srt_set.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h srt_set.c
+stc_find.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h stc_find.c
+stc_get.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h stc_get.c
+stc_getf.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h stc_getf.c
+stc_getn.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h stc_getn.c
+stc_matc.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h stc_matc.c
+stc_set.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mib.h $(H)\network.h $(H)\snmp.h stc_set.c

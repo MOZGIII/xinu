@@ -1,0 +1,59 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm /MX /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/network.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+	$(LIB) $(LIBFILE) $*.o
+
+.asm.o:
+	$(ASM) $*;
+	$(LIB) $(LIBFILE) $*.o
+
+OBJS = echod.o egp.o fingerd.o lfing.o ripadd.o ripcheck.o \
+ripifset.o ripin.o ripmetri.o ripok.o ripout.o riprecv.o \
+riprepl.o ripsend.o ripstart.o rlogind.o rwho.o rwhod.o \
+rwhoind.o snmpd.o tftpd.o tftperr.o tftpsend.o tftptd.o \
+udpecho.o udpqd.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+echod.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h echod.c
+egp.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h egp.c
+fingerd.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h fingerd.c
+lfing.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/shell.h lfing.c
+ripadd.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ripadd.c
+ripcheck.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ripcheck.c
+ripifset.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ripifset.c
+ripin.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h ripin.c
+ripmetri.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ripmetri.c
+ripok.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ripok.c
+ripout.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ripout.c
+riprecv.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h riprecv.c
+riprepl.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h riprepl.c
+ripsend.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ripsend.c
+ripstart.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h ripstart.c
+rlogind.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/shell.h rlogind.c
+rwho.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/rwho.h rwho.c
+rwhod.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/rwho.h $(H)/shell.h rwhod.c
+rwhoind.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/rwho.h rwhoind.c
+snmpd.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/network.h $(H)/snmp.h snmpd.c
+tftpd.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/mem.h $(H)/network.h $(H)/proc.h $(H)/tftp.h tftpd.c
+tftperr.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/network.h $(H)/tftp.h tftperr.c
+tftpsend.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/network.h $(H)/tftp.h $(H)/tty.h tftpsend.c
+tftptd.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/mem.h $(H)/network.h $(H)/proc.h $(H)/tftp.h tftptd.c
+udpecho.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/network.h udpecho.c
+udpqd.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h udpqd.c

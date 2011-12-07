@@ -1,0 +1,18 @@
+CHWIN(1)            PCXinu 7.9 Programmer's Manual              CHWIN(1)
+
+NAME
+        chwin - put the cursor in another window
+
+SYNOPSIS
+        chwin window
+
+DESCRIPTION
+        chwin changes the current window of the cursor.
+
+NOTES
+        The function keys can also be used for this purpose. F1 puts
+        the cursor in the first window, F2 in the second and so on.
+        F10 assigns the cursor to the CONSOLE device.
+
+SEE ALSO
+        clear(1), color(1), goto(1), home(1), redraw(1), window(1)

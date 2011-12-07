@@ -1,0 +1,40 @@
+COLOR(1)            PCXinu 7.9 Programmer's Manual              COLOR(1)
+
+NAME
+        color - change color parameters for the standard output window
+
+SYNOPSIS
+        color [attr]
+
+DESCRIPTION
+        Without any arguments, color changes the color of the standard
+        output window to white on black. If an attribute string is given,
+        the color of the standard output window is changed. When used with
+        a black and white monitor, all colors except white map to black.
+
+        An attribute string has the format "fff/bbb" in which 'fff' and
+        'bbb' are three-character color codes representing the foreground
+        and background colors to be used with a color display. The color
+        codes are shown below:
+
+                                blk     black
+                                blu     blue
+                                grn     green
+                                cyn     cyan
+                                red     red
+                                mag     magenta
+                                yel     yellow
+                                wht     white
+
+        The 'fff' or 'bbb' fields may be replaced by a single decimal
+        digit in the range 0..7.
+
+        The color codes may be preceded by optional blink or intensify
+        specifiers in the attribute string. The specifiers are:
+
+        '?' blink on  '*' blink off  '+' intensity on  '-' intensity off
+
+NOTES
+
+SEE ALSO
+        chwin(1) clear(1), close(1), goto(1), home(1), redraw(1), window(1)

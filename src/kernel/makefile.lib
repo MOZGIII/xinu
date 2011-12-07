@@ -1,0 +1,137 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc-errors
+CFLAGS = -I$(H) -g
+ASM = nasm -f elf -g
+LINK = ld
+LIB = ar
+LIBFLAGS = /c
+LIBFILE = $(PCXNET)/lib\xinu.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+
+.s.o:
+	$(ASM) $*.s
+
+OBJS = blkcmp.o call.o cbrkint.o chprio.o clkinit.o clkint.o \
+close.o conf.o control.o create.o ctxsw.o die.o eidi.o \
+freebuf.o freemem.o getbuf.o getbufi.o getc.o getdev.o \
+getdtime.o getitem.o getmem.o getnok.o getpid.o getprio.o \
+getstdio.o gettime.o getutim.o gpq.o immortal.o init.o \
+initiali.o insert.o insertd.o intmap.o kill.o map.o mark.o \
+mem.o mkpool.o newqueue.o nopen.o nullint.o open.o panic.o \
+pcount.o pcreate.o pdelete.o pglob.o pinit.o poolinit.o \
+preceive.o preceivi.o preset.o psend.o psendi.o ptclear.o \
+putc.o queue.o read.o ready.o receive.o recvclr.o recvtim.o \
+resched.o resume.o scount.o screate.o sdelete.o seek.o send.o \
+sendf.o sendn.o setnok.o signal.o signaln.o sleep.o sleep10.o \
+sleept.o sreset.o ssclock.o stack.o suspend.o treceive.o \
+tsend.o unsleep.o userret.o wait.o wakeup.o write.o xblock.o \
+xcalloc.o xdone.o xeidi.o xfree.o xmalloc.o
+
+
+all:	$(OBJS)
+
+lib:	all
+ 	tlib $(LIBFILE) /c @xlib.fil
+
+blkcmp.o: blkcmp.c
+call.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/proc.h call.c
+cbrkint.o: $(H)/butler.h $(H)/conf.h $(H)/kernel.h cbrkint.c
+chprio.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h chprio.c
+clkinit.o: $(H)/conf.h $(H)/kernel.h $(H)/q.h $(H)/sleep.h clkinit.c
+clkint.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/proc.h $(H)/sleep.h clkint.c
+close.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h close.c
+conf.o: $(H)/conf.h $(H)/ec.h $(H)/pc.h conf.c
+control.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h control.c
+create.o: $(H)/conf.h $(H)/dos.h $(H)/io.h $(H)/kernel.h $(H)/mem.h $(H)/proc.h create.c
+ctxsw.o: ctxsw.s
+die.o: $(H)/conf.h $(H)/dos.h $(H)/io.h $(H)/kernel.h $(H)/proc.h $(H)/sem.h die.c
+eidi.o: eidi.c
+freebuf.o: $(H)/bufpool.h $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/mark.h freebuf.c
+freemem.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/mem.h freemem.c
+getbuf.o: $(H)/bufpool.h $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/mark.h getbuf.c
+getbufi.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/mark.h getbufi.c
+getc.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h getc.c
+getdev.o: $(H)/conf.h $(H)/kernel.h getdev.c
+getdtime.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h getdtime.c
+getitem.o: $(H)/conf.h $(H)/kernel.h $(H)/q.h getitem.c
+getmem.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/mem.h getmem.c
+getnok.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h getnok.c
+getpid.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h getpid.c
+getprio.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h getprio.c
+getstdio.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h getstdio.c
+gettime.o: $(H)/conf.h $(H)/date.h $(H)/kernel.h gettime.c
+getutim.o: $(H)/conf.h $(H)/date.h $(H)/dos.h $(H)/kernel.h $(H)/network.h $(H)/sleep.h getutim.c
+gpq.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/q.h gpq.c
+immortal.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h immortal.c
+init.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h init.c
+initiali.o: $(H)/bufpool.h $(H)/butler.h $(H)/conf.h $(H)/disk.h $(H)/dos.h $(H)/io.h $(H)/kbdio.h $(H)/kernel.h $(H)/mffile.h $(H)/network.h $(H)/pc.h $(H)/proc.h $(H)/q.h $(H)/sem.h $(H)/shell.h $(H)/tty.h initiali.c
+insert.o: $(H)/conf.h $(H)/kernel.h $(H)/q.h insert.c
+insertd.o: $(H)/conf.h $(H)/kernel.h $(H)/q.h insertd.c
+intmap.o: intmap.c
+kill.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/proc.h $(H)/sem.h kill.c
+map.o: $(H)/conf.h $(H)/dos.h $(H)/io.h $(H)/kernel.h map.c
+mark.o: $(H)/conf.h $(H)/kernel.h $(H)/mark.h mark.c
+mem.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/mem.h mem.c
+mkpool.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/mark.h $(H)/mem.h mkpool.c
+newqueue.o: $(H)/conf.h $(H)/kernel.h $(H)/q.h newqueue.c
+nopen.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h nopen.c
+nullint.o: $(H)/conf.h $(H)/kernel.h nullint.c
+open.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h open.c
+panic.o: $(H)/conf.h $(H)/dos.h $(H)/io.h $(H)/kernel.h $(H)/pc.h $(H)/proc.h $(H)/tty.h panic.c
+pcount.o: $(H)/conf.h $(H)/kernel.h $(H)/mark.h $(H)/ports.h pcount.c
+pcreate.o: $(H)/conf.h $(H)/kernel.h $(H)/mark.h $(H)/ports.h pcreate.c
+pdelete.o: $(H)/conf.h $(H)/kernel.h $(H)/mark.h $(H)/ports.h pdelete.c
+pglob.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h pglob.c
+pinit.o: $(H)/conf.h $(H)/kernel.h $(H)/mark.h $(H)/mem.h $(H)/ports.h pinit.c
+poolinit.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/mark.h poolinit.c
+preceive.o: $(H)/conf.h $(H)/kernel.h $(H)/mark.h $(H)/ports.h preceive.c
+preceivi.o: $(H)/conf.h $(H)/kernel.h $(H)/mark.h $(H)/ports.h preceivi.c
+preset.o: $(H)/conf.h $(H)/kernel.h $(H)/mark.h $(H)/ports.h preset.c
+psend.o: $(H)/conf.h $(H)/kernel.h $(H)/mark.h $(H)/ports.h psend.c
+psendi.o: $(H)/conf.h $(H)/kernel.h $(H)/mark.h $(H)/ports.h psendi.c
+ptclear.o: $(H)/conf.h $(H)/kernel.h $(H)/mark.h $(H)/ports.h ptclear.c
+putc.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h putc.c
+queue.o: $(H)/conf.h $(H)/kernel.h $(H)/q.h queue.c
+read.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h read.c
+ready.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/q.h ready.c
+receive.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h receive.c
+recvclr.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h recvclr.c
+recvtim.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/q.h $(H)/sleep.h recvtim.c
+resched.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/proc.h $(H)/q.h resched.c
+resume.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h resume.c
+scount.o: $(H)/conf.h $(H)/kernel.h $(H)/sem.h scount.c
+screate.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/q.h $(H)/sem.h screate.c
+sdelete.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/q.h $(H)/sem.h sdelete.c
+seek.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h seek.c
+send.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h send.c
+sendf.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h sendf.c
+sendn.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h sendn.c
+setnok.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h setnok.c
+signal.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/q.h $(H)/sem.h signal.c
+signaln.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/q.h $(H)/sem.h signaln.c
+sleep.o: $(H)/conf.h $(H)/kernel.h $(H)/sleep.h sleep.c
+sleep10.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/q.h $(H)/sleep.h sleep10.c
+sleept.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/q.h $(H)/sleep.h sleept.c
+sreset.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/q.h $(H)/sem.h sreset.c
+ssclock.o: $(H)/conf.h $(H)/kernel.h $(H)/q.h $(H)/sleep.h ssclock.c
+stack.o: stack.c
+suspend.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h suspend.c
+treceive.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h treceive.c
+tsend.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h tsend.c
+unsleep.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/q.h $(H)/sleep.h unsleep.c
+userret.o: $(H)/conf.h $(H)/kernel.h userret.c
+wait.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/q.h $(H)/sem.h wait.c
+wakeup.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/q.h $(H)/sleep.h wakeup.c
+write.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h write.c
+xblock.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/mem.h $(H)/proc.h xblock.c
+xcalloc.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h xcalloc.c
+xdone.o: $(H)/conf.h $(H)/disk.h $(H)/io.h $(H)/kernel.h $(H)/proc.h $(H)/tty.h xdone.c
+xeidi.o: xeidi.c
+xfree.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/mem.h $(H)/proc.h xfree.c
+xmalloc.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/mem.h $(H)/proc.h xmalloc.c

@@ -1,0 +1,109 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm /MX /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/xinu.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+	$(LIB) $(LIBFILE) $*.o
+
+.asm.o:
+	$(ASM) $*;
+	$(LIB) $(LIBFILE) $*.o
+
+OBJS = addarg.o cmd.o lexan.o login.o shell.o x_arp.o x_blast.o \
+x_bpool.o x_butler.o x_cat.o x_chdsk.o x_chwin.o x_clear.o \
+x_close.o x_color.o x_conf.o x_cp.o x_date.o x_debug.o x_devs.o \
+x_dgstat.o x_di.o x_dir.o x_dos.o x_dskst.o x_dump.o x_echo.o \
+x_edit.o x_exit.o x_finger.o x_format.o x_goto.o x_help.o \
+x_ifstat.o x_int.o x_kill.o x_ls.o x_memsta.o x_more.o \
+x_mount.o x_mv.o x_netsta.o x_ns.o x_ping.o x_pipsta.o x_pmem.o \
+x_ps.o x_redraw.o x_rf.o x_rlogin.o x_rls.o x_rm.o x_rmount.o \
+x_route.o x_routes.o x_shell.o x_sleep.o x_snmp.o x_status.o \
+x_tcl.o x_tcp.o x_tcpc.o x_test.o x_tftp.o x_timerq.o x_ttyst.o \
+x_udp.o x_unmou.o x_wc.o x_window.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+addarg.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/proc.h addarg.c
+cmd.o: $(H)/cmd.h $(H)/conf.h $(H)/kernel.h $(H)/shell.h cmd.c
+lexan.o: $(H)/conf.h $(H)/kernel.h $(H)/shell.h lexan.c
+login.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/network.h $(H)/shell.h $(H)/sleep.h login.c
+shell.o: $(H)/cmd.h $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/mem.h $(H)/name.h $(H)/proc.h $(H)/shell.h $(H)/tty.h shell.c
+x_arp.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h x_arp.c
+x_blast.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h x_blast.c
+x_bpool.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/mark.h x_bpool.c
+x_butler.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/proc.h $(H)/q.h x_butler.c
+x_cat.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h x_cat.c
+x_chdsk.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/mem.h $(H)/name.h x_chdsk.c
+x_chwin.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/name.h $(H)/tty.h x_chwin.c
+x_clear.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/name.h $(H)/tty.h x_clear.c
+x_close.o: $(H)/conf.h $(H)/ctype.h $(H)/io.h $(H)/kernel.h x_close.c
+x_color.o: $(H)/conf.h $(H)/kernel.h $(H)/tty.h x_color.c
+x_conf.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h x_conf.c
+x_cp.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h x_cp.c
+x_date.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/sleep.h x_date.c
+x_debug.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/proc.h $(H)/tty.h x_debug.c
+x_devs.o: $(H)/conf.h $(H)/dos.h $(H)/io.h $(H)/kernel.h x_devs.c
+x_dgstat.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h x_dgstat.c
+x_di.o: $(H)/conf.h $(H)/ec.h $(H)/kernel.h x_di.c
+x_dir.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/io.h $(H)/kernel.h $(H)/name.h $(H)/sleep.h $(H)/tty.h x_dir.c
+x_dos.o: $(H)/conf.h $(H)/kernel.h $(H)/shell.h x_dos.c
+x_dskst.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h x_dskst.c
+x_dump.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/proc.h $(H)/tty.h x_dump.c
+x_echo.o: $(H)/conf.h $(H)/kernel.h x_echo.c
+x_edit.o: $(H)/conf.h $(H)/disk.h $(H)/edit.h $(H)/file.h $(H)/io.h $(H)/kernel.h $(H)/mem.h $(H)/mffile.h $(H)/tty.h x_edit.c
+x_exit.o: $(H)/conf.h $(H)/kernel.h $(H)/shell.h x_exit.c
+x_finger.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h x_finger.c
+x_format.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h $(H)/mem.h $(H)/name.h x_format.c
+x_goto.o: $(H)/conf.h $(H)/kernel.h $(H)/tty.h x_goto.c
+x_help.o: $(H)/cmd.h $(H)/conf.h $(H)/kernel.h $(H)/shell.h x_help.c
+x_ifstat.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h x_ifstat.c
+x_int.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h x_int.c
+x_kill.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h $(H)/shell.h x_kill.c
+x_ls.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/io.h $(H)/kernel.h $(H)/name.h $(H)/sleep.h $(H)/tty.h x_ls.c
+x_memsta.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/mem.h x_memsta.c
+x_more.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/tty.h x_more.c
+x_mount.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/name.h $(H)/network.h x_mount.c
+x_mv.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h x_mv.c
+x_netsta.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/network.h x_netsta.c
+x_ns.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h x_ns.c
+x_ping.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/network.h x_ping.c
+x_pipsta.o: $(H)/conf.h $(H)/kernel.h $(H)/pipe.h x_pipsta.c
+x_pmem.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/mem.h $(H)/proc.h x_pmem.c
+x_ps.o: $(H)/conf.h $(H)/kernel.h $(H)/proc.h x_ps.c
+x_redraw.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/name.h $(H)/tty.h x_redraw.c
+x_rf.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h x_rf.c
+x_rlogin.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/network.h x_rlogin.c
+x_rls.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/name.h $(H)/network.h $(H)/shell.h x_rls.c
+x_rm.o: $(H)/conf.h $(H)/disk.h $(H)/file.h $(H)/kernel.h x_rm.c
+x_rmount.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/name.h $(H)/network.h x_rmount.c
+x_route.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h x_route.c
+x_routes.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h x_routes.c
+x_shell.o: $(H)/conf.h $(H)/kernel.h $(H)/tty.h x_shell.c
+x_sleep.o: $(H)/conf.h $(H)/kernel.h x_sleep.c
+x_snmp.o: $(H)/asn1.h $(H)/conf.h $(H)/ctype.h $(H)/kernel.h $(H)/mem.h $(H)/mib.h $(H)/network.h $(H)/snmp.h $(H)/tty.h x_snmp.c
+x_status.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h x_status.c
+x_tcl.o: $(H)/io.h $(H)/shell.h $(H)/tcl.h x_tcl.c
+x_tcp.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/network.h $(H)/tty.h x_tcp.c
+x_tcpc.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h x_tcpc.c
+x_test.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/sleep.h x_test.c
+x_tftp.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/mem.h $(H)/network.h $(H)/tftp.h $(H)/tty.h x_tftp.c
+x_timerq.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h x_timerq.c
+x_ttyst.o: $(H)/conf.h $(H)/kernel.h $(H)/sem.h $(H)/tty.h x_ttyst.c
+x_udp.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/mem.h $(H)/network.h x_udp.c
+x_unmou.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/name.h x_unmou.c
+x_wc.o: $(H)/conf.h $(H)/ctype.h $(H)/kernel.h x_wc.c
+x_window.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/name.h $(H)/tty.h x_window.c

@@ -1,0 +1,138 @@
+
+
+**************************************************************************
+
+		  Welcome to the MSDOS Tcl 6.7 port
+
+**************************************************************************
+
+
+Ok, here you find all important notes to the msdos port of Tcl 6.7.
+
+1. Differences between the MSDOS and the Unix package:
+
+The COMPAT and the DOC directory were removed. The files in the COMPAT
+directory are used in unix systems to replace missing library functions.
+Fortunatelyall functions are covered from the Borland C++ library. In the
+DOC directory all documents were in nroff fromat, not useful for MSDOS users.
+I put some interesting documents in there, which I found in the MSDOS Tcl 6.2
+port from John S. Martin (johnm@cajal.uoregon.edu).
+
+The original makefile and some notes are now in the ORG_DOC directory.
+
+There is a new directory UTIL with some utility programs which are common
+on unix systems. These utilities are used from the Tcl test suite, that
+is in the TESTS directory. These utility programs are also from the 
+Tcl 6.2 port.
+
+
+2. The porting notes:
+
+
+There is a new define in tcl.h: TCL_MSDOS_PORT. It is used in some files
+to include msdos.h instead of tclunix.h. In msdos.h all necessary msdos
+definitions are included, and some other definitions from tclunix.h which
+are common under unix.
+
+There are some problems with integers, because under msdos most compilers
+support only 16 bit integers (under unix 32 bit). I had to cast all pointer
+subtractions in sprintf() functions to integer, because the Borland C++
+compiler made a long out of the pointer subtraction. Also some tests with the
+Tcl scan function failed out of this reason.
+
+The minimum stack size is 10k. For the whole 'source all' test run you have
+to set the stacksize to 12k. I have no idea if this is necessary for all
+applications. Please mail me if you found there a problem.
+
+Due to the fact, that for the msdos filesystem a cr/lf combination is used,
+and for unix only cr, you have to set the _fmode variable to O_TEXT. This
+behaviour implies a problem in the function Tcl_EvalFile (unixutil.c).
+In this function the length of the directory entry is compared against
+the result of the read() function. Due to the fact that in text mode all
+lf are stripped, Tcl_EvalFile returns an error. I deleted this conditional.
+After the read() operation, the terminating zero is written at the position
+of the file length. I changed the position of the zero to the result of
+the read() operation.
+
+There are two other major differences in the comparison of the unix and the
+msdos filesystem: The msdos filesystem is case independent and unix not, the
+delimiter under the unix filesystem is slash and backslash under msdos.
+There is a definition of _BACKSLASH_PORT_ in msdos.h. This define activates
+are converting to slash and vice versa in all critical path callings.
+With this conversion you have no difference in pathnames under unix and
+msdos. You can use almost the same Tcl files. This introduces a little
+handicap: You can not pass options with the Tcl exec command to the shell,
+because all slashes are converted to backslashes.
+To circumvent most of the case dependency problems all results of the
+readdir() function are converted to lowercase. I think it is most common to
+deal with lowercase filenames when you work under unix. For all glob
+operations you HAVE to use lowercase, or you will not find any matching
+filename.
+
+3. Different behaviour of time, open and exec command:
+   (Or what is msdos.c ?)
+
+
+In the file msdos.c are changes that are unique to msdos (I hope that the
+sprintf() integer casts and the _BACKSLASH_PORT_ ifdef's are put in the
+unix development since they cause no harm).
+
+The functions to_slash() and to_bslash are new and used for the path
+converting to backslash.
+
+In the function Tcl_TildeSubst() the part which finds a users home directory
+with ~<user> is removed.
+
+The function Tcl_OpenCmd() was modified to return an error, if pipelining
+with the Tcl open command was used. Msdos supports no multitasking, so this
+is necessary.
+
+The timer functions under msdos support no milisec accuracy. I modified
+TclTimeCmd() to use the biostime() function. This functions only counts
+in a 18.2hz interval. Tcl_TimeCmd() returns a result in milisec, but this is
+only the 18.2 hz counter multiplied with a correction factor. Please increase
+the repeat argument for grater accuracy.
+
+The function CleanupChildren() now returns automatically TCL_OK, because
+no child can be active after return from exec, since msdos can only
+monotasking.
+
+The functions Tcl_Fork(), Tcl_WaitPids() and Tcl_DetachPids() are removed.
+They were used from CleanupChildren() or the orginal Tcl_ExecCmd() function
+and are not longer necessary.
+
+The function Tcl_ExecCmd() was completely rewritten. It uses the msdos
+system() call, that spawns a shell, that deals with input/ouput redirection
+and piping. Tcl_ExecCmd() makes the correct shell argument for msdos
+conventions and reports syntax errors. Unfortunately the system() call gives
+only feedback if the shell was spawned correctly, not if the shell itself
+found any mistake. So Tcl can not catch any "file not founds". The correct
+way is to use the info command first.
+
+
+4. How to compile that stuff?
+
+I worked with the Borland C++ environment with project files. The Borland
+package has a conversion tool if you prefer makefiles.
+
+Remember to use huge pointers, because the Tcl-library was not developed
+to behave correctly under "segment" pointers.
+
+When I used some optimization options there were several hangups. Please
+report to me, if you found the best settings of the compiler switches.
+
+
+I am not sure, if the stack size of 12k is sufficient for all applications.
+So use the "Test Stack Overflow" option for your development.
+Please mail me, if you needed larger stack sizes!
+
+
+
+
+If you have any questions or suggestions give me mail!
+
+Peter Sprenger
+
+till end April 93: Peter.Sprenger@Europa.rs.kp.dlr.de
+from May 93: Pete@amber.dino.de
+

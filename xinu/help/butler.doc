@@ -1,0 +1,27 @@
+BUTLER(1)            PCXinu 7.9 Programmer's Manual              BUTLER(1)
+
+NAME
+        butler - show process information and semaphore information
+
+SYNOPSIS
+        butler
+
+DESCRIPTION
+        Butler extracts information from the process table and formats
+        it in a readable form. Each line of output contains information
+        about a single process and shows pid, pstate, pprio, pname, sp,
+        ss, top of stack, di, si, flags and bp.
+
+        Butler also displays the PRWAIT, PRREADY and PRSLEEP semaphore
+        queues.
+
+NOTES
+        Butler does not know about the recvtim state and thus flags it
+        as an invalid state.
+
+        The semaphore queue linkages are checked and errors noted.
+
+        The information about the current process is out of date.
+
+SEE ALSO
+        ps(1), kill(1)

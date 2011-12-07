@@ -1,0 +1,24 @@
++tcballoc &
++tcbdeall &
++tcpaddho &
++tcpbind &
++tcpcntl &
++tcpcon &
++tcpgetc &
++tcpgetda &
++tcpgetsp &
++tcpinit &
++tcplq &
++tcpmcntl &
++tcpmopen &
++tcpnxtp &
++tcpputc &
++tcpread &
++tcprhski &
++tcprurg &
++tcpserve &
++tcpstat &
++tcpuopt &
++tcpwr &
++tcpwrite &
++tcpwurg

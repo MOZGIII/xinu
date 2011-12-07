@@ -1,0 +1,57 @@
+/* ping.c - x_ping */
+
+#include <conf.h>
+#include <kernel.h>
+#include <network.h>
+#include <bufpool.h>
+
+/*------------------------------------------------------------------------
+ *  x_ping  --  ( command ping hostname )
+ *------------------------------------------------------------------------
+ */
+
+COMMAND x_ping(nargs,args)
+int     nargs;
+char    *args[];
+{
+
+    struct  ep      *packet;
+    struct  ip      *ipptr;
+    struct  icmp    *icmpptr;
+    int     len, i;
+    IPaddr  IP;
+    #define T1  30  /* tenths of a sec */
+
+    if (nargs !=  2) {
+		usage();
+		return(SYSERR);
+	}
+/* convert name to IPaddr format */
+
+    if (name2ip(IP, args[1]) == SYSERR) {
+        printf("PING couldn't resolve name: %s \n",args[1]);
+        return(OK);
+    }
+/* send an ICMP echo request */
+
+    icmp(ICT_ECHORQ, 0, IP, getpid(), 56);
+
+/* print the response */
+
+    printf("PING (%d.%d.%d.%d)",IP[0]&255,IP[1]&255,IP[2]&255,IP[3]&255);
+    i=recvtim(T1);
+    if (i==TIMEOUT) printf(" ** TIMEOUT (%d sec.) **\n",T1/10);
+    else            printf(" ** ICMP type (%d) received **\n",i);
+    return(OK);
+}
+
+/*------------------------------------------------------------------------
+ *  usage  --  print a usage message
+ *------------------------------------------------------------------------
+ */
+static usage()
+{
+    fprintf(STDERR,"usage: ping hostname | IP addr.\n");
+    return(OK);
+}
+

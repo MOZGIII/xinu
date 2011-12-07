@@ -1,0 +1,1 @@
+strace ./xinu.exe -e signal=!SIGIO 2 > 0

@@ -1,0 +1,841 @@
+
+********************************************
+
+Welcome to the results of the test suite!
+
+I modified the tests only slightly! Shell commands like rm are changed into
+del, and chmod commands are commented. Also illegal filenames, and names
+that were to long were changed. A little bit more cleanup with rm and rmdir
+commands were inserted, because the dos shell commands are less powerful
+than the unix one (no recursive remove of files and directories under msdos).
+
+About 90% of the tests are errorfree, but to document some of the system
+inherent incompatibilities, I decided to not to delete the tests which
+reflect such problems.
+
+There are about 50 errors reported here, which all depend on small
+incompatibilties between unix and msdos. The most common problems
+are:
+
+1: No unix error ouput in strerror() function of Borland C++.
+   The Borland library reports the same errors in different text.
+
+2: The exec command uses the system() call under msdos. There is no
+   direct error feedback, if the command was completed successfully,
+   because no error from the system() call means only a successful
+   spawn of the command interpreter (shell).
+
+3: The line termination under msdos is cr/lf, not only lf as in unix.
+
+4: The msdos filesystem is not case sensitive.
+
+5: Not all unix directory flags are supported.
+
+6: Int's are only 16 bit wide under msdos (integer scan tests).
+
+7: The fflush() function in the Borland library doesn't seem to work.
+   
+
+
+Have fun with TCL,
+                      Pete
+
+
+
+
+
+% append.tst
+case.tst
+cd.tst
+
+
+==== cd-4.2 errors in cd command
+==== Contents of test case:
+
+    string tolower [list [catch {cd _bad_dir} msg] $msg $errorCode]
+
+==== Result was:
+1 {couldn't change working directory to "_bad_dir": no such file or directory
+} {unix {unknown error} {no such file or directory
+}}
+---- Result should have been:
+1 {couldn't change working directory to "_bad_dir": no such file or directory} {unix enoent {no such file or directory}}
+---- cd-4.2 FAILED
+
+
+==== cd-4.3 errors in cd command
+==== Contents of test case:
+
+    string tolower [list [catch {cd cd.dir/test.file} msg] $msg $errorCode]
+
+==== Result was:
+1 {couldn't change working directory to "cd.dir\test.file": no such file or directory
+} {unix {unknown error} {no such file or directory
+}}
+---- Result should have been:
+1 {couldn't change working directory to "cd.dir/test.file": not a directory} {unix enotdir {not a directory}}
+---- cd-4.3 FAILED
+
+!!!!!! ^--- THESE ERRORS ARE CAUSED BY DIFFERENT ERROR OUTPUT	
+----------------------------------------------------------
+
+concat.tst
+env.tst
+Skipping env tests:  need "printenv" to read environment.
+error.tst
+eval.tst
+exec.tst
+
+
+==== exec-7.1 commands returning errors
+==== Contents of test case:
+
+    set x [catch {exec gorp456} msg]
+    list $x $msg [lindex $errorCode 0] [lrange $errorCode 2 end]
+
+==== Result was:
+0 {} NONE {}
+---- Result should have been:
+1 {couldn't find "gorp456" to execute} CHILDSTATUS 1
+---- exec-7.1 FAILED
+
+
+==== exec-7.2 commands returning errors
+==== Contents of test case:
+
+    set x [catch {exec foo123 | gorp456} msg]
+    set x1 {couldn't find "foo123" to execute
+couldn't find "gorp456" to execute}
+    set x2 {couldn't find "gorp456" to execute
+couldn't find "foo123" to execute}
+    set y [expr {($msg == $x1) || ($msg == $x2)}]
+    list $x $y [lindex $errorCode 0] [lrange $errorCode 2 end]
+
+==== Result was:
+0 0 NONE {}
+---- Result should have been:
+1 1 CHILDSTATUS 1
+---- exec-7.2 FAILED
+
+
+==== exec-7.3 commands returning errors
+==== Contents of test case:
+
+    list [catch {exec sleep 1 | sh -c "exit 43" | sleep 1} msg] $msg
+
+==== Result was:
+0 {}
+---- Result should have been:
+1 {}
+---- exec-7.3 FAILED
+
+
+==== exec-7.4 commands returning errors
+==== Contents of test case:
+
+    list [catch {exec gorp456 | echo a b c} msg] $msg
+
+==== Result was:
+0 {a b c}
+---- Result should have been:
+1 {a b c
+couldn't find "gorp456" to execute}
+---- exec-7.4 FAILED
+
+!!!!!! ^--- SYSTEM() CALL HAS NO ERROR FEEDBACK FROM SPAWNED SHELL
+----------------------------------------------------------
+
+==== exec-8.6 errors in exec invocation
+==== Contents of test case:
+
+    list [catch {exec cat >} msg] $msg
+
+==== Result was:
+1 {no ">" or ">>" allowed as last word in command}
+---- Result should have been:
+1 {can't specify ">" as last word in command}
+---- exec-8.6 FAILED
+
+
+==== exec-8.8 errors in exec invocation
+==== Contents of test case:
+
+    list [catch {exec cat < a/b/c} msg] [string tolower $msg]
+
+==== Result was:
+1 {cannot read input from child}
+---- Result should have been:
+1 {couldn't read file "a/b/c": no such file or directory}
+---- exec-8.8 FAILED
+
+!!!!!! ^--- SLIGHTLY DIFFERENT ERROR REPORTS FROM EXEC COMMAND
+----------------------------------------------------------
+
+==== exec-8.9 errors in exec invocation
+==== Contents of test case:
+
+    list [catch {exec cat << foo > a/b/c} msg] [string tolower $msg]
+
+==== Result was:
+0 {}
+---- Result should have been:
+1 {couldn't write file "a/b/c": no such file or directory}
+---- exec-8.9 FAILED
+
+!!!!!! ^--- SYSTEM() CALL HAS NO ERROR FEEDBACK FROM SPAWNED SHELL
+----------------------------------------------------------
+
+==== exec-10.1 setting errorCode variable
+==== Contents of test case:
+
+    list [catch {exec cat < a/b/c} msg] [string tolower $errorCode]
+
+==== Result was:
+1 none
+---- Result should have been:
+1 {unix enoent {no such file or directory}}
+---- exec-10.1 FAILED
+
+!!!!!! ^--- THESE ERRORS ARE CAUSED BY DIFFERENT ERROR OUTPUT	
+----------------------------------------------------------
+
+==== exec-10.2 setting errorCode variable
+==== Contents of test case:
+
+    list [catch {exec cat > a/b/c} msg] [string tolower $errorCode]
+
+==== Result was:
+0 none
+---- Result should have been:
+1 {unix enoent {no such file or directory}}
+---- exec-10.2 FAILED
+
+
+==== exec-10.3 setting errorCode variable
+==== Contents of test case:
+
+    set x [catch {exec _weirdo_command_} msg]
+    list $x $msg [lindex $errorCode 0] [lrange $errorCode 2 end]
+
+==== Result was:
+0 {} NONE {}
+---- Result should have been:
+1 {couldn't find "_weirdo_command_" to execute} CHILDSTATUS 1
+---- exec-10.3 FAILED
+
+!!!!!! ^--- SYSTEM() CALL HAS NO ERROR FEEDBACK FROM SPAWNED SHELL
+----------------------------------------------------------
+
+
+expr.tst
+file.tst
+
+
+==== file-4.1 executable option
+==== Contents of test case:
+file executable gorp.fil
+==== Result was:
+1
+---- Result should have been:
+0
+---- file-4.1 FAILED
+
+
+==== file-7.2 owned option
+==== Contents of test case:
+file owned /
+==== Result was:
+1
+---- Result should have been:
+0
+---- file-7.2 FAILED
+
+
+==== file-8.2 readable option
+==== Contents of test case:
+file reada gorp.fil
+==== Result was:
+1
+---- Result should have been:
+0
+---- file-8.2 FAILED
+
+
+==== file-9.1 writable option
+==== Contents of test case:
+file writable gorp.fil
+==== Result was:
+1
+---- Result should have been:
+0
+---- file-9.1 FAILED
+
+==== file-10.2 stat option
+==== Contents of test case:
+
+    catch {unset stat}
+    file stat gorp.fil stat
+    list $stat(nlink) $stat(size) [expr $stat(mode)&0777] $stat(type)
+
+==== Result was:
+1 12 384 file
+---- Result should have been:
+1 11 501 file
+---- file-10.2 FAILED
+
+!!!!!! ^--- NOT ALL UNIX FLAGS SUPPORTED AND CHMOD SHELL COMMANDS SET TO COMMENTS
+----------------------------------------------------------
+
+
+==== file-10.3 stat option
+==== Contents of test case:
+
+    string tolower [list [catch {file stat _bogus_ stat} msg] 	    $msg $errorCode]
+
+==== Result was:
+1 {couldn't stat "_bogus_": no such file or directory
+} {unix {unknown error} {no such file or directory
+}}
+---- Result should have been:
+1 {couldn't stat "_bogus_": no such file or directory} {unix enoent {no such file or directory}}
+---- file-10.3 FAILED
+
+!!!!!! ^--- THESE ERRORS ARE CAUSED BY DIFFERENT ERROR OUTPUT	
+----------------------------------------------------------
+
+
+==== file-11.1 mtime and atime and size options
+==== Contents of test case:
+
+    catch {unset stat}
+    file stat gorp.fil stat
+    list [expr {[file mtime gorp.fil] == $stat(mtime)}] 	    [expr {[file atime gorp.fil] == $stat(atime)}] 	    [file size gorp.fil]
+
+==== Result was:
+1 1 12
+---- Result should have been:
+1 1 11
+---- file-11.1 FAILED
+
+!!!!!! ^--- NO EXPLICIT MODIFIED TIME UNDER MSDOS
+----------------------------------------------------------
+
+
+==== file-11.2 mtime option
+==== Contents of test case:
+
+    set old [file mtime gorp.fil]
+    #exec sleep 2
+    set f [open gorp.fil w]
+    puts $f "More text"
+    close $f
+    set new [file mtime gorp.fil]
+    expr {($new > $old) && ($new <= ($old+5))}
+
+==== Result was:
+0
+---- Result should have been:
+1
+---- file-11.2 FAILED
+
+!!!!!! ^--- NO SLEEP COMMAND UNDER MSDOS
+----------------------------------------------------------
+
+
+==== file-11.3 size option
+==== Contents of test case:
+
+    set oldsize [file size gorp.fil]
+    set f [open gorp.fil a]
+    puts $f "More text"
+    close $f
+    expr {[file size gorp.fil] - $oldsize}
+
+==== Result was:
+11
+---- Result should have been:
+10
+---- file-11.3 FAILED
+
+!!!!!! ^--- CR/LF UNDER MSDOS
+----------------------------------------------------------
+
+
+==== file-11.5 errors in atime option
+==== Contents of test case:
+
+    string tolower [list [catch {file atime _bogus_} msg] 	    $msg $errorCode]
+
+==== Result was:
+1 {couldn't stat "_bogus_": no such file or directory
+} {unix {unknown error} {no such file or directory
+}}
+---- Result should have been:
+1 {couldn't stat "_bogus_": no such file or directory} {unix enoent {no such file or directory}}
+---- file-11.5 FAILED
+
+
+==== file-11.7 errors in mtime option
+==== Contents of test case:
+
+    string tolower [list [catch {file mtime _bogus_} msg] $msg 	    $errorCode]
+
+==== Result was:
+1 {couldn't stat "_bogus_": no such file or directory
+} {unix {unknown error} {no such file or directory
+}}
+---- Result should have been:
+1 {couldn't stat "_bogus_": no such file or directory} {unix enoent {no such file or directory}}
+---- file-11.7 FAILED
+
+
+==== file-11.9 errors in size option
+==== Contents of test case:
+
+    string tolower [list [catch {file size _bogus_} msg] $msg 	    $errorCode]
+
+==== Result was:
+1 {couldn't stat "_bogus_": no such file or directory
+} {unix {unknown error} {no such file or directory
+}}
+---- Result should have been:
+1 {couldn't stat "_bogus_": no such file or directory} {unix enoent {no such file or directory}}
+---- file-11.9 FAILED
+
+
+==== file-12.5 errors in type option
+==== Contents of test case:
+
+    string tolower [list [catch {file type _bogus_} msg] $msg $errorCode]
+
+==== Result was:
+1 {couldn't stat "_bogus_": no such file or directory
+} {unix {unknown error} {no such file or directory
+}}
+---- Result should have been:
+1 {couldn't stat "_bogus_": no such file or directory} {unix enoent {no such file or directory}}
+---- file-12.5 FAILED
+
+!!!!!! ^--- THESE ERRORS ARE CAUSED BY DIFFERENT ERROR OUTPUT	
+----------------------------------------------------------
+
+
+==== file-15.4 error conditions
+==== Contents of test case:
+
+    list [catch {file gorp x} msg] $msg
+
+==== Result was:
+1 {bad option "gorp": should be atime, dirname, executable, exists, extension, isdirectory, isfile, lstat, mtime, owned, readable, root, size, stat, tail, type, or writable}
+---- Result should have been:
+1 {bad option "gorp": should be atime, dirname, executable, exists, extension, isd
+irectory, isfile, lstat, mtime, owned, readable, root, size, stat, tail, type, o
+r writable}
+---- file-15.4 FAILED
+
+
+==== file-15.5 error conditions
+==== Contents of test case:
+
+    list [catch {file ex x} msg] $msg
+
+==== Result was:
+1 {bad option "ex": should be atime, dirname, executable, exists, extension, isdirectory, isfile, lstat, mtime, owned, readable, root, size, stat, tail, type, or writable}
+---- Result should have been:
+1 {bad option "ex": should be atime, dirname, executable, exists, extension, isd
+irectory, isfile, lstat, mtime, owned, readable, root, size, stat, tail, type, o
+r writable}
+---- file-15.5 FAILED
+
+
+==== file-15.6 error conditions
+==== Contents of test case:
+
+    list [catch {file is x} msg] $msg
+
+==== Result was:
+1 {bad option "is": should be atime, dirname, executable, exists, extension, isdirectory, isfile, lstat, mtime, owned, readable, root, size, stat, tail, type, or writable}
+---- Result should have been:
+1 {bad option "is": should be atime, dirname, executable, exists, extension, isd
+irectory, isfile, lstat, mtime, owned, readable, root, size, stat, tail, type, o
+r writable}
+---- file-15.6 FAILED
+
+
+==== file-15.7 error conditions
+==== Contents of test case:
+
+    list [catch {file read x} msg] $msg
+
+==== Result was:
+1 {bad option "read": should be atime, dirname, executable, exists, extension, isdirectory, isfile, lstat, mtime, owned, readable, root, size, stat, tail, type, or writable}
+---- Result should have been:
+1 {bad option "read": should be atime, dirname, executable, exists, extension, isd
+irectory, isfile, lstat, mtime, owned, readable, root, size, stat, tail, type, o
+r writable}
+---- file-15.7 FAILED
+
+
+==== file-15.8 error conditions
+==== Contents of test case:
+
+    list [catch {file s x} msg] $msg
+
+==== Result was:
+1 {bad option "s": should be atime, dirname, executable, exists, extension, isdirectory, isfile, lstat, mtime, owned, readable, root, size, stat, tail, type, or writable}
+---- Result should have been:
+1 {bad option "s": should be atime, dirname, executable, exists, extension, isd
+irectory, isfile, lstat, mtime, owned, readable, root, size, stat, tail, type, o
+r writable}
+---- file-15.8 FAILED
+
+
+==== file-15.9 error conditions
+==== Contents of test case:
+
+    list [catch {file t x} msg] $msg
+
+==== Result was:
+1 {bad option "t": should be atime, dirname, executable, exists, extension, isdirectory, isfile, lstat, mtime, owned, readable, root, size, stat, tail, type, or writable}
+---- Result should have been:
+1 {bad option "t": should be atime, dirname, executable, exists, extension, isd
+irectory, isfile, lstat, mtime, owned, readable, root, size, stat, tail, type, o
+r writable}
+---- file-15.9 FAILED
+
+!!!!!! ^--- I AM NOT SURE WHAT CAUSED THE ERRORS ABOVE. IN THE TEST THE OUTPUT
+IS COMPARED A TEXT, WHICH HAS CR BETWEEN LINES OR NOT, IN DEPENDENCY IF A
+BAD FILE COMMAND HAS AN OUPUT OF *READLINK* OR NOT. PLEASE HAVE LOOK INTO
+FILE.TST, IF YOU ARE INTERESTED IN DETAILS. IF YOU FOUND THE ANSWER PLEASE
+MAIL ME!!!
+----------------------------------------------------------
+
+
+==== file-15.10 error conditions
+==== Contents of test case:
+
+    list [catch {file rootname ~woohgy} msg] $msg
+
+==== Result was:
+0 e:/src/tcl/testswoohgy
+---- Result should have been:
+1 {user "woohgy" doesn't exist}
+---- file-15.10 FAILED
+
+!!!!!! ^--- NO USER SUPPORT UNDER MSDOS
+----------------------------------------------------------
+
+for.tst
+format.tst
+glob.tst
+
+
+==== glob-3.1 asterisks and question marks
+==== Contents of test case:
+lsort [glob g*/*.c]
+==== Result was:
+globtest/weird.c globtest/x1.c globtest/y1.c globtest/z1.c
+---- Result should have been:
+globTest/weird.c globTest/x1.c globTest/y1.c globTest/z1.c
+---- glob-3.1 FAILED
+
+
+==== glob-3.3 asterisks and question marks
+==== Contents of test case:
+lsort [glob */*/*/*.c]
+==== Result was:
+globtest/a1/b1/x2.c globtest/a1/b2/y2.c
+---- Result should have been:
+globTest/a1/b1/x2.c globTest/a1/b2/y2.c
+---- glob-3.3 FAILED
+
+!!!!!! ^--- MSDOS FILESYSTEM NOT CASE SENSITIVE
+----------------------------------------------------------
+
+
+==== glob-3.4 asterisks and question marks
+==== Contents of test case:
+lsort [glob globTest/*]
+==== Result was:
+globTest/a1 globTest/a2 globTest/a3 globTest/weird.c globTest/x.1 globTest/x1.c globTest/y1.c globTest/z1.c
+---- Result should have been:
+globTest/a1 globTest/a2 globTest/a3 globTest/weird.c globTest/x1.c globTest/y1.c globTest/z1.c
+---- glob-3.4 FAILED
+
+
+==== glob-3.5 asterisks and question marks
+==== Contents of test case:
+lsort [glob globTest/.*]
+==== Result was:
+globTest/. globTest/..
+---- Result should have been:
+globTest/. globTest/.. globTest/x.1
+---- glob-3.5 FAILED
+
+!!!!!! ^--- ".1" NO VALID FILENAME UNDER MSDOS, I CHANGED IT TO X.1!
+----------------------------------------------------------
+
+
+==== glob-5.6 error conditions
+==== Contents of test case:
+
+    list [catch {glob ~no-one} msg] $msg
+
+==== Result was:
+0 e:/src/tcl/testsno-one
+---- Result should have been:
+1 {user "no-one" doesn't exist}
+---- glob-5.6 FAILED
+
+!!!!!! ^--- NO USER SUPPORT UNDER MSDOS
+----------------------------------------------------------
+
+
+==== glob-6.1 setting errorCode variable
+==== Contents of test case:
+
+	string tolower [list [catch {glob globTest/*} msg]  $msg $errorCode]
+    
+==== Result was:
+0 {globtest/a1 globtest/a2 globtest/a3 globtest/x1.c globtest/y1.c globtest/z1.c globtest/weird.c globtest/x.1} none
+---- Result should have been:
+1 {couldn't read directory "globtest": permission denied} {unix eacces {permission denied}}
+---- glob-6.1 FAILED
+
+!!!!!! ^--- I SET THE CHMOD COMMAND TO A COMMENT
+----------------------------------------------------------
+
+
+history.tst
+if.tst
+incr.tst
+info.tst
+join.tst
+lindex.tst
+linsert.tst
+list.tst
+llength.tst
+lrange.tst
+lreplace.tst
+lsearch.tst
+lsort.tst
+misc.tst
+open.tst
+
+
+==== open-1.7 open command (files only)
+==== Contents of test case:
+
+    set f [open test3 w]
+    puts $f xyz\n123
+    close $f
+    set f [open test3 a+]
+    puts $f xyzzy
+    flush $f
+    set x [tell $f]
+    seek $f -4 cur
+    set y [gets $f]
+    close $f
+    list $x [exec cat test3] $y
+
+==== Result was:
+17 {xyz
+123
+xyzzy} zy
+---- Result should have been:
+14 {xyz
+123
+xyzzy} zzy
+---- open-1.7 FAILED
+
+!!!!!! ^--- CR/LF UNDER MSDOS, LEADED TO MISPLACEMENTS IN THE TEST
+----------------------------------------------------------
+
+
+==== open-2.6 errors in open command
+==== Contents of test case:
+
+    string tolower [list [catch {open _non_existent_} msg] $msg $errorCode]
+
+==== Result was:
+1 {couldn't open "_non_existent_": no such file or directory
+} {unix {unknown error} {no such file or directory
+}}
+---- Result should have been:
+1 {couldn't open "_non_existent_": no such file or directory} {unix enoent {no such file or directory}}
+---- open-2.6 FAILED
+
+!!!!!! ^--- DIFFERENT UNIX ERROR REPORT
+----------------------------------------------------------
+
+==== open-3.2 tilde substitution in open
+==== Contents of test case:
+
+    set home $env(HOME)
+    unset env(HOME)
+    set x [list [catch {open ~/foo} msg] $msg]
+    set env(HOME) $home
+    set x
+
+==== Result was:
+1 {couldn't find HOME environment variable to expand "~\foo"}
+---- Result should have been:
+1 {couldn't find HOME environment variable to expand "~/foo"}
+---- open-3.2 FAILED
+
+!!!!!! ^--- AUTOMATIC CHANGE TO "\" IN FILENAMES
+----------------------------------------------------------
+
+
+
+==== open-10.4 tell command
+==== Contents of test case:
+
+    set f [open test2]
+    set x [tell $f]
+    read $f 3
+    lappend x [tell $f]
+    seek $f 2
+    lappend x [tell $f]
+    seek $f 10 current
+    lappend x [tell $f]
+    seek $f 0 end
+    lappend x [tell $f]
+    close $f
+    set x
+
+==== Result was:
+0 3 2 12 36
+---- Result should have been:
+0 3 2 12 30
+---- open-10.4 FAILED
+
+!!!!!! ^--- CR/LF UNDER MSDOS, LEADED TO DIFFERENT POSITION REPORT
+----------------------------------------------------------
+
+
+==== open-12.5 flush command
+==== Contents of test case:
+
+    set f [open test3 w]
+    puts $f "Line 1"
+    puts $f "Line 2"
+    set f2 [open test3]
+    set x {}
+    lappend x [read -nonewline $f2]
+    close $f2
+    flush $f
+    set f2 [open test3]
+    lappend x [read -nonewline $f2]
+    close $f2
+    close $f
+    set x
+
+==== Result was:
+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+---- Result should have been:
+{} {Line 1
+Line 2}
+---- open-12.5 FAILED
+
+!!!!!! ^--- FFLUSH() DOESN'T SEEM TO WORK
+----------------------------------------------------------
+
+
+
+parse.tst
+proc.tst
+regexp.tst
+rename.tst
+scan.tst
+
+
+==== scan-1.21 integer scanning
+==== Contents of test case:
+
+    set a {}; set b {}; set c {}; set d {}
+    scan "12345670 1234567890ab cdefg" "%o	 %o %x %X" a b c d
+    set a
+
+==== Result was:
+-13384
+---- Result should have been:
+2739128
+---- scan-1.21 FAILED
+
+
+==== scan-1.22 integer scanning
+==== Contents of test case:
+
+    set a {}; set b {}; set c {}; set d {}
+    scan "12345670 1234567890ab cdefg" "%o	 %o %x %X" a b c d
+    set b
+
+==== Result was:
+14711
+---- Result should have been:
+342391
+---- scan-1.22 FAILED
+
+
+==== scan-1.23 integer scanning
+==== Contents of test case:
+
+    set a {}; set b {}; set c {}; set d {}
+    scan "12345670 1234567890ab cdefg" "%o	 %o %x %X" a b c d
+    set c
+
+==== Result was:
+-28501
+---- Result should have been:
+561323
+---- scan-1.23 FAILED
+
+
+==== scan-1.24 integer scanning
+==== Contents of test case:
+
+    set a {}; set b {}; set c {}; set d {}
+    scan "12345670 1234567890ab cdefg" "%o	 %o %x %X" a b c d
+    set d
+
+==== Result was:
+-12817
+---- Result should have been:
+52719
+---- scan-1.24 FAILED
+
+!!!!!! ^--- INTS ARE ONLY 16 BIT UNDER MSDOS!
+----------------------------------------------------------
+
+
+
+set.tst
+source.tst
+
+
+==== source-2.6 source error conditions
+==== Contents of test case:
+
+    string tolower [list [catch {source _non_existent_} msg] $msg $errorCode]
+
+==== Result was:
+1 {couldn't read file "_non_existent_": no such file or directory
+} {unix {unknown error} {no such file or directory
+}}
+---- Result should have been:
+1 {couldn't read file "_non_existent_": no such file or directory} {unix enoent {no such file or directory}}
+---- source-2.6 FAILED
+
+!!!!!! ^--- DIFFERENT ERROR REPORT
+----------------------------------------------------------
+
+split.tst
+string.tst
+trace.tst
+unknown.tst
+uplevel.tst
+upvar.tst
+while.tst
+% 
+

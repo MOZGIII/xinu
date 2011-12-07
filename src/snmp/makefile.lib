@@ -1,0 +1,82 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm /MX /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/network.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+
+.asm.o:
+	$(ASM) $*;
+
+OBJS = a1rwint.o a1rwlen.o a1rwoid.o a1rwval.o mksnmp.o \
+sae_find.o sae_get.o sae_getf.o sae_getn.o sae_matc.o sae_set.o \
+sat_find.o sat_get.o sat_getf.o sat_getn.o sat_matc.o sat_set.o \
+sif_get.o sif_getf.o sif_getn.o sif_matc.o sif_set.o sna2b.o \
+snb2a.o snclient.o snerr.o snfreebl.o snhash.o sninit.o \
+snleaf.o snmib.o snoip.o snparse.o snprint.o snrslv.o sntable.o \
+srt_find.o srt_get.o srt_getf.o srt_getn.o srt_matc.o srt_set.o \
+stc_find.o stc_get.o stc_getf.o stc_getn.o stc_matc.o stc_set.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+a1rwint.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/snmp.h a1rwint.c
+a1rwlen.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/snmp.h a1rwlen.c
+a1rwoid.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/snmp.h a1rwoid.c
+a1rwval.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/snmp.h a1rwval.c
+mksnmp.o: $(H)/asn1.h $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/network.h $(H)/sleep.h $(H)/snmp.h mksnmp.c
+sae_find.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h sae_find.c
+sae_get.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h sae_get.c
+sae_getf.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h sae_getf.c
+sae_getn.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h sae_getn.c
+sae_matc.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snhash.h $(H)/snmp.h sae_matc.c
+sae_set.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/snmp.h sae_set.c
+sat_find.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h sat_find.c
+sat_get.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/mib.h $(H)/network.h $(H)/snmp.h sat_get.c
+sat_getf.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snhash.h $(H)/snmp.h sat_getf.c
+sat_getn.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h sat_getn.c
+sat_matc.o: $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h sat_matc.c
+sat_set.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h sat_set.c
+sif_get.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/mib.h $(H)/network.h $(H)/snmp.h sif_get.c
+sif_getf.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h sif_getf.c
+sif_getn.o: $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h sif_getn.c
+sif_matc.o: $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h sif_matc.c
+sif_set.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h sif_set.c
+sna2b.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/snmp.h sna2b.c
+snb2a.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/network.h $(H)/snmp.h snb2a.c
+snclient.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/snmp.h snclient.c
+snerr.o: $(H)/conf.h $(H)/ctype.h $(H)/kernel.h $(H)/network.h $(H)/snmp.h snerr.c
+snfreebl.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/snmp.h snfreebl.c
+snhash.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/mib.h $(H)/network.h $(H)/snhash.h $(H)/snmp.h snhash.c
+sninit.o: $(H)/conf.h $(H)/ctype.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h $(H)/snmpvars.h sninit.c
+snleaf.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/mib.h $(H)/network.h $(H)/snmp.h snleaf.c
+snmib.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h $(H)/snmpvars.h snmib.c
+snoip.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/snmp.h snoip.c
+snparse.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/network.h $(H)/snmp.h snparse.c
+snprint.o: $(H)/asn1.h $(H)/conf.h $(H)/ctype.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h snprint.c
+snrslv.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h snrslv.c
+sntable.o: $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h sntable.c
+srt_find.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h srt_find.c
+srt_get.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h srt_get.c
+srt_getf.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h srt_getf.c
+srt_getn.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h srt_getn.c
+srt_matc.o: $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h srt_matc.c
+srt_set.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h srt_set.c
+stc_find.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h stc_find.c
+stc_get.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h stc_get.c
+stc_getf.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h stc_getf.c
+stc_getn.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h stc_getn.c
+stc_matc.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h stc_matc.c
+stc_set.o: $(H)/asn1.h $(H)/conf.h $(H)/kernel.h $(H)/mib.h $(H)/network.h $(H)/snmp.h stc_set.c

@@ -1,0 +1,96 @@
+blkcmp.obj: blkcmp.c
+call.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\proc.h call.c
+cbrkint.obj: $(H)\butler.h $(H)\conf.h $(H)\kernel.h cbrkint.c
+chprio.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h chprio.c
+clkinit.obj: $(H)\conf.h $(H)\kernel.h $(H)\q.h $(H)\sleep.h clkinit.c
+clkint.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\proc.h $(H)\sleep.h clkint.c
+close.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h close.c
+conf.obj: $(H)\conf.h $(H)\ec.h $(H)\pc.h conf.c
+control.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h control.c
+create.obj: $(H)\conf.h $(H)\dos.h $(H)\io.h $(H)\kernel.h $(H)\mem.h $(H)\proc.h create.c
+ctxsw.obj: ctxsw.asm
+die.obj: $(H)\conf.h $(H)\dos.h $(H)\io.h $(H)\kernel.h $(H)\proc.h $(H)\sem.h die.c
+eidi.obj: eidi.asm
+freebuf.obj: $(H)\bufpool.h $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\mark.h freebuf.c
+freemem.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\mem.h freemem.c
+getbuf.obj: $(H)\bufpool.h $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\mark.h getbuf.c
+getbufi.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\mark.h getbufi.c
+getc.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h getc.c
+getdev.obj: $(H)\conf.h $(H)\kernel.h getdev.c
+getdtime.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h getdtime.c
+getitem.obj: $(H)\conf.h $(H)\kernel.h $(H)\q.h getitem.c
+getmem.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\mem.h getmem.c
+getnok.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h getnok.c
+getpid.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h getpid.c
+getprio.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h getprio.c
+getstdio.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h getstdio.c
+gettime.obj: $(H)\conf.h $(H)\date.h $(H)\kernel.h gettime.c
+getutim.obj: $(H)\conf.h $(H)\date.h $(H)\dos.h $(H)\kernel.h $(H)\network.h $(H)\sleep.h getutim.c
+gpq.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\q.h gpq.c
+immortal.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h immortal.c
+init.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h init.c
+initiali.obj: $(H)\bufpool.h $(H)\butler.h $(H)\conf.h $(H)\disk.h $(H)\dos.h $(H)\io.h $(H)\kbdio.h $(H)\kernel.h $(H)\mffile.h $(H)\network.h $(H)\pc.h $(H)\proc.h $(H)\q.h $(H)\sem.h $(H)\shell.h $(H)\tty.h initiali.c
+insert.obj: $(H)\conf.h $(H)\kernel.h $(H)\q.h insert.c
+insertd.obj: $(H)\conf.h $(H)\kernel.h $(H)\q.h insertd.c
+intmap.obj: intmap.asm
+kill.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\proc.h $(H)\sem.h kill.c
+map.obj: $(H)\conf.h $(H)\dos.h $(H)\io.h $(H)\kernel.h map.c
+mark.obj: $(H)\conf.h $(H)\kernel.h $(H)\mark.h mark.c
+mem.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\mem.h mem.c
+mkpool.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\mark.h $(H)\mem.h mkpool.c
+newqueue.obj: $(H)\conf.h $(H)\kernel.h $(H)\q.h newqueue.c
+nopen.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h nopen.c
+nullint.obj: $(H)\conf.h $(H)\kernel.h nullint.c
+open.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h open.c
+panic.obj: $(H)\conf.h $(H)\dos.h $(H)\io.h $(H)\kernel.h $(H)\pc.h $(H)\proc.h $(H)\tty.h panic.c
+pcount.obj: $(H)\conf.h $(H)\kernel.h $(H)\mark.h $(H)\ports.h pcount.c
+pcreate.obj: $(H)\conf.h $(H)\kernel.h $(H)\mark.h $(H)\ports.h pcreate.c
+pdelete.obj: $(H)\conf.h $(H)\kernel.h $(H)\mark.h $(H)\ports.h pdelete.c
+pglob.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h pglob.c
+pinit.obj: $(H)\conf.h $(H)\kernel.h $(H)\mark.h $(H)\mem.h $(H)\ports.h pinit.c
+poolinit.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\mark.h poolinit.c
+preceive.obj: $(H)\conf.h $(H)\kernel.h $(H)\mark.h $(H)\ports.h preceive.c
+preceivi.obj: $(H)\conf.h $(H)\kernel.h $(H)\mark.h $(H)\ports.h preceivi.c
+preset.obj: $(H)\conf.h $(H)\kernel.h $(H)\mark.h $(H)\ports.h preset.c
+psend.obj: $(H)\conf.h $(H)\kernel.h $(H)\mark.h $(H)\ports.h psend.c
+psendi.obj: $(H)\conf.h $(H)\kernel.h $(H)\mark.h $(H)\ports.h psendi.c
+ptclear.obj: $(H)\conf.h $(H)\kernel.h $(H)\mark.h $(H)\ports.h ptclear.c
+putc.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h putc.c
+queue.obj: $(H)\conf.h $(H)\kernel.h $(H)\q.h queue.c
+read.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h read.c
+ready.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\q.h ready.c
+receive.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h receive.c
+recvclr.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h recvclr.c
+recvtim.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\q.h $(H)\sleep.h recvtim.c
+resched.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\proc.h $(H)\q.h resched.c
+resume.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h resume.c
+scount.obj: $(H)\conf.h $(H)\kernel.h $(H)\sem.h scount.c
+screate.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\q.h $(H)\sem.h screate.c
+sdelete.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\q.h $(H)\sem.h sdelete.c
+seek.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h seek.c
+send.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h send.c
+sendf.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h sendf.c
+sendn.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h sendn.c
+setnok.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h setnok.c
+signal.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\q.h $(H)\sem.h signal.c
+signaln.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\q.h $(H)\sem.h signaln.c
+sleep.obj: $(H)\conf.h $(H)\kernel.h $(H)\sleep.h sleep.c
+sleep10.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\q.h $(H)\sleep.h sleep10.c
+sleept.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\q.h $(H)\sleep.h sleept.c
+sreset.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\q.h $(H)\sem.h sreset.c
+ssclock.obj: $(H)\conf.h $(H)\kernel.h $(H)\q.h $(H)\sleep.h ssclock.c
+stack.obj: stack.asm
+suspend.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h suspend.c
+treceive.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h treceive.c
+tsend.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h tsend.c
+unsleep.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\q.h $(H)\sleep.h unsleep.c
+userret.obj: $(H)\conf.h $(H)\kernel.h userret.c
+wait.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\q.h $(H)\sem.h wait.c
+wakeup.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\q.h $(H)\sleep.h wakeup.c
+write.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h write.c
+xblock.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\mem.h $(H)\proc.h xblock.c
+xcalloc.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h xcalloc.c
+xdone.obj: $(H)\conf.h $(H)\disk.h $(H)\io.h $(H)\kernel.h $(H)\proc.h $(H)\tty.h xdone.c
+xeidi.obj: xeidi.asm
+xfree.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\mem.h $(H)\proc.h xfree.c
+xmalloc.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\mem.h $(H)\proc.h xmalloc.c

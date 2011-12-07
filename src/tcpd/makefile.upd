@@ -1,0 +1,57 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm /MX /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/network.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+	$(LIB) $(LIBFILE) $*.o
+
+.asm.o:
+	$(ASM) $*;
+	$(LIB) $(LIBFILE) $*.o
+
+OBJS = tcballoc.o tcbdeall.o tcpaddho.o tcpbind.o tcpcntl.o \
+tcpcon.o tcpgetc.o tcpgetda.o tcpgetsp.o tcpinit.o tcplq.o \
+tcpmcntl.o tcpmopen.o tcpnxtp.o tcpputc.o tcpread.o tcprhski.o \
+tcprurg.o tcpserve.o tcpstat.o tcpuopt.o tcpwr.o tcpwrite.o \
+tcpwurg.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+tcballoc.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/network.h tcballoc.c
+tcbdeall.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcbdeall.c
+tcpaddho.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/q.h tcpaddho.c
+tcpbind.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpbind.c
+tcpcntl.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/ports.h tcpcntl.c
+tcpcon.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpcon.c
+tcpgetc.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h tcpgetc.c
+tcpgetda.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpgetda.c
+tcpgetsp.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h tcpgetsp.c
+tcpinit.o: $(H)/conf.h $(H)/kernel.h $(H)/mark.h $(H)/network.h tcpinit.c
+tcplq.o: $(H)/conf.h $(H)/kernel.h $(H)/mark.h $(H)/network.h $(H)/ports.h tcplq.c
+tcpmcntl.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpmcntl.c
+tcpmopen.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/network.h $(H)/proc.h tcpmopen.c
+tcpnxtp.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpnxtp.c
+tcpputc.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h tcpputc.c
+tcpread.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h tcpread.c
+tcprhski.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h tcprhski.c
+tcprurg.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h $(H)/q.h tcprurg.c
+tcpserve.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpserve.c
+tcpstat.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpstat.c
+tcpuopt.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpuopt.c
+tcpwr.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h tcpwr.c
+tcpwrite.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpwrite.c
+tcpwurg.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/q.h tcpwurg.c

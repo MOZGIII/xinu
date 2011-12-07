@@ -1,0 +1,248 @@
+/* pcxconf - PC-Xinu configuration (device configuration specifications) */
+
+tty:	on BIOS
+		-i ttyinit -o ttyopen -c ionull
+		-r ttyread -w ttywrite -s ionull
+		-g ttygetc -p ttyputc -n ttycntl
+		-iint ttyiin
+		norefct
+
+	on WINDOW
+		-i lwinit -o lwopen -c lwclose
+		-r lwread -w lwwrite -s ionull
+		-g lwgetc -p lwputc -n lwcntl 
+
+xio:
+		-i ionull -o xioopen -c ionull
+		norefct
+
+sio:
+		-i sioinit -o sioopen -c sioclose
+		-r sioread -w siowrite -s sioseek
+		-g siogetc -p sioputc -n siocntl
+		norefct
+
+null:
+		-i ionull -o nullopen -c ionull
+		-r nullread -w nullwrit -s ionull
+		-g nullgetc -p ionull -n ionull
+		norefct
+	
+dsk:
+		-i dsinit -o dsopen -c ionull
+		-r dsread -w dswrite -s dsseek
+		-g ioerr -p ioerr -n dscntl
+		norefct
+
+df:
+                -i lfinit -o lfopen -c lfclose
+		-r lfread -w lfwrite -s lfseek
+		-g lfgetc -p lfputc -n ioerr
+
+dos:
+		-i ionull -o msopen -c ionull
+		-r ioerr -w ioerr -s ioerr
+		-g ioerr -p ioerr -n mscntl
+		norefct
+
+mf:
+		-i mfinit -o nullopen -c mfclose
+		-r mfread -w mfwrite -s mfseek
+		-g mfgetc -p mfputc -n ioerr
+
+nam:
+		-i naminit -o namopen -c ionull
+		-n namcntl
+		norefct
+
+eth:
+		-i ethinit -o nullopen -c ionull
+                -r ioerr -w ethwrite -s ioerr
+		-n ioerr -g ioerr -p ioerr
+		-iint ethinter -oint ioerr
+
+dgm:
+		-i ionull -o dgmopen -c ionull
+		-r ioerr -w ioerr -s ioerr
+		-n dgmcntl -g ioerr -p ioerr
+		norefct
+
+dg:
+                -i dginit -o nullopen -c dgclose
+		-r dgread -w dgwrite -s ioerr
+		-n dgcntl -g ioerr -p ioerr
+
+tcpm:
+                -i ionull -o tcpmopen -c ionull
+                -r ioerr -w ioerr -s ioerr
+                -n tcpmcntl -g ioerr -p ioerr
+                norefct
+
+tcp:
+                -i tcpinit -o nullopen -c tcpclose
+                -r tcpread -w tcpwrite -s ioerr
+                -n tcpcntl -g tcpgetc -p tcpputc
+
+pipm:
+                -i ionull -o pipopen -c ionull
+		-r ioerr -w ioerr -s ioerr
+                -n ionull -g ioerr -p ioerr
+		norefct
+                
+pip:
+                -i pipinit -o nullopen -c pipclose
+                -r pipread -w pipwrite -s ioerr
+                -n ionull -g pipgetc -p pipputc
+                norefct
+                
+rfs:
+		-i ionull -o rfsopen -c ionull
+		-r ioerr -w ioerr -s ioerr
+		-n ionull -g ioerr -p ioerr
+		norefct
+
+rfm:
+		-i rfminit -o rfopen -c rfmclose
+		-r ioerr -w ioerr -s ioerr
+		-n rfmcntl -g ioerr -p ioerr
+		norefct
+
+rf:
+		-i rfinit -o nullopen -c rfclose
+		-r rfread -w rfwrite -s rfseek
+		-n rfcntl -g rfgetc -p rfputc
+
+%
+
+#include <pc.h>			/* generic PC definitions */
+#include <ec.h>                 /* Ethernet Controller definitions */
+/* console + windows */
+
+CONSOLE	is tty on BIOS		name="tty" ivec="KBDVEC|BIOSFLG"
+GENERIC	is tty on WINDOW
+GENERIC	is tty on WINDOW
+GENERIC	is tty on WINDOW
+GENERIC	is tty on WINDOW
+GENERIC	is tty on WINDOW
+GENERIC	is tty on WINDOW
+GENERIC	is tty on WINDOW
+
+STDIO is xio		name="stdio"
+
+STDIN is sio		name="stdin"
+STDOUT is sio		name="stdout"
+STDERR is sio		name="stderr"
+GENERIC is sio
+GENERIC is sio
+GENERIC is sio
+GENERIC is sio
+GENERIC is sio
+GENERIC is sio
+GENERIC is sio
+
+NULLDEV	is null		name="null"
+
+/* disk device + logical files */
+
+/*DS0	is dsk		name="ds0"
+GENERIC	is df
+GENERIC	is df
+GENERIC	is df
+GENERIC	is df*/
+
+
+/* MS-DOS file interface + logical files */
+
+DOS	is dos		name="dos"
+
+GENERIC	is mf
+GENERIC	is mf
+GENERIC	is mf
+GENERIC	is mf
+GENERIC	is mf
+GENERIC	is mf
+GENERIC	is mf
+GENERIC	is mf
+
+/* Syntactic name space */
+NAMESPACE is nam	name="namespace"
+
+/* Ethernet device -- 3C503 */
+EC0 is eth              name="ec0" port=EC0PORT ivec=EC0VEC ioblk=NULLPTR
+
+/* Datagram network interface (master pseudo-device) */
+UDP is dgm         name="udp"
+
+/* Pseudo-device slots for datagram "connections" */
+GENERIC is dg
+GENERIC is dg
+GENERIC is dg
+GENERIC is dg
+GENERIC is dg
+GENERIC is dg
+GENERIC is dg
+GENERIC is dg
+
+/* TCP Network interface (master pseudo-device) */
+TCP is tcpm        name="tcp"
+
+/* Pseudo-device slots for tcp connections */
+GENERIC is tcp
+GENERIC is tcp
+GENERIC is tcp
+GENERIC is tcp
+GENERIC is tcp
+GENERIC is tcp
+GENERIC is tcp
+GENERIC is tcp
+
+/* Remote file system server pseudo-device 
+RFILESYS is rfs		name="rfilesys"
+
+ Remote file system master pseudo-devices 
+GENERIC is rfm
+
+ Pseudo-slots for remote files 
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf
+GENERIC is rf                  */
+
+/* Pipe master device */
+PIPE is pipm     name="pipe"
+
+/* Pseudo-slots for pipes */
+GENERIC is pip
+GENERIC is pip
+GENERIC is pip
+GENERIC is pip
+
+%
+
+/* Configuration and size constants */
+
+#define MEMMARK				/* enable memory marking	*/
+#define NPROC   64                      /* number of user processes     */
+#define NSEM    128                     /* total number of semaphores   */
+
+#define	RTCLOCK				/* system has a real-time clock	*/
+#define NETWORK                         /* include network interfaces   */
+#define NETDEV  EC0                     /* network input/output device  */
+
+#define	TCPSBS	4096			/* TCP send buffer sizes	*/
+#define TCPRBS  4096                    /* TCP receive buffer sizes     */
+
+#define NPORTS  16
+
+#define	TIMERGRAN	1		/* timer granularity, secs/10	*/
+
+#ifndef	Noth
+#define	Noth	0
+#endif
+
+#define VERSION "LinXinu v1.0 based on 7.9 PC (5-Apr-94)" /* label printed at startup     */
+//#define	TURBOC				/* compile with Turbo C compiler*/

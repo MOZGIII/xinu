@@ -1,0 +1,26 @@
+echod.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h echod.c
+egp.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h egp.c
+fingerd.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h fingerd.c
+lfing.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\shell.h lfing.c
+ripadd.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ripadd.c
+ripcheck.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ripcheck.c
+ripifset.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ripifset.c
+ripin.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h ripin.c
+ripmetri.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ripmetri.c
+ripok.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ripok.c
+ripout.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ripout.c
+riprecv.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h riprecv.c
+riprepl.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h riprepl.c
+ripsend.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ripsend.c
+ripstart.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h ripstart.c
+rlogind.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\shell.h rlogind.c
+rwho.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\rwho.h rwho.c
+rwhod.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\rwho.h $(H)\shell.h rwhod.c
+rwhoind.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\rwho.h rwhoind.c
+snmpd.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\network.h $(H)\snmp.h snmpd.c
+tftpd.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\mem.h $(H)\network.h $(H)\proc.h $(H)\tftp.h tftpd.c
+tftperr.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\network.h $(H)\tftp.h tftperr.c
+tftpsend.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\network.h $(H)\tftp.h $(H)\tty.h tftpsend.c
+tftptd.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\mem.h $(H)\network.h $(H)\proc.h $(H)\tftp.h tftptd.c
+udpecho.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\network.h udpecho.c
+udpqd.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h udpqd.c

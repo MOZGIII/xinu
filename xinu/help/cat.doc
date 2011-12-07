@@ -1,0 +1,24 @@
+CAT(1)            PCXinu 7.9 Programmer's Manual              CAT(1)
+
+NAME
+        cat - concatenate files and write to standard output
+
+SYNOPSIS
+        cat [file ...]
+
+DESCRIPTION
+        cat concatenates a set of files by opening each file in turn
+        and writing its contents to standard output. Because standard
+        output normally goes to the window in which the shell runs,
+        invoking cat on a single file causes the contents of the file
+        to be written on the screen.
+
+NOTES
+        Shell redirection can be used to combine files into a single
+        file: cat file1 file2 >file3
+
+        cat >file can be used to generate a file from keyboard input.
+        Ctrl-D will close the file and terminate the command.
+
+SEE ALSO
+        cp(1), echo(1)

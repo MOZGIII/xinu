@@ -1,0 +1,16 @@
+SHELL(1)            PCXinu 7.9 Programmer's Manual              SHELL(1)
+
+NAME
+        shell - invoke a shell in a named window
+
+SYNOPSIS
+        shell border [color] name 
+
+DESCRIPTION
+        shell opens a window within the specified border and of the
+        specified color. If the color is omitted, wht/blk is assumed.
+        If the window has a border, the name is displayed in the top 
+        border. A process called shell is then invoked inside the window.
+
+SEE ALSO
+        sh(1), window(1)

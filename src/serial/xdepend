@@ -1,0 +1,11 @@
+init_aux.obj: $(H)\conf.h $(H)\kernel.h $(H)\sl.h init_aux.c
+send_ack.obj: $(H)\conf.h $(H)\kernel.h $(H)\sl.h send_ack.c
+send_req.obj: $(H)\conf.h $(H)\kernel.h $(H)\sl.h send_req.c
+sl_bin.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\proc.h $(H)\sl.h sl_bin.c
+sl_bout.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\sl.h sl_bout.c
+slinit.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\sl.h slinit.c
+slinter.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\sl.h slinter.c
+slread.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\sl.h slread.c
+slwrite.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\sl.h slwrite.c
+slwstrt.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\sl.h slwstrt.c
+wake_ser.obj: $(H)\conf.h $(H)\kernel.h $(H)\sl.h wake_ser.c

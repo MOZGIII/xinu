@@ -1,0 +1,39 @@
+
+ Volume in drive C is MS-DOS_5   
+ Volume Serial Number is 1C30-7077
+ Directory of C:\XINU79\PCXNET\SRC\NET
+
+INITHOST C        2270 22-09-93  10:57p
+DOT2IP   C         535 13-08-93  10:41a
+DNPARSE  C         903 13-08-93  10:41a
+NETSTART C        3967 19-01-94  12:04a
+GETADDR  C        1016 13-08-93  10:41a
+ETHINIT  C        4885 29-09-93   9:22a
+GETNET   C         881 13-08-93  10:41a
+SETMASK  C        1747 24-11-93  12:02a
+NETMATCH C         684 13-08-93  10:41a
+NETDUMP  C         864 13-08-93  10:41a
+NETMASK  C         997 13-08-93  10:41a
+NETNUM   C         585 13-08-93  10:41a
+OTHWRITE C        1270 13-08-93  10:41a
+OTHINIT  C        1814 13-08-93  10:41a
+RARP_IN  C        1263 22-09-93  11:44p
+SLOWTIME C         799 13-08-93  10:41a
+IP2DOT   C         535 23-09-93   5:53p
+RARPSEND C        3075 24-11-93  12:30a
+INITGATE C        3376 26-09-93   9:38a
+ETHOUT   C        3193 28-09-93  12:48p
+ETHWRITE C        1121 18-09-93  10:07a
+NETWRITE C        1652 20-09-93   4:44p
+IP2NAME  C        2512 24-09-93  12:22a
+ETHINTER C        3743 28-09-93  11:19p
+ETHDEMUX C        4913 28-09-93   9:52a
+GETNAME  C        1150 13-09-93   9:14p
+NI_IN    C         909 03-10-93   8:52a
+NAME2IP  C        3407 24-09-93  12:22a
+BLKCOPY  C         478 13-08-93  10:41a
+BLKEQU   C         474 13-08-93  10:41a
+ETHSTATE C        2638 30-09-93  10:10p
+LOCAL_OU C        1000 13-08-93  10:41a
+       32 file(s)      58656 bytes
+                    23357440 bytes free

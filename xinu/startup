@@ -1,0 +1,4 @@
+shell #0,0:79,12 wht/red shell1
+shell #0,13:79,22 wht/red shell2
+window 0,23:79,23 blk/wht status
+status 2 >status &

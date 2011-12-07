@@ -1,0 +1,33 @@
+getpdev.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\proc.h $(H)\sio.h getpdev.c
+ioerr.obj: $(H)\conf.h $(H)\kernel.h ioerr.c
+ionull.obj: $(H)\conf.h $(H)\kernel.h ionull.c
+ioopen.obj: $(H)\conf.h $(H)\kernel.h ioopen.c
+mount.obj: $(H)\conf.h $(H)\kernel.h $(H)\name.h mount.c
+namcntl.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\name.h namcntl.c
+naminit.obj: $(H)\conf.h $(H)\kernel.h $(H)\name.h naminit.c
+nammap.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\name.h nammap.c
+nammapd.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\name.h nammapd.c
+namopen.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\name.h namopen.c
+namrepl.obj: $(H)\conf.h $(H)\kernel.h $(H)\name.h namrepl.c
+newsiodv.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\io.h $(H)\kernel.h $(H)\name.h $(H)\proc.h $(H)\sio.h newsiodv.c
+pipalloc.obj: $(H)\conf.h $(H)\kernel.h $(H)\pipe.h pipalloc.c
+pipclose.obj: $(H)\conf.h $(H)\kernel.h $(H)\pipe.h $(H)\proc.h pipclose.c
+pipgetc.obj: $(H)\conf.h $(H)\kernel.h $(H)\pipe.h $(H)\proc.h pipgetc.c
+pipinit.obj: $(H)\conf.h $(H)\kernel.h $(H)\pipe.h $(H)\proc.h pipinit.c
+pipopen.obj: $(H)\conf.h $(H)\kernel.h $(H)\pipe.h pipopen.c
+pipputc.obj: $(H)\conf.h $(H)\kernel.h $(H)\pipe.h pipputc.c
+pipread.obj: $(H)\conf.h $(H)\kernel.h $(H)\pipe.h $(H)\proc.h pipread.c
+pipwrite.obj: $(H)\conf.h $(H)\kernel.h $(H)\pipe.h pipwrite.c
+rmount.obj: $(H)\conf.h $(H)\kernel.h $(H)\name.h $(H)\network.h rmount.c
+setpdev.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\proc.h $(H)\sio.h setpdev.c
+sioclose.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\proc.h sioclose.c
+siocntl.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h siocntl.c
+siogetc.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h siogetc.c
+sioinit.obj: $(H)\conf.h $(H)\kernel.h $(H)\sio.h sioinit.c
+sioopen.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\io.h $(H)\kernel.h $(H)\name.h $(H)\proc.h sioopen.c
+sioputc.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h sioputc.c
+sioread.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h sioread.c
+sioseek.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h sioseek.c
+siowrite.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h siowrite.c
+unmount.obj: $(H)\conf.h $(H)\kernel.h $(H)\name.h $(H)\network.h unmount.c
+xioopen.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\io.h $(H)\kernel.h $(H)\name.h $(H)\sio.h xioopen.c

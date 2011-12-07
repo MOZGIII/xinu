@@ -1,0 +1,17 @@
+CHDSK(1)            PCXinu 7.9 Programmer's Manual              CHDSK(1)
+
+NAME
+        chdsk - change disk in drive
+
+SYNOPSIS
+        chdsk [drive]
+
+DESCRIPTION
+        chdsk reads the directory structure of a Xinu formatted disk
+        in [drive]. Directory structure errors are reported.
+
+NOTES
+        chdsk is used only with Xinu formatted disks.
+
+SEE ALSO
+        dsk(4)

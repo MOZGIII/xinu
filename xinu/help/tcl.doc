@@ -1,0 +1,26 @@
+TCL(1)              PCXinu 7.9 Programmer's Manual              TCL(1)
+
+NAME
+        tcl - Tcl 6.7 command language interpreter
+
+SYNOPSIS
+        tcl [filename]
+        tclsh
+
+DESCRIPTION
+        This Xinu adaptation of John Ousterhout's Tool Command Language
+        supports many features of TCL as described in "Tcl and the Tk 
+        Toolkit" (Addison-Wesley 1994).
+        Tcl can be invoked from the shell with an argument specifying
+        the name of a Tcl Script. If a Tcl script contains #!tcl in its
+        first line, the filename can be typed directly to the shell, and
+        the Tcl interpreter is invoked automatically. Arguments are passed
+        as expected.
+
+NOTES
+        Not all of the file, exec and open options have been ported.
+        Floating-point operations are NOT supported.
+        SNMP Tcl commands will be available soon.
+        
+SEE ALSO
+        sh(1), snmp(1)

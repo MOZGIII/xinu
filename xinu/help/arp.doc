@@ -1,0 +1,18 @@
+ARP(1)            PCXinu 7.9 Programmer's Manual              ARP(1)
+
+NAME
+        arp - print information about the arp cache
+
+SYNOPSIS
+        arp
+
+DESCRIPTION
+        Arp extracts information from the arp table and formats it
+        in a readable form. Each line of output contains information
+        about a single arp entry and shows the arp entry state (RESOLVED 
+        or PENDING), protocol address (IP address), hardware address 
+        (Ethernet address), hardware type, protocol type, interface 
+        number, and time to live (in seconds).
+
+SEE ALSO
+        routes(2)

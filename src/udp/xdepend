@@ -1,0 +1,7 @@
+udp_in.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h udp_in.c
+udpcksum.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h udpcksum.c
+udph2net.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h udph2net.c
+udpnet2h.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h udpnet2h.c
+udpnxtp.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h udpnxtp.c
+udpsend.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h udpsend.c
+upalloc.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h upalloc.c

@@ -1,0 +1,11 @@
+$(H)\bufpool.h
+$(H)\conf.h
+$(H)\kernel.h
+$(H)\network.h
+icerrok.c
+icmp.c
+icmp_in.c
+icredire.c
+icsetbuf.c
+icsetdat.c
+icsetsrc.c

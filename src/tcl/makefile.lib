@@ -1,0 +1,57 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm /MX /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/tcl.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+
+.asm.o:
+	$(ASM) $*;
+
+#OBJS = assem.o basic.o cmdah.o cmdil.o cmdmz.o dff.o env.o \
+
+OBJS = assem.o basic.o cmdah.o cmdil.o cmdmz.o env.o \
+expr.o get.o glob.o hash.o history.o parse.o proc.o \
+regexp.o snmp.o unixaz.o unixstr.o unixutil.o util.o var.o \
+xinu.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+assem.o: $(H)/tclInt.h assem.c
+basic.o: $(H)/tclInt.h basic.c
+cmdah.o: $(H)/tclInt.h cmdah.c
+cmdil.o: $(H)/tclInt.h cmdil.c
+cmdmz.o: $(H)/tclInt.h cmdmz.c
+#dff.o: $(H)/dirent.h dff.c
+env.o: $(H)/msdos.h $(H)/tclInt.h env.c
+expr.o: $(H)/msdos.h $(H)/tclInt.h expr.c
+get.o: $(H)/tclInt.h get.c
+#glob.o: $(H)/dirent.h $(H)/stat.h $(H)/tclInt.h glob.c
+glob.o: $(H)/stat.h $(H)/tclInt.h glob.c
+hash.o: $(H)/tclInt.h hash.c
+history.o: $(H)/tclInt.h history.c
+
+#opendir.o: $(H)/dirent.h $(H)/msdos.h $(H)/tclInt.h opendir.c
+parse.o: $(H)/tclInt.h parse.c
+proc.o: $(H)/tclInt.h proc.c
+regexp.o: $(H)/tclInt.h regexp.c
+snmp.o: $(H)/tclInt.h snmp.c
+unixaz.o: $(H)/fcntl.h $(H)/mffile.h $(H)/msdos.h $(H)/stat.h $(H)/stdio.h $(H)/tclInt.h unixaz.c
+unixstr.o: $(H)/msdos.h $(H)/tclInt.h unixstr.c
+unixutil.o: $(H)/mffile.h $(H)/msdos.h $(H)/tclInt.h unixutil.c
+util.o: $(H)/tclInt.h util.c
+var.o: $(H)/tclInt.h var.c
+xinu.o: $(H)/fcntl.h $(H)/msdos.h $(H)/sleep.h $(H)/tclInt.h xinu.c

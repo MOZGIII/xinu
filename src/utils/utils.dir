@@ -1,0 +1,43 @@
+
+ Volume in drive C is MS-DOS_5   
+ Volume Serial Number is 1C30-7077
+ Directory of C:\XINU79\PCXNET\SRC\UTILS
+
+ABS      C          55 13-07-92   4:01p
+ATOF     C        1073 13-07-92   4:01p
+ATOI     C         279 13-07-92   4:01p
+ATOL     C         276 13-07-92   4:01p
+BCOPY    C         706 04-08-92  11:18a
+CKSUM    C         502 22-10-92   9:27a
+BZERO    C         177 13-07-92   4:01p
+DOSCAN   C        6140 10-06-93   2:46p
+ECVT     C        1642 15-07-92   1:46p
+FGETS    C         593 14-11-93  11:15p
+FPRINTF  C         432 25-10-93  12:56p
+FPUTS    C         416 13-07-92   4:01p
+GETS     C         603 14-11-93  11:15p
+INDEX    C         254 14-11-93  11:15p
+QSORT    C        1419 15-07-92   1:46p
+PRINTF   C         391 30-05-93  10:10a
+PUTS     C         398 13-07-92   4:01p
+RAND     C         133 13-07-92   4:01p
+RINDEX   C         248 13-07-92   4:01p
+SPRINTF  C         544 01-06-93   4:06p
+STRCAT   C         242 13-07-92   4:01p
+STRCMP   C         182 13-07-92   4:01p
+STRCPY   C         196 13-07-92   4:01p
+STRLEN   C         159 13-07-92   4:01p
+STRNCAT  C         337 13-07-92   4:01p
+STRNCMP  C         240 13-07-92   4:01p
+STRNCPY  C         318 13-07-92   4:01p
+SWAB     C         234 13-07-92   4:01p
+BUTLER   C        1072 30-07-91   3:44p
+SCANF    C        2775 29-10-93  10:45a
+TSNAP    C        2181 30-07-91   3:44p
+PSNAP    C        4119 30-07-91   3:44p
+ASCDATE  C        1412 01-06-93   4:09p
+IP2STR   C         485 31-07-91  11:46a
+UDP2STR  C        1570 10-10-93  11:45p
+DOPRNT   C        6978 22-10-93   2:25p
+       36 file(s)      38781 bytes
+                    23353344 bytes free

@@ -1,0 +1,22 @@
+DGSTAT(1)             PCXinu 7.9 Programmer's Manual               DGSTAT(1)
+
+NAME
+        dgstat - print information on current datagram pseudo-devices.
+
+SYNOPSIS
+        dgstat
+
+DESCRIPTION
+        Dgstat extracts information from datagram control blocks and
+        formats it in a readable form. Each line of output contains
+        information about an open UDP datagram pseudo-device. Columns
+        give the device number, device mode, Xinu port number, process
+        name, foreign IP address, foreign and local UDP port numbers.
+
+NOTES
+        The device mode specifies whether Xinugrams or Datagrams are to
+        be passed to the receiving process. An optional timeout bit can
+        also be set.
+
+SEE ALSO
+        devs(1), netstat(1)

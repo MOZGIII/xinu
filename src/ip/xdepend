@@ -1,0 +1,29 @@
+ip_in.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h ip_in.c
+ipdbc.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h ipdbc.c
+ipdoopts.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ipdoopts.c
+ipdstopt.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ipdstopt.c
+ipfadd.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h $(H)\q.h ipfadd.c
+ipfcons.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\q.h ipfcons.c
+ipfhcopy.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ipfhcopy.c
+ipfinit.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ipfinit.c
+ipfjoin.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h $(H)\q.h ipfjoin.c
+ipfsend.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h ipfsend.c
+ipftimer.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\q.h ipftimer.c
+ipgetp.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\q.h ipgetp.c
+iph2net.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h iph2net.c
+ipnet2h.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ipnet2h.c
+ipproc.obj: $(H)\bufpool.h $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\network.h ipproc.c
+ipputp.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h ipputp.c
+ipreass.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\q.h ipreass.c
+ipredire.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ipredire.c
+ipsend.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ipsend.c
+isbrc.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\sleep.h isbrc.c
+rtadd.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rtadd.c
+rtdel.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rtdel.c
+rtdump.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\sleep.h rtdump.c
+rtfree.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h rtfree.c
+rtget.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rtget.c
+rthash.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h rthash.c
+rtinit.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\sleep.h rtinit.c
+rtnew.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h rtnew.c
+rttimer.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\network.h rttimer.c

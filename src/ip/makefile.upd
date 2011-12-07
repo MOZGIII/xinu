@@ -1,0 +1,62 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm /MX /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/network.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+	$(LIB) $(LIBFILE) $*.o
+
+.asm.o:
+	$(ASM) $*;
+	$(LIB) $(LIBFILE) $*.o
+
+OBJS = ip_in.o ipdbc.o ipdoopts.o ipdstopt.o ipfadd.o ipfcons.o \
+ipfhcopy.o ipfinit.o ipfjoin.o ipfsend.o ipftimer.o ipgetp.o \
+iph2net.o ipnet2h.o ipproc.o ipputp.o ipreass.o ipredire.o \
+ipsend.o isbrc.o rtadd.o rtdel.o rtdump.o rtfree.o rtget.o \
+rthash.o rtinit.o rtnew.o rttimer.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+ip_in.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h ip_in.c
+ipdbc.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h ipdbc.c
+ipdoopts.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ipdoopts.c
+ipdstopt.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ipdstopt.c
+ipfadd.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h $(H)/q.h ipfadd.c
+ipfcons.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/q.h ipfcons.c
+ipfhcopy.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ipfhcopy.c
+ipfinit.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ipfinit.c
+ipfjoin.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h $(H)/q.h ipfjoin.c
+ipfsend.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h ipfsend.c
+ipftimer.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/q.h ipftimer.c
+ipgetp.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/q.h ipgetp.c
+iph2net.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h iph2net.c
+ipnet2h.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ipnet2h.c
+ipproc.o: $(H)/bufpool.h $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/network.h ipproc.c
+ipputp.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h ipputp.c
+ipreass.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/q.h ipreass.c
+ipredire.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ipredire.c
+ipsend.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ipsend.c
+isbrc.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/sleep.h isbrc.c
+rtadd.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rtadd.c
+rtdel.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rtdel.c
+rtdump.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/sleep.h rtdump.c
+rtfree.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h rtfree.c
+rtget.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rtget.c
+rthash.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h rthash.c
+rtinit.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/sleep.h rtinit.c
+rtnew.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h rtnew.c
+rttimer.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/network.h rttimer.c

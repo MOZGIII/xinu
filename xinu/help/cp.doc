@@ -1,0 +1,18 @@
+CP(1)             PCXinu 7.9 Programmer's Manual               CP(1)
+
+NAME
+        cp - copies one file to another
+
+SYNOPSIS
+        cp [-b] source dest
+
+DESCRIPTION
+        cp copies the source file to the destination file. cp uses the
+        namespace when opening files, so it is possible to copy a file
+        to any device (e.g. the console). The -b option specifies a
+        binary copy (i.e. 8-bit transparent data).
+
+NOTES
+
+SEE ALSO
+        cat(1), mv(1), rm(1)

@@ -1,0 +1,71 @@
+; xeidi.asm - _sys_xdisabl, _sys_xrestor, _sys_pcxget, _sys_getstk
+
+	%include	"../h/dos.asm"		; segment macros
+
+	dseg
+; null data segment
+	endds
+
+	pseg
+
+	global	sys_xdisabl, sys_xrestor, sys_pcxget, sys_getstk
+	extern	pcxflag;:word
+	extern	sssave;:word
+	extern	spsave;:word
+
+;-------------------------------------------------------------------------
+; _sys_xdisabl  --  return pcxflag & disable context switching
+;-------------------------------------------------------------------------
+; int sys_xdisabl()
+sys_xdisabl:;	proc	far
+;	pushf
+;	cli			; disable interrupts
+;	xor	ax,ax
+;	xchg	ax,cs:pcxflag
+;	popf
+	ret
+;_sys_xdisabl	endp
+
+;-------------------------------------------------------------------------
+; _sys_xrestor  --  restore pcxflag
+;-------------------------------------------------------------------------
+; sys_xrestor(ps)
+; int ps;
+sys_xrestor:;	proc	far
+;	push	bp
+;	mov	bp,sp		; C calling convention
+;	pushf
+;	cli			; disable interrupts
+;	mov	ax,[bp+6];	; get passed flags word
+;        mov     [cs:pcxflag],ax   ; reset pcxflag to passed value
+;	popf
+;	pop	bp
+	ret
+;_sys_xrestor	endp
+
+;-------------------------------------------------------------------------
+; _sys_pcxget  --  get the current value of pcxflag
+;-------------------------------------------------------------------------
+; int sys_pcxget()
+sys_pcxget:;	proc	far
+	pushf
+;	cli			; disable interrupts
+	mov	ax,[cs:pcxflag]
+	popf
+	ret
+;_sys_pcxget	endp
+
+;-------------------------------------------------------------------------
+; sys_getstk  --  get the stack parameters for panic printing
+;-------------------------------------------------------------------------
+; int *sys_getstk()
+sys_getstk:;	proc	far
+	mov	ax,[cs:spsave]
+	mov	dx,[cs:sssave]
+	ret
+;_sys_getstk	endp
+
+	endps
+
+	end
+

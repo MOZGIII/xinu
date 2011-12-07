@@ -1,0 +1,65 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm /MX /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/xinu.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+
+.asm.o:
+	$(ASM) $*;
+
+OBJS = abs.o ascdate.o atoi.o atol.o bcopy.o butler.o bzero.o \
+cksum.o doprnt.o doscan.o fgets.o fprintf.o fputs.o gets.o \
+index.o ip2str.o printf.o psnap.o puts.o qsort.o rand.o \
+rindex.o scanf.o sprintf.o strcat.o strcmp.o strcpy.o strlen.o \
+strncat.o strncmp.o strncpy.o swab.o tsnap.o udp2str.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+abs.o: abs.c
+ascdate.o: $(H)/conf.h $(H)/date.h $(H)/kernel.h ascdate.c
+atoi.o: atoi.c
+atol.o: atol.c
+bcopy.o: bcopy.c
+butler.o: $(H)/butler.h $(H)/conf.h $(H)/kernel.h butler.c
+bzero.o: bzero.c
+cksum.o: cksum.c
+doprnt.o: $(H)/dos.h doprnt.c
+doscan.o: $(H)/ctype.h doscan.c
+fgets.o: fgets.c
+fprintf.o: fprintf.c
+fputs.o: fputs.c
+gets.o: gets.c
+index.o: index.c
+ip2str.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ip2str.c
+printf.o: $(H)/conf.h $(H)/kernel.h printf.c
+psnap.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/proc.h $(H)/q.h psnap.c
+puts.o: puts.c
+qsort.o: qsort.c
+rand.o: rand.c
+rindex.o: rindex.c
+scanf.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/tty.h scanf.c
+sprintf.o: $(H)/conf.h $(H)/kernel.h sprintf.c
+strcat.o: strcat.c
+strcmp.o: strcmp.c
+strcpy.o: strcpy.c
+strlen.o: strlen.c
+strncat.o: strncat.c
+strncmp.o: strncmp.c
+strncpy.o: strncpy.c
+swab.o: swab.c
+tsnap.o: $(H)/conf.h $(H)/kernel.h $(H)/sem.h $(H)/tty.h tsnap.c
+udp2str.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h udp2str.c

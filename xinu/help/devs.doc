@@ -1,0 +1,20 @@
+DEVS(1)             PCXinu 7.9 Programmer's Manual               DEVS(1)
+
+NAME
+        devs - print information from the device switch table
+
+SYNOPSIS
+        devs
+
+DESCRIPTION
+        Devs extracts information from the device switch table and
+        formats it in a readable form. Each line of output contains
+        information about a device or a pseudo-device. Columns give
+        the major device number, device name, minor device number, I/O
+        address, input and output interrupt vector addresses, device
+        control block address and the device reference count.
+
+NOTES
+
+SEE ALSO
+        close(1), mount(1)

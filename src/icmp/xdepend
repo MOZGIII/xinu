@@ -1,0 +1,7 @@
+icerrok.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h icerrok.c
+icmp.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h icmp.c
+icmp_in.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h icmp_in.c
+icredire.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h icredire.c
+icsetbuf.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h icsetbuf.c
+icsetdat.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h icsetdat.c
+icsetsrc.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h icsetsrc.c

@@ -1,0 +1,11 @@
+config.c
+gettoken.c
+lazy.c
+gettoken.h
+lazy.h
+pcxconf
+pcxconf.3c
+pcxconf.wd
+cmake.bat
+conftest.bat
+makefile

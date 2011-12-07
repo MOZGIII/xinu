@@ -1,0 +1,37 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm /MX /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/network.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+	$(LIB) $(LIBFILE) $*.o
+
+.asm.o:
+	$(ASM) $*;
+	$(LIB) $(LIBFILE) $*.o
+
+OBJS = icerrok.o icmp.o icmp_in.o icredire.o icsetbuf.o \
+icsetdat.o icsetsrc.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+icerrok.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h icerrok.c
+icmp.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h icmp.c
+icmp_in.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h icmp_in.c
+icredire.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h icredire.c
+icsetbuf.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h icsetbuf.c
+icsetdat.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h icsetdat.c
+icsetsrc.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h icsetsrc.c

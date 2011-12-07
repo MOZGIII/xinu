@@ -1,0 +1,99 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm /MX /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/network.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+
+.asm.o:
+	$(ASM) $*;
+
+OBJS = tcp_in.o tcpabort.o tcpacked.o tcpackit.o tcpcksum.o \
+tcpclosd.o tcpclose.o tcpclosi.o tcpclosw.o tcpdata.o tcpdemux.o \
+tcpdodat.o tcpestab.o tcpfin1.o tcpfin2.o tcph2net.o tcphowmu.o \
+tcpidle.o tcpinp.o tcpiss.o tcpkick.o tcpkillt.o tcplasta.o \
+tcpliste.o tcpnet2h.o tcpok.o tcpopts.o tcpostat.o tcpout.o \
+tcppersi.o tcprcvur.o tcpreset.o tcprexmt.o tcprmss.o tcprtt.o \
+tcprwind.o tcpsend.o tcpshski.o tcpsmss.o tcpsndle.o tcpsndur.o \
+tcpswind.o tcpswitc.o tcpsync.o tcpsynrc.o tcpsynse.o tcptimer.o \
+tcptimew.o tcpwait.o tcpwakeu.o tcpwinit.o tcpxmit.o tfcoales.o \
+tfinsert.o tmclear.o tmleft.o tmset.o tqdump.o uqalloc.o \
+uqfree.o uqinit.o uqprint.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+tcp_in.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h tcp_in.c
+tcpabort.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpabort.c
+tcpacked.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpacked.c
+tcpackit.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpackit.c
+tcpcksum.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpcksum.c
+tcpclosd.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpclosd.c
+tcpclose.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpclose.c
+tcpclosi.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpclosi.c
+tcpclosw.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpclosw.c
+tcpdata.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpdata.c
+tcpdemux.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpdemux.c
+tcpdodat.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpdodat.c
+tcpestab.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpestab.c
+tcpfin1.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpfin1.c
+tcpfin2.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpfin2.c
+tcph2net.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcph2net.c
+tcphowmu.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcphowmu.c
+tcpidle.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpidle.c
+tcpinp.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/ports.h tcpinp.c
+tcpiss.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpiss.c
+tcpkick.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpkick.c
+tcpkillt.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpkillt.c
+tcplasta.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcplasta.c
+tcpliste.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpliste.c
+tcpnet2h.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpnet2h.c
+tcpok.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpok.c
+tcpopts.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpopts.c
+tcpostat.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpostat.c
+tcpout.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/ports.h tcpout.c
+tcppersi.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcppersi.c
+tcprcvur.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/q.h tcprcvur.c
+tcpreset.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpreset.c
+tcprexmt.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcprexmt.c
+tcprmss.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcprmss.c
+tcprtt.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcprtt.c
+tcprwind.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcprwind.c
+tcpsend.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpsend.c
+tcpshski.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/q.h tcpshski.c
+tcpsmss.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpsmss.c
+tcpsndle.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/q.h tcpsndle.c
+tcpsndur.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpsndur.c
+tcpswind.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpswind.c
+tcpswitc.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpswitc.c
+tcpsync.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/network.h tcpsync.c
+tcpsynrc.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpsynrc.c
+tcpsynse.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpsynse.c
+tcptimer.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcptimer.c
+tcptimew.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcptimew.c
+tcpwait.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpwait.c
+tcpwakeu.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpwakeu.c
+tcpwinit.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpwinit.c
+tcpxmit.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tcpxmit.c
+tfcoales.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tfcoales.c
+tfinsert.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/network.h $(H)/q.h tfinsert.c
+tmclear.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tmclear.c
+tmleft.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tmleft.c
+tmset.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/network.h tmset.c
+tqdump.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h tqdump.c
+uqalloc.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h uqalloc.c
+uqfree.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h uqfree.c
+uqinit.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h uqinit.c
+uqprint.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h uqprint.c

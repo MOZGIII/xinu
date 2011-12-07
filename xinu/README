@@ -1,0 +1,60 @@
+ParaXinu 1.0 ReadMe.
+
+1. About ParaXinu
+2. Content of this directory
+3. Compiling ParaXinu
+4. Using ParaXinu
+5. Contacting author
+--------------------------------------------------------------------------------
+
+1. About ParaXinu.
+
+ParaXinu is a derivative of XINU learning OS. It's based on sources of XINU 7.9,
+but runs underl Linux instead of DOS and can be compiled with modern compilers.
+ParaXinu was created specially for use by stundents of Moscow State Industrial
+University (www.msiu.ru).
+
+2. Content of this directory.
+README     -- File you're reading now :)
+junk.c     -- Source file used by Xinu compilation process
+xinu.c     -- Source file for user process in Xinu
+k          -- Shell script, which kills xinu process quickly
+startup    -- Startup script for Xinu command shell
+trace      -- Shell script, which starts strace with xinu.exe as argument
+grind      -- Shell script, which starts Valgrind with xinu.exe as argument
+xinu_debug -- Shell script, which starts DDD debugger with xinu.exe as argument
+xinu.exe   -- Executable file of ParaXinu OS
+
+3. Compiling ParaXinu.
+ParaXinu was modified to be built by GCC 4.x. It was tested with GCC 4.1.2 on
+Debian 4.1.1-21, but should also work with other GCC 3.x and 4.x compilers
+without further modifications.
+
+Additionally, to compile Xinu you need NASM assembler and NCurses library for
+shell.
+
+To compile Xinu, just type 'make' (without quotes) in this directory.
+
+XINU should partially compatible with "-ansi" switch to GCC, but sigaction
+would not compile this way. Also, XINU should be fully compatible with
+"-pedantic" switch.
+
+4. Using Xinu.
+After you run xinu.exe, Xinu will initialize its devices and processes and show
+some information about memory. After that, Xinu will execute user function, 
+xmain, which is placed into xinu.c. By default, this function runs login
+procedure, but you can changed it to anything you want.
+
+Currently, Xinu only accepts one login, which is hard-coded into login() 
+function. This login is 'dc'. No password is needed.
+
+After succesful login, Xinu will fire up its command shell, which first will
+read and execute commands from 'startup' script and then go into interactive
+mode. To get list of commands in this mode, type 'help' or 'man' or '?'. To
+get help about particular command, type 'help' or 'man' followed by the name
+of command (help is only available for some shell commands).
+
+5. Contacting author.
+ParaXinu 1.0 is written by Max Savenkov in 2007. You can contact me by e-mail:
+max-savenkov AT tochka DOT ru. Note, that I DID NOT wrote original Xinu, but
+ONLY PORTED it to Linux from DOS.

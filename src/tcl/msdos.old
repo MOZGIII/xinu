@@ -1,0 +1,712 @@
+/* pcxinu.c --  PC Xinu stuff */
+
+#include <tclInt.h>
+#include <msdos.h>
+
+extern _fmode = O_TEXT;
+extern unsigned _stklen =12000U;
+
+
+
+char *to_slash(string)
+char *string;
+{
+	static char strn[129];
+	char *str;
+
+	str=strn;
+	strcpy(strn,string);
+	while(*str)
+	{
+		if(*str=='\\') *str='/';
+		str++;
+	}
+	return(strn);
+}
+
+char *to_bslash(string)
+char *string;
+{
+	static char strn[129];
+	char *str;
+
+	str=strn;
+	strcpy(strn,string);
+	while(*str)
+	{
+		if(*str=='/') *str='\\';
+		str++;
+	}
+	return(strn);
+}
+
+
+
+/**************************************************************/
+
+/* msdos version extract of glob.c */
+
+/*
+ *----------------------------------------------------------------------
+ *
+ * Tcl_TildeSubst --
+ *
+ *	Given a name starting with a tilde, produce a name where
+ *	the tilde and following characters have been replaced by
+ *	the home directory location for the named user.
+ *
+ * Results:
+ *	The result is a pointer to a static string containing
+ *	the new name.  This name will only persist until the next
+ *	call to Tcl_TildeSubst;  save it if you care about it for
+ *	the long term.  If there was an error in processing the
+ *	tilde, then an error message is left in interp->result
+ *	and the return value is NULL.
+ *
+ * Side effects:
+ *	None that the caller needs to worry about.
+ *
+ *----------------------------------------------------------------------
+ */
+
+char *
+Tcl_TildeSubst(interp, name)
+	Tcl_Interp *interp;		/* Interpreter in which to store error
+				 * message (if necessary). */
+	char *name;			/* File name, which may begin with "~/"
+				 * (to indicate current user's home directory)
+				 * or "~<user>/" (to indicate any user's (not supported!!!)
+				 * home directory). */
+{
+#define STATIC_BUF_SIZE 50
+	static char staticBuf[STATIC_BUF_SIZE];
+	static int curSize = STATIC_BUF_SIZE;
+	static char *curBuf = staticBuf;
+	char *dir;
+	int length;
+	register char *p;
+
+	if (name[0] != '~') {
+	return name;
+	}
+
+	/*
+	 * First, find the directory name corresponding to the tilde entry.
+	 */
+
+	/* !!!! "~<user>/ is not supported in msdos in lack of users :-) !!!! */
+
+	dir = getenv("HOME");
+	if (dir == NULL) {
+		Tcl_ResetResult(interp);
+		Tcl_AppendResult(interp, "couldn't find HOME environment ",
+			"variable to expand \"", name, "\"", (char *) NULL);
+		return NULL;
+	}
+	p = name+1;
+
+	/*
+	 * Grow the buffer if necessary to make enough space for the
+	 * full file name.
+	 */
+
+	length = strlen(dir) + strlen(p);
+	if (length >= curSize) {
+	if (curBuf != staticBuf) {
+		ckfree(curBuf);
+	}
+	curSize = length + 1;
+	curBuf = (char *) ckalloc((unsigned) curSize);
+	}
+
+	/*
+	 * Finally, concatenate the directory name with the remainder
+	 * of the path in the buffer.
+	 */
+
+	strcpy(curBuf, dir);
+	strcat(curBuf, p);
+	return curBuf;
+}
+
+
+
+/*************************************************************/
+
+
+
+/* msdos version extract of unixaz.c */
+
+
+/*
+ *----------------------------------------------------------------------
+ *
+ * Tcl_OpenCmd --
+ *
+ *	This procedure is invoked to process the "open" Tcl command.
+ *	See the user documentation for details on what it does.
+ *
+ * Results:
+ *	A standard Tcl result.
+ *
+ * Side effects:
+ *	See the user documentation.
+ *
+ *----------------------------------------------------------------------
+ */
+
+	/* ARGSUSED */
+int
+Tcl_OpenCmd(notUsed, interp, argc, argv)
+	ClientData notUsed;			/* Not used. */
+	Tcl_Interp *interp;			/* Current interpreter. */
+	int argc;				/* Number of arguments. */
+	char **argv;			/* Argument strings. */
+{
+    Interp *iPtr = (Interp *) interp;
+    int pipeline, fd;
+    char *access;
+    register OpenFile *filePtr;
+
+    if (argc == 2) {
+	access = "r";
+	} else if (argc == 3) {
+	access = argv[2];
+	} else {
+	Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0],
+		" filename ?access?\"", (char *) NULL);
+	return TCL_ERROR;
+	}
+
+	filePtr = (OpenFile *) ckalloc(sizeof(OpenFile));
+	filePtr->f = NULL;
+	filePtr->f2 = NULL;
+	filePtr->readable = 0;
+	filePtr->writable = 0;
+	filePtr->numPids = 0;
+	filePtr->pidPtr = NULL;
+	filePtr->errorId = -1;
+
+	/*
+	 * Verify the requested form of access.
+	 */
+
+	pipeline = 0;
+	if (argv[1][0] == '|') {
+	pipeline = 1;
+	}
+	switch (access[0]) {
+	case 'r':
+		filePtr->readable = 1;
+		break;
+	case 'w':
+		filePtr->writable = 1;
+		break;
+	case 'a':
+		filePtr->writable = 1;
+		break;
+	default:
+		badAccess:
+		Tcl_AppendResult(interp, "illegal access mode \"", access,
+			"\"", (char *) NULL);
+		goto error;
+	}
+	if (access[1] == '+') {
+	filePtr->readable = filePtr->writable = 1;
+	if (access[2] != 0) {
+		goto badAccess;
+	}
+	} else if (access[1] != 0) {
+	goto badAccess;
+	}
+
+	/*
+	 * Open the file or create a process pipeline.
+	 */
+
+	if (!pipeline) {
+	char *fileName = to_bslash(argv[1]);
+
+	if (fileName[0] == '~') {
+		fileName = Tcl_TildeSubst(interp, fileName);
+		if (fileName == NULL) {
+		goto error;
+		}
+	}
+	filePtr->f = fopen(fileName, access);
+	if (filePtr->f == NULL) {
+		Tcl_AppendResult(interp, "couldn't open \"", argv[1],
+			"\": ", Tcl_UnixError(interp), (char *) NULL);
+		goto error;
+	}
+	} else { /* no independent processes in MSDOS so: */
+	interp->result="open command with pipelining no supported in msdos vers.";
+	goto error;
+	}
+
+	/*
+	 * Enter this new OpenFile structure in the table for the
+	 * interpreter.  May have to expand the table to do this.
+	 */
+
+	fd = fileno(filePtr->f);
+	TclMakeFileTable(iPtr, fd);
+	if (iPtr->filePtrArray[fd] != NULL) {
+	panic("Tcl_OpenCmd found file already open");
+	}
+	iPtr->filePtrArray[fd] = filePtr;
+	sprintf(interp->result, "file%d", fd);
+	return TCL_OK;
+
+	error:
+	if (filePtr->f != NULL) {
+	fclose(filePtr->f);
+	}
+	if (filePtr->f2 != NULL) {
+	fclose(filePtr->f2);
+	}
+	if (filePtr->numPids > 0) {
+	Tcl_DetachPids(filePtr->numPids, filePtr->pidPtr);
+	ckfree((char *) filePtr->pidPtr);
+    }
+    if (filePtr->errorId != -1) {
+	close(filePtr->errorId);
+    }
+	ckfree((char *) filePtr);
+	return TCL_ERROR;
+}
+
+
+/*
+ *----------------------------------------------------------------------
+ *
+ * Tcl_TimeCmd --
+ *
+ *	This procedure is invoked to process the "time" Tcl command.
+ *	See the user documentation for details on what it does.
+ *
+ * Results:
+ *	A standard Tcl result.
+ *
+ * Side effects:
+ *	See the user documentation.
+ *
+ *----------------------------------------------------------------------
+ */
+
+	/* ARGSUSED */
+int
+Tcl_TimeCmd(dummy, interp, argc, argv)
+	ClientData dummy;			/* Not used. */
+	Tcl_Interp *interp;			/* Current interpreter. */
+	int argc;				/* Number of arguments. */
+	char **argv;			/* Argument strings. */
+{
+	int count, i, result;
+	double timePer;
+#if TCL_GETTOD
+	struct timeval start, stop;
+	struct timezone tz;
+	int micros;
+#else
+	/* struct tms dummy2;  not necessary in msdos port */
+	long start, stop;
+#endif
+
+	if (argc == 2) {
+	count = 1;
+	} else if (argc == 3) {
+	if (Tcl_GetInt(interp, argv[2], &count) != TCL_OK) {
+		return TCL_ERROR;
+	}
+	} else {
+	Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0],
+		" command ?count?\"", (char *) NULL);
+	return TCL_ERROR;
+	}
+#if TCL_GETTOD
+	gettimeofday(&start, &tz);
+#else
+	/* start = times(&dummy2); */
+	start = biostime(0,0L); /* use 18.2hz msdos ticks */
+#endif
+	for (i = count ; i > 0; i--) {
+	result = Tcl_Eval(interp, argv[1], 0, (char **) NULL);
+	if (result != TCL_OK) {
+		if (result == TCL_ERROR) {
+		char msg[60];
+		sprintf(msg, "\n    (\"time\" body line %d)",
+			interp->errorLine);
+		Tcl_AddErrorInfo(interp, msg);
+		}
+		return result;
+	}
+	}
+#if TCL_GETTOD
+	gettimeofday(&stop, &tz);
+	micros = (stop.tv_sec - start.tv_sec)*1000000
+		+ (stop.tv_usec - start.tv_usec);
+	timePer = micros;
+#else
+/*	stop = times(&dummy2);
+	timePer = (((double) (stop - start))*1000000.0)/CLK_TCK; */
+	stop = biostime(0,0L);
+	timePer = ((double) (stop - start))*54.945; /* 18.2hz adjust for msdos */
+#endif
+	Tcl_ResetResult(interp);
+	sprintf(interp->result, "%10.5g microseconds per iteration", timePer/count);
+	return TCL_OK;
+}
+
+/*
+ *----------------------------------------------------------------------
+ *
+ * CleanupChildren --
+ *
+ *	This is a utility procedure used to wait for child processes
+ *	to exit, record information about abnormal exits, and then
+ *	collect any stderr output generated by them.
+ *
+ * Results:
+ *	The return value is a standard Tcl result.  If anything at
+ *	weird happened with the child processes, TCL_ERROR is returned
+ *	and a message is left in interp->result.
+ *
+ * Side effects:
+ *	If the last character of interp->result is a newline, then it
+ *	is removed.  File errorId gets closed, and pidPtr is freed
+ *	back to the storage allocator.
+ *
+ *----------------------------------------------------------------------
+ */
+
+int
+CleanupChildren(interp, numPids, pidPtr, errorId)
+	Tcl_Interp *interp;		/* Used for error messages. */
+	int numPids;		/* Number of entries in pidPtr array. */
+	int *pidPtr;		/* Array of process ids of children. */
+	int errorId;		/* File descriptor index for file containing
+				 * stderr output from pipeline.  -1 means
+				 * there isn't any stderr output. */
+{
+ /* This routine was formerly used by the Tcl_Exec() and Tcl_Open()
+  * calls, which have no use for it, since msdos supports no
+  * independent child processes
+  */
+  return(TCL_OK);
+}
+
+/*************************************************************/
+
+
+
+/* msdos version extract of unixutil.c */
+
+/*
+ *----------------------------------------------------------------------
+ *
+ * Tcl_Fork --
+ *
+ *	Create a new process using the vfork system call, and keep
+ *	track of it for "safe" waiting with Tcl_WaitPids.
+ *
+ * Results:
+ *	The return value is the value returned by the vfork system
+ *	call (0 means child, > 0 means parent (value is child id),
+ *	< 0 means error).
+ *
+ * Side effects:
+ *	A new process is created, and an entry is added to an internal
+ *	table of child processes if the process is created successfully.
+ *
+ *----------------------------------------------------------------------
+ */
+
+/*
+ * This function is removed since it is only used by TCL_Exec(),
+ * which uses the msdos system() call to make this kind of action!
+ *
+ */
+
+/*
+ *----------------------------------------------------------------------
+ *
+ * Tcl_WaitPids --
+ *
+ *	This procedure is used to wait for one or more processes created
+ *	by Tcl_Fork to exit or suspend.  It records information about
+ *	all processes that exit or suspend, even those not waited for,
+ *	so that later waits for them will be able to get the status
+ *	information.
+ *
+ * Results:
+ *	-1 is returned if there is an error in the wait kernel call.
+ *	Otherwise the pid of an exited/suspended process from *pidPtr
+ *	is returned and *statusPtr is set to the status value returned
+ *	by the wait kernel call.
+ *
+ * Side effects:
+ *	Doesn't return until one of the pids at *pidPtr exits or suspends.
+ *
+ *----------------------------------------------------------------------
+ */
+
+/*
+ * This function is removed since it is only used by CleanupChildren(),
+ * which is only a dummy function!
+ *
+ */
+
+
+
+/*
+ *----------------------------------------------------------------------
+ *
+ * Tcl_DetachPids --
+ *
+ *	This procedure is called to indicate that one or more child
+ *	processes have been placed in background and are no longer
+ *	cared about.  They should be ignored in future calls to
+ *	Tcl_WaitPids.
+ *
+ * Results:
+ *	None.
+ *
+ * Side effects:
+ *	None.
+ *
+ *----------------------------------------------------------------------
+ */
+
+void
+Tcl_DetachPids(numPids, pidPtr)
+	int numPids;		/* Number of pids to detach:  gives size
+				 * of array pointed to by pidPtr. */
+	int *pidPtr;		/* Array of pids to detach:  must have
+				 * been created by Tcl_Fork. */
+{
+	/*
+	 * This is a dummy function to fulfill consistency.
+	 * Background processing is not allowed under MSDOS.
+	 *
+	 */
+}
+
+
+
+
+/*
+ *----------------------------------------------------------------------
+ *
+ * Tcl_ExecCmd --
+ *
+ *	This procedure is invoked to process the "exec" Tcl command.
+ *	See the user documentation for details on what it does.
+ *
+ * Results:
+ *	A standard Tcl result.
+ *
+ * Side effects:
+ *	See the user documentation.
+ *
+ *----------------------------------------------------------------------
+ */
+
+	/* ARGSUSED */
+int
+Tcl_ExecCmd(dummy, interp, argc, argv)
+	ClientData dummy;			/* Not used. */
+	Tcl_Interp *interp;			/* Current interpreter. */
+	int argc;				/* Number of arguments. */
+	char **argv;			/* Argument strings. */
+{
+	FILE *fp=NULL;
+	int i,result,got_pipe=0;
+	char command[200]="",tempstr[10];
+	char input[40]="",output[40]="",file[16],file2[16];
+	enum {none,got_com,pipe} status;
+
+	status=none;
+
+
+	for(i=1;i<argc;i++)
+	{
+		if(!strcmp(argv[i],"<"))
+		{
+			if(*input)
+			{
+			   Tcl_AppendResult( interp, "only one stdin source allowed", NULL );
+			   return(TCL_ERROR);
+
+			}
+			if(i==argc-1)
+			{
+			   Tcl_AppendResult( interp, "can't specify \"<\" as last word in command", NULL );
+			   return(TCL_ERROR);
+
+			}
+			i++;
+			sprintf(input," <%s",argv[i]);
+		}
+		else
+		if(!strcmp(argv[i],"<<"))
+		{
+			if(*input)
+			{
+			   Tcl_AppendResult( interp, "only one stdin source allowed", NULL );
+			   return(TCL_ERROR);
+
+			}
+			if(i==argc-1)
+			{
+			   Tcl_AppendResult( interp, "can't specify \"<<\" as last word in command", NULL );
+			   return(TCL_ERROR);
+
+			}
+			i++;
+			strcpy(file,"TXXXXXX");
+			fp=fopen(mktemp(file),"wt");
+			if(!fp)
+			{
+				Tcl_AppendResult(interp, "couldn't open temporary file: ",
+				Tcl_UnixError(interp), (char *) NULL);
+				return(TCL_ERROR);
+			}
+			fputs(argv[i],fp);
+			fclose(fp);
+			sprintf(input," <%s",file);
+		}
+		else
+		if(!strcmp(argv[i],">") || !strcmp(argv[i],">>"))
+		{
+			if(*output)
+			{
+			   Tcl_AppendResult( interp, "only one stdout source allowed", NULL );
+			   return(TCL_ERROR);
+
+			}
+			if(i==argc-1)
+			{
+			   Tcl_AppendResult( interp, "no \">\" or \">>\" allowed as last word in command", NULL );
+			   return(TCL_ERROR);
+
+			}
+			i++;
+			sprintf(output," %s%s",argv[i-1],argv[i]);
+		}
+	}
+	for(i=1;i<argc;i++)
+	{
+		if(!strcmp(argv[i],"|"))
+		{
+			if(status==pipe || status==none || i==argc-1)
+			{
+			   Tcl_AppendResult( interp, "illegal use of | in command", NULL );
+			   return(TCL_ERROR);
+
+			}
+			strcat(command,to_bslash(input));
+			strcat(command," |");
+			status=pipe;
+			got_pipe=1;
+		}
+		else
+		if(!strcmp(argv[i],"&")); /* ignore & for background processing */
+		else
+		if(!strcmp(argv[i],">") || !strcmp(argv[i],">>") ||
+		   !strcmp(argv[i],"<") || !strcmp(argv[i],"<<")) i++;
+		else
+		{
+			strcat(command," ");
+			strcat(command,to_bslash(Tcl_TildeSubst(interp,argv[i])));
+			status=got_com;
+		}
+	}
+
+	if(!strlen(command))
+	{
+	   Tcl_AppendResult( interp, "didn't specify command to execute", NULL );
+	   return(TCL_ERROR);
+	}
+
+	if(!*output)
+	{
+		strcpy(file2,"TXXXXXX");
+		mktemp(file2);
+		sprintf(output," >%s",file2);
+	}
+	else strcpy(file2,"");
+
+	if(!got_pipe) strcat(command,to_bslash(input));
+	strcat(command,to_bslash(output));
+
+	result = system( command );
+
+	if(fp) unlink(file);
+
+	sprintf( tempstr, "%d", result );
+	if( result )
+	{
+		Tcl_SetErrorCode( interp, "CHILDSTATUS", "0", tempstr, NULL );
+		Tcl_AppendResult( interp, "command returned error code: ", tempstr, " during \"", *argv, "\" command", NULL );
+
+		if(*file2) unlink(file2);
+
+		return(TCL_ERROR);
+   }
+
+
+   /*
+	* Read the child's output (if any) and put it into the result.
+	*/
+
+	if(*file2)
+	{
+		fp=fopen(file2,"rt");
+		if(fp)
+		{
+			while (1)
+			{
+#	    		define BUFFER_SIZE 511
+				char buffer[BUFFER_SIZE+1];
+				int count;
+
+				count = fread(buffer,1, BUFFER_SIZE,fp);
+
+				if (count == 0) break;
+				if (count < 0)
+				{
+					Tcl_ResetResult(interp);
+					Tcl_AppendResult(interp,
+					"error reading output: ",
+					Tcl_UnixError(interp), (char *) NULL);
+					fclose(fp);
+					return(TCL_ERROR);
+				}
+				buffer[count] = 0;
+				if(buffer[count-1]=='\n') buffer[count-1]=0;
+				Tcl_AppendResult(interp, buffer, (char *) NULL);
+			}
+		}
+		else
+		{
+			Tcl_AppendResult( interp, "cannot read input from child", NULL );
+			return(TCL_ERROR);
+		}
+		fclose(fp);
+		if(*file2) unlink(file2);
+	}
+
+	return(TCL_OK);
+}
+
+/*
+ * This function fakes a wrong uid output for Tcl_FileCmd().
+ * For future versions is it easier to port.
+ *
+ */
+
+int geteuid()
+{
+	return(0);
+}

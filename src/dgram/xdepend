@@ -1,0 +1,10 @@
+dgalloc.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h dgalloc.c
+dgclose.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h dgclose.c
+dgcntl.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h dgcntl.c
+dgdump.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h dgdump.c
+dginit.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h dginit.c
+dgmcntl.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h dgmcntl.c
+dgmopen.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h dgmopen.c
+dgparse.obj: $(H)\conf.h $(H)\ctype.h $(H)\kernel.h $(H)\network.h dgparse.c
+dgread.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\ports.h $(H)\proc.h dgread.c
+dgwrite.obj: $(H)\bufpool.h $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\network.h dgwrite.c

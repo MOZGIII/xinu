@@ -1,0 +1,2 @@
+valgrind --tool=memcheck --undef-value-errors=no --db-attach=yes ./xinu.exe
+#valgrind --tool=memcheck --undef-value-errors=no ./xinu.exe 2>1

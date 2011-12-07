@@ -1,0 +1,38 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm /MX /I$(H)
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/network.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+
+.asm.o:
+	$(ASM) $*;
+
+OBJS = arp_in.o arpadd.o arpalloc.o arpdq.o arpfind.o arpinit.o \
+arpprint.o arpqsend.o arpsend.o arptimer.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+arp_in.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h arp_in.c
+arpadd.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h arpadd.c
+arpalloc.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h arpalloc.c
+arpdq.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/q.h arpdq.c
+arpfind.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h arpfind.c
+arpinit.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h arpinit.c
+arpprint.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h arpprint.c
+arpqsend.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/q.h arpqsend.c
+arpsend.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h arpsend.c
+arptimer.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h arptimer.c

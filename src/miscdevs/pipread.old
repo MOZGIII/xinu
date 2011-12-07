@@ -1,0 +1,71 @@
+/* pipread.c - pipread */
+
+#include <conf.h>
+#include <kernel.h>
+#include <tty.h>
+#include <pipe.h>
+
+/*-------------------------------------------------------------------
+ *  pipread  --  read one or more characters from a pipe device
+ *-------------------------------------------------------------------
+ */
+pipread(devptr, buff, count)
+struct  devsw   *devptr;
+        char    *buff;
+        int     count;
+{
+    struct  pipe    *pptr;
+    int     ps;
+    int     avail, nread, ncopy;
+    char    ch;
+    Bool    eof;
+
+    if (count < 0) return(SYSERR);
+
+    disable(ps);
+    pptr = &pipe[devptr->dvminor];
+    if ((avail = scount(pptr->asem)) < 0)
+            avail = 0;
+    if (count == 0 && (count=avail) == 0) {
+        restore(ps);
+        return(0);
+    }
+    eof = FALSE;
+    ch = NULLCH;
+    ncopy = min(count, avail);
+    for (nread=0; nread<ncopy && ch!=NEWLINE && ch!=RETURN; nread++) {
+        ch = pptr->buff[pptr->onx];
+        if (eof=(ch==EOFC))
+            break;
+        *buff++ = ch;
+        if (++pptr->onx >= BUFLEN)
+            pptr->onx = 0;
+    }
+
+    if (nread > 0)  {
+        sreset(pptr->asem, avail-nread);
+        signaln(pptr->ssem, avail-nread);
+    }
+    if (!eof)
+        for ( ; nread<count && ch!=NEWLINE && ch!=RETURN; nread++){
+            wait(pptr->asem);
+            ch = pptr->buff[pptr->onx];
+            if ( eof=(ch == EOFC)) {
+                xinu_signal(pptr->asem);
+                break;
+            }
+            *buff++ = ch;
+            xinu_signal(pptr->ssem);
+            if ( ++pptr->onx >= BUFLEN)
+                pptr->onx = 0;
+        }
+    if (eof && (nread == 0)) {
+        wait(pptr->asem);
+        xinu_signal(pptr->ssem);
+        if (++pptr->onx >= BUFLEN)
+            pptr->onx = 0;
+        nread = EOF;
+    }
+    restore(ps);
+    return(nread);
+}

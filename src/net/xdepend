@@ -1,0 +1,35 @@
+blkcopy.obj: $(H)\kernel.h blkcopy.c
+blkequ.obj: $(H)\kernel.h blkequ.c
+bootp.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h bootp.c
+cksum.obj: cksum.asm
+dnparse.obj: $(H)\conf.h $(H)\ctype.h $(H)\kernel.h $(H)\network.h dnparse.c
+dot2ip.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h dot2ip.c
+ethdemux.obj: $(H)\bufpool.h $(H)\conf.h $(H)\ec.h $(H)\kernel.h $(H)\network.h $(H)\proc.h ethdemux.c
+ethinit.obj: $(H)\conf.h $(H)\ec.h $(H)\kernel.h $(H)\network.h $(H)\pc.h $(H)\proc.h $(H)\q.h ethinit.c
+ethinter.obj: $(H)\conf.h $(H)\ec.h $(H)\kernel.h $(H)\network.h $(H)\pc.h $(H)\proc.h ethinter.c
+ethout.obj: $(H)\bufpool.h $(H)\conf.h $(H)\ec.h $(H)\kernel.h $(H)\network.h $(H)\ports.h ethout.c
+ethstate.obj: $(H)\conf.h $(H)\ec.h $(H)\kernel.h $(H)\network.h $(H)\pc.h ethstate.c
+ethwrite.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ethwrite.c
+getaddr.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h getaddr.c
+getname.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h getname.c
+getnet.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h getnet.c
+initgate.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h initgate.c
+inithost.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h inithost.c
+ip2dot.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h ip2dot.c
+ip2name.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\mem.h $(H)\network.h ip2name.c
+local_ou.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h local_ou.c
+name2ip.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\network.h name2ip.c
+netdump.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h netdump.c
+netmask.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h netmask.c
+netmatch.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h netmatch.c
+netnum.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h netnum.c
+netstart.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\q.h $(H)\sleep.h $(H)\snmp.h $(H)\tftp.h netstart.c
+netutil.obj: netutil.asm
+netwrite.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\q.h netwrite.c
+ni_in.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h ni_in.c
+othinit.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\q.h othinit.c
+othwrite.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h othwrite.c
+rarp_in.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h rarp_in.c
+rarpsend.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h rarpsend.c
+setmask.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h setmask.c
+slowtime.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h slowtime.c

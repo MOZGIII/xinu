@@ -1,0 +1,59 @@
+; kbdio.asm - _kbdgetc, _kbdint
+
+KBD	equ	16H		; keyboard request interrupt
+RKBDGETC	equ	0			; get the character
+KBDPEND	equ	1			; check for character pending
+NOCH	equ	-1		; no character
+SPEC	equ	100H		; special character offset
+
+	%include "../h/dos.asm"
+
+	dseg
+; dummy data segment
+	endds
+
+	pseg
+
+	global	kbdgetc
+	extern	pcxflag; :word
+
+;------------------------------------------------------------------------
+; _kbdgetc  --  get a character from the BIOS keyboard buffer
+;------------------------------------------------------------------------
+; int kbdgetc()
+kbdgetc:	;proc	far
+	pushf				; push the flags
+        push    bp                      ;push the base pointer
+        push    si
+	push	di			; save registers
+;	cli				; disable interrupts
+	xor	ax,ax			; to defer rescheduling, ...
+	xchg	ax,[cs:pcxflag]		; ... get and clear pcxflag ...
+	push	ax			; ... and save for later
+	mov	ah,KBDPEND		; get keyboard status first
+	int	KBD
+;        cli                             ; test is this needed ?
+        jnz     getc1                   ; character there?
+	mov	ax,NOCH			; if not, send the info back
+	jmp	short getc9
+getc1:	mov	ah,RKBDGETC		; if so, actually get the char
+	int	KBD
+;        cli                             ;test is this needed
+	or	al,al			; check the lower byte
+	je	getc2			; is it a non-ASCII special?
+	xor	ah,ah			; if not, just send the lower byte
+	jmp	short getc9
+getc2:	mov	al,ah			; move scan code to lower byte
+	xor	ah,ah			; clear out upper byte
+	add	ax,SPEC			; add special offset
+getc9:	pop	word [cs:pcxflag]		; restore pcxflag
+	pop	di
+	pop	si			; restore registers
+        pop     bp                      ;restore base pointer
+        popf
+        ret
+;_kbdgetc	endp
+
+	endps
+
+	end

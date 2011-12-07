@@ -1,0 +1,17 @@
+$(H)\bufpool.h
+$(H)\conf.h
+$(H)\kernel.h
+$(H)\mem.h
+$(H)\proc.h
+$(H)\sl.h
+init_aux.c
+send_ack.c
+send_req.c
+sl_bin.c
+sl_bout.c
+slinit.c
+slinter.c
+slread.c
+slwrite.c
+slwstrt.c
+wake_ser.c

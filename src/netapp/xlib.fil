@@ -1,0 +1,26 @@
++echod &
++egp &
++fingerd &
++lfing &
++ripadd &
++ripcheck &
++ripifset &
++ripin &
++ripmetri &
++ripok &
++ripout &
++riprecv &
++riprepl &
++ripsend &
++ripstart &
++rlogind &
++rwho &
++rwhod &
++rwhoind &
++snmpd &
++tftpd &
++tftperr &
++tftpsend &
++tftptd &
++udpecho &
++udpqd

@@ -1,0 +1,70 @@
+addarg.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\proc.h addarg.c
+cmd.obj: $(H)\cmd.h $(H)\conf.h $(H)\kernel.h $(H)\shell.h cmd.c
+lexan.obj: $(H)\conf.h $(H)\kernel.h $(H)\shell.h lexan.c
+login.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\network.h $(H)\shell.h $(H)\sleep.h login.c
+shell.obj: $(H)\cmd.h $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\mem.h $(H)\name.h $(H)\proc.h $(H)\shell.h $(H)\tty.h shell.c
+x_arp.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h x_arp.c
+x_blast.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\network.h x_blast.c
+x_bpool.obj: $(H)\bufpool.h $(H)\conf.h $(H)\kernel.h $(H)\mark.h x_bpool.c
+x_butler.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\proc.h $(H)\q.h x_butler.c
+x_cat.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h x_cat.c
+x_chdsk.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\mem.h $(H)\name.h x_chdsk.c
+x_chwin.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\name.h $(H)\tty.h x_chwin.c
+x_clear.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\name.h $(H)\tty.h x_clear.c
+x_close.obj: $(H)\conf.h $(H)\ctype.h $(H)\io.h $(H)\kernel.h x_close.c
+x_color.obj: $(H)\conf.h $(H)\kernel.h $(H)\tty.h x_color.c
+x_conf.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h x_conf.c
+x_cp.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h x_cp.c
+x_date.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\sleep.h x_date.c
+x_debug.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\proc.h $(H)\tty.h x_debug.c
+x_devs.obj: $(H)\conf.h $(H)\dos.h $(H)\io.h $(H)\kernel.h x_devs.c
+x_dgstat.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h x_dgstat.c
+x_di.obj: $(H)\conf.h $(H)\ec.h $(H)\kernel.h x_di.c
+x_dir.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\io.h $(H)\kernel.h $(H)\name.h $(H)\sleep.h $(H)\tty.h x_dir.c
+x_dos.obj: $(H)\conf.h $(H)\kernel.h $(H)\shell.h x_dos.c
+x_dskst.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h x_dskst.c
+x_dump.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\proc.h $(H)\tty.h x_dump.c
+x_echo.obj: $(H)\conf.h $(H)\kernel.h x_echo.c
+x_edit.obj: $(H)\conf.h $(H)\disk.h $(H)\edit.h $(H)\file.h $(H)\io.h $(H)\kernel.h $(H)\mem.h $(H)\mffile.h $(H)\tty.h x_edit.c
+x_exit.obj: $(H)\conf.h $(H)\kernel.h $(H)\shell.h x_exit.c
+x_finger.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h x_finger.c
+x_format.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h $(H)\mem.h $(H)\name.h x_format.c
+x_goto.obj: $(H)\conf.h $(H)\kernel.h $(H)\tty.h x_goto.c
+x_help.obj: $(H)\cmd.h $(H)\conf.h $(H)\kernel.h $(H)\shell.h x_help.c
+x_ifstat.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h x_ifstat.c
+x_int.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h x_int.c
+x_kill.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h $(H)\shell.h x_kill.c
+x_ls.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\io.h $(H)\kernel.h $(H)\name.h $(H)\sleep.h $(H)\tty.h x_ls.c
+x_memsta.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\mem.h x_memsta.c
+x_more.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\tty.h x_more.c
+x_mount.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\name.h $(H)\network.h x_mount.c
+x_mv.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h x_mv.c
+x_netsta.obj: $(H)\asn1.h $(H)\conf.h $(H)\kernel.h $(H)\network.h x_netsta.c
+x_ns.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h x_ns.c
+x_ping.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\network.h x_ping.c
+x_pipsta.obj: $(H)\conf.h $(H)\kernel.h $(H)\pipe.h x_pipsta.c
+x_pmem.obj: $(H)\conf.h $(H)\dos.h $(H)\kernel.h $(H)\mem.h $(H)\proc.h x_pmem.c
+x_ps.obj: $(H)\conf.h $(H)\kernel.h $(H)\proc.h x_ps.c
+x_redraw.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\name.h $(H)\tty.h x_redraw.c
+x_rf.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h x_rf.c
+x_rlogin.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\network.h x_rlogin.c
+x_rls.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\name.h $(H)\network.h $(H)\shell.h x_rls.c
+x_rm.obj: $(H)\conf.h $(H)\disk.h $(H)\file.h $(H)\kernel.h x_rm.c
+x_rmount.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\name.h $(H)\network.h x_rmount.c
+x_route.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h x_route.c
+x_routes.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h x_routes.c
+x_shell.obj: $(H)\conf.h $(H)\kernel.h $(H)\tty.h x_shell.c
+x_sleep.obj: $(H)\conf.h $(H)\kernel.h x_sleep.c
+x_snmp.obj: $(H)\asn1.h $(H)\conf.h $(H)\ctype.h $(H)\kernel.h $(H)\mem.h $(H)\mib.h $(H)\network.h $(H)\snmp.h $(H)\tty.h x_snmp.c
+x_status.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h $(H)\proc.h x_status.c
+x_tcl.obj: $(H)\io.h $(H)\shell.h $(H)\tcl.h x_tcl.c
+x_tcp.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\network.h $(H)\tty.h x_tcp.c
+x_tcpc.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h x_tcpc.c
+x_test.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\sleep.h x_test.c
+x_tftp.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\mem.h $(H)\network.h $(H)\tftp.h $(H)\tty.h x_tftp.c
+x_timerq.obj: $(H)\conf.h $(H)\kernel.h $(H)\network.h x_timerq.c
+x_ttyst.obj: $(H)\conf.h $(H)\kernel.h $(H)\sem.h $(H)\tty.h x_ttyst.c
+x_udp.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\mem.h $(H)\network.h x_udp.c
+x_unmou.obj: $(H)\conf.h $(H)\io.h $(H)\kernel.h $(H)\name.h x_unmou.c
+x_wc.obj: $(H)\conf.h $(H)\ctype.h $(H)\kernel.h x_wc.c
+x_window.obj: $(H)\conf.h $(H)\kernel.h $(H)\mem.h $(H)\name.h $(H)\tty.h x_window.c

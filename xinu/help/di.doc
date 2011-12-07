@@ -1,0 +1,20 @@
+DI(1)             PCXinu 7.9 Programmer's Manual               DI(1)
+
+NAME
+        di - initialize a device
+
+SYNOPSIS
+        di devicename
+
+DESCRIPTION
+        Di initializes the specified device after first uninitializing
+        the device. Di can be used to reinitialize the PCXinu disk device
+        if the system was booted without a disk in the DOS A: drive. The
+        line printer device can also be reinitialized.
+
+BUGS
+        Other devices should not be reinitialized because the uninitializing
+        of certain devices has not been fully implemented.
+
+SEE ALSO
+        mount(1)

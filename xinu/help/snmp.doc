@@ -1,0 +1,23 @@
+SNMP(1)            PCXinu 7.9 Programmer's Manual              SNMP(1)
+
+NAME
+        snmp - invoke an SNMP shell in the current window
+
+SYNOPSIS
+        snmp  agent-name 
+
+DESCRIPTION
+        Snmp opens a subshell which supports the following syntax:
+                exit
+                agent name
+                [object-name]+
+                next [object-name]+
+                set [object-name type value]+
+        Type:   [int | counter | gauge | timeticks | str | objid | ipaddr]
+        Control characters:     TAB     print next object-name
+                                ctrl-n  get next object
+                                ctrl-w  kill word
+        The SNMP shell is used to view or set MIB variables at an agent.
+        Variables can be partly specified, TAB will complete them. 
+        Note that only certain MIB variables are alterable.
+SEE ALSO

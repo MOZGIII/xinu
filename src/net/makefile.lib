@@ -1,0 +1,67 @@
+# xinu makefile header for Turbo C
+
+H = ../h
+
+MDL = h
+CC = gcc
+CFLAGS = -I$(H) -g
+ASM = nasm -f elf -gstabs
+LINK = ld
+LIB = ar rcs
+LIBFLAGS = /c
+LIBFILE = ../bin/network.a
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+
+.s.o:
+	$(ASM) $*.s
+
+OBJS = blkcopy.o blkequ.o bootp.o cksum.o dnparse.o dot2ip.o \
+ethdemux.o ethinit.o ethinter.o ethout.o ethstate.o ethwrite.o \
+getaddr.o getname.o getnet.o initgate.o inithost.o ip2dot.o \
+ip2name.o local_ou.o name2ip.o netdump.o netmask.o netmatch.o \
+netnum.o netstart.o netutil.o netwrite.o ni_in.o othinit.o \
+othwrite.o rarp_in.o rarpsend.o setmask.o slowtime.o
+
+
+all:	$(OBJS)
+
+lib:	all
+# 	tlib $(LIBFILE) /c @xlib.fil
+
+blkcopy.o: $(H)/kernel.h blkcopy.c
+blkequ.o: $(H)/kernel.h blkequ.c
+bootp.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h bootp.c
+cksum.o: cksum.s
+dnparse.o: $(H)/conf.h $(H)/ctype.h $(H)/kernel.h $(H)/network.h dnparse.c
+dot2ip.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h dot2ip.c
+ethdemux.o: $(H)/bufpool.h $(H)/conf.h $(H)/ec.h $(H)/kernel.h $(H)/network.h $(H)/proc.h ethdemux.c
+ethinit.o: $(H)/conf.h $(H)/ec.h $(H)/kernel.h $(H)/network.h $(H)/pc.h $(H)/proc.h $(H)/q.h ethinit.c
+ethinter.o: $(H)/conf.h $(H)/ec.h $(H)/kernel.h $(H)/network.h $(H)/pc.h $(H)/proc.h ethinter.c
+ethout.o: $(H)/bufpool.h $(H)/conf.h $(H)/ec.h $(H)/kernel.h $(H)/network.h $(H)/ports.h ethout.c
+ethstate.o: $(H)/conf.h $(H)/ec.h $(H)/kernel.h $(H)/network.h $(H)/pc.h ethstate.c
+ethwrite.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ethwrite.c
+getaddr.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h getaddr.c
+getname.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h getname.c
+getnet.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h getnet.c
+initgate.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h initgate.c
+inithost.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h inithost.c
+ip2dot.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h ip2dot.c
+ip2name.o: $(H)/conf.h $(H)/dos.h $(H)/kernel.h $(H)/mem.h $(H)/network.h ip2name.c
+local_ou.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h local_ou.c
+name2ip.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/network.h name2ip.c
+netdump.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h netdump.c
+netmask.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h netmask.c
+netmatch.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h netmatch.c
+netnum.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h netnum.c
+netstart.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/q.h $(H)/sleep.h $(H)/snmp.h $(H)/tftp.h netstart.c
+netutil.o: netutil.s
+netwrite.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/q.h netwrite.c
+ni_in.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h ni_in.c
+othinit.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/q.h othinit.c
+othwrite.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h othwrite.c
+rarp_in.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h rarp_in.c
+rarpsend.o: $(H)/bufpool.h $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h rarpsend.c
+setmask.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h setmask.c
+slowtime.o: $(H)/conf.h $(H)/kernel.h $(H)/network.h $(H)/proc.h slowtime.c

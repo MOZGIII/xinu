@@ -1,0 +1,10 @@
++dgalloc &
++dgclose &
++dgcntl &
++dgdump &
++dginit &
++dgmcntl &
++dgmopen &
++dgparse &
++dgread &
++dgwrite

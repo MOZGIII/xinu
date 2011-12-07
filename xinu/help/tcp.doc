@@ -1,0 +1,132 @@
+
+
+
+TCP(4)              Xinu Programmer's Manual               TCP(4)
+
+
+
+NAME
+     tcp - interface to reliable 2-way Internet stream communica-
+     tion
+
+SYNOPSIS
+     #include <network.h>
+     #include <tcb.h>
+     #include <tcpstat.h>
+
+     read(device, buffer, length)
+     write(device, buffer, length)
+     putc(device, char)
+     getc(char)
+     open(device, name, lport)
+     close(device)
+     control(device, function, arg1, arg2)
+
+DESCRIPTION
+     The tcpm and tcp devices provide an interface to the Inter-
+     net TCP protocol.  Programs use the master device to allo-
+     cate a new TCP connection endpoint or to affect global TCP
+     configuration parameters for subsequent connections.  The
+     slave devices are particular instances of TCP servers or
+     active TCP connections.
+
+     The TCP devices support the following operations:
+
+     open(device, name, lport)
+          Allocate a new TCP connection endpoint.  Name is a
+          string that gives the IP address and TCP port number of
+          the foreign endpoint in the form i1.i2.i3.i4:t for
+          active opens, or the manifest constant ANYFPORT for
+          passive opens (servers).  Lport specifies the local
+          port. If lport is ANYLPORT, Xinu will pick a port to
+          use.
+
+     control(device, function, arg1)
+          The master device supports only the TCPC_LISTENQ con-
+          trol function.  It sets the default listen queue size
+          for all subsequent passive opens to the integer value
+          arg1. The default listen queue size at boot is 5.
+
+     For all other TCP devices, the following control functions
+     are defined:
+
+     TCPC_ACCEPT
+          For servers, accept any incoming connection attempts
+          for a port.
+
+     TCPC_LISTENQ
+          Set the listen queue length to the integer value in
+          arg1.
+
+
+
+Version 6b              Printed 5/23/103                        1
+
+
+
+
+
+
+TCP(4)              Xinu Programmer's Manual               TCP(4)
+
+
+
+     TCPC_STATUS
+          Return the status of a TCP connection. Arg1 is a
+          pointer to struct tcpstat which on successful return
+          will contain the relevant statistics for the connec-
+          tion.
+
+     TCPC_SOPT/TCPC_COPT
+          Set or clear TCP user options. The current options are
+          TCBF_DELACK (do delayed ACK's) and TCBF_BUFFER (buffer
+          TCP input until the full count on a read is available).
+          Arg1 contains the flag value(s) to set or clear.
+
+     TCPC_SENDURG
+          Send urgent data. Arg1 is a pointer to a buffer of
+          urgent data and arg2 is the size (in bytes) of the data
+          to send.
+
+     read(device, buffer, length)
+          Read length characters into buffer from a connected TCP
+          device.  The return value is the count of characters,
+          if non-negative. Negative values indicate various error
+          and exceptional conditions defined as manifest con-
+          stants TCPE_* in file ``tcb.h''.
+
+     write(device, buffer, length)
+          Write length bytes from buffer to the connected TCP
+          device. The return value is the number of characters
+          written, if non-negative, and an error or exceptional
+          condition, otherwise.
+
+     close(device)
+          Close a TCP device. For connected devices, the call
+          blocks until all pending data has been transmitted and
+          acknowledged. A nonzero return value indicates that
+          some data may have been lost.
+
+SEE ALSO
+     udp(4)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Version 6b              Printed 5/23/103                        2
+
+
+

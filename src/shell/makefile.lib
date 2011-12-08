@@ -105,4 +105,4 @@ x_udp.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/mem.h $(H)/network.h x_udp.c
 x_unmou.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/name.h x_unmou.c
 x_wc.o: $(H)/conf.h $(H)/ctype.h $(H)/kernel.h x_wc.c
 x_window.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/name.h $(H)/tty.h x_window.c
-x_nice.o: $(H)/conf.h $(H)/kernel.h x_nice.c
+x_nice.o: $(H)/conf.h $(H)/kernel.h $(H)/shell.h $(H)/cmd.h $(H)/proc.h x_nice.c

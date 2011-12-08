@@ -30,7 +30,7 @@ login()
 	while (TRUE) {
         xinu_printf("\nLinXINU 1.0 - The magic of Xinu\n\nlogin: ");
         while (TRUE) {
-            len=xinu_read(STDIN,buf,BUFLEN); 
+            len=xinu_read(STDIN,buf,BUFLEN);
             if ((len==1) || strncmp(buf,"dc\n",len)) {
                 xinu_printf("\nSorry, you are not authorized to use Xinu.");
                 xdone();
@@ -52,7 +52,7 @@ login()
         mark(Log.lmark);
         freemem(buf, (word) BUFLEN);
 	clear();
-        shell(2,shargs);  /* use 1 for no window, 2 for windows*/
+        shell(1,shargs);  /* use 1 for no window, 2 for windows*/
         return OK;
 	}
 }

@@ -27,7 +27,7 @@ x_mount.o x_mv.o x_netsta.o x_ns.o x_ping.o x_pipsta.o x_pmem.o \
 x_ps.o x_redraw.o x_rf.o x_rlogin.o x_rls.o x_rm.o x_rmount.o \
 x_route.o x_routes.o x_shell.o x_sleep.o x_snmp.o x_status.o \
 x_tcl.o x_tcp.o x_tcpc.o x_test.o x_tftp.o x_timerq.o x_ttyst.o \
-x_udp.o x_unmou.o x_wc.o x_window.o
+x_udp.o x_unmou.o x_wc.o x_window.o x_nice.o
 
 
 all:	$(OBJS)
@@ -105,3 +105,4 @@ x_udp.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/mem.h $(H)/network.h x_udp.c
 x_unmou.o: $(H)/conf.h $(H)/io.h $(H)/kernel.h $(H)/name.h x_unmou.c
 x_wc.o: $(H)/conf.h $(H)/ctype.h $(H)/kernel.h x_wc.c
 x_window.o: $(H)/conf.h $(H)/kernel.h $(H)/mem.h $(H)/name.h $(H)/tty.h x_window.c
+x_nice.o: $(H)/conf.h $(H)/kernel.h $(H)/shell.h $(H)/cmd.h $(H)/proc.h x_nice.c

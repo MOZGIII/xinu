@@ -84,8 +84,7 @@ char* calculate_autocomplete(char * buff, int len) {
     return NULL;
 
   // Matched command found!
-  // Shift it's name to len...
-  return cmds[matched_command].cmdnam + len;
+  return cmds[matched_command].cmdnam;
 }
 
 /*------------------------------------------------------------------------
@@ -109,22 +108,30 @@ char* calculate_autocomplete(char * buff, int len) {
 
     /* Fetch tabs */
 
-    if (xinu_strlen(shptr->shbuf) > 1 && shptr->shbuf[xinu_strlen(shptr->shbuf)-2] == '\t') {
+    if (len >= 2 && shptr->shbuf[len-2] == '\t') {
       // Lets see if we can autocomplete command...
       ac = calculate_autocomplete(shptr->shbuf, len-2);
       if (ac) {
         // Very durty code here... but who cares...
         // it's not even a serious task...
 
-        xinu_write(STDOUT, prompt, xinu_strlen(prompt));
         len -= 2;
-        xinu_write(STDOUT, shptr->shbuf, len);
-        xinu_write(STDOUT, ac, xinu_strlen(ac));
-        xinu_write(STDOUT, " ", xinu_strlen(" "));
-        strcpy(shptr->shbuf + len, ac);
-        len += xinu_strlen(ac);
+
+        if(len > xinu_strlen(ac)) {
+          xinu_fprintf(STDERR, "Warning: input size is bigger than autocompletion string!");
+          len = xinu_strlen(ac);
+        }
+
+        strcpy(shptr->shbuf + len, ac + len);
+        len = xinu_strlen(ac);
+
         strcpy(shptr->shbuf + len, " ");
-        len += 1;
+        len += xinu_strlen(" ");
+
+        xinu_write(STDOUT, prompt, xinu_strlen(prompt));
+
+        shptr->shbuf[len] = '\0';
+        xinu_write(STDOUT, shptr->shbuf, len);
       } // else do nothing!
     }
 
